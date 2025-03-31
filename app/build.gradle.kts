@@ -65,4 +65,36 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
+
+    // Room for local database
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.moshi.kotlin)
+
+    // OkHttp3
+    implementation(libs.logging.interceptor)
+
+    // Shared Preferences
+    implementation(libs.androidx.security.crypto)
+
+    // Data Store
+    implementation(libs.androidx.datastore.preferences)
+
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Coil
+    implementation(libs.coil.compose)
+
+    // Jetpack Compose Navigation dependency
+    implementation(libs.androidx.navigation.compose)
+
+    // Serialize
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation (libs.androidx.material)
 }
