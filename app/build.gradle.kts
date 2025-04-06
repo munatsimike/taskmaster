@@ -19,7 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.taskmaster.HiltTestRunner"
     }
 
     buildTypes {
@@ -46,6 +46,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
 }
 
 dependencies {
@@ -72,6 +77,11 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
+
+    androidTestImplementation (libs.hilt.android.testing)
+    kaptAndroidTest (libs.hilt.android.compiler)
+    testImplementation (libs.hilt.android.testing)
+    kaptTest (libs.hilt.android.compiler)
 
     // Room for local database
     implementation(libs.androidx.room.runtime)
@@ -110,4 +120,15 @@ dependencies {
     implementation (libs.material3)
 
     implementation (libs.material)
+
+    // google truth
+    testImplementation(libs.truth)
+    androidTestImplementation(libs.truth)
+
+    // Test implementation for MockK and JUnit
+    testImplementation(libs.mockk)
+    testImplementation(libs.junit)
+
+    testImplementation (libs.squareup.mockwebserver)
+    androidTestImplementation (libs.squareup.mockwebserver)
 }
