@@ -52,12 +52,14 @@ object AnimationFactory {
 
     @Composable
     fun rememberFadeInOutAnimation(
+        initialValue: Float = 0f,
+        targetValue: Float = 1f,
         durationMillis: Int = 4500
     ): State<Float> {
         val transition = rememberInfiniteTransition(label = "Fade Transition")
         return transition.animateFloat(
-            initialValue = 0f,
-            targetValue = 1f,
+            initialValue = initialValue,
+            targetValue =targetValue,
             animationSpec = infiniteRepeatable(
                 animation = tween(durationMillis = durationMillis, easing = LinearEasing),
                 repeatMode = RepeatMode.Reverse

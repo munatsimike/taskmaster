@@ -1,5 +1,6 @@
 package com.example.taskmaster.ui.viewModel.auth
 
+
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,8 +12,6 @@ import com.example.taskmaster.domain.useCases.auth.LoginUseCase
 import com.example.taskmaster.domain.useCases.auth.LogoutUseCase
 import com.example.taskmaster.ui.model.state.AuthUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-
-
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest

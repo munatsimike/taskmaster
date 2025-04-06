@@ -10,10 +10,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.taskmaster.ui.screen.SplashScreen
 import com.example.taskmaster.ui.screen.auth.Login
 import com.example.taskmaster.ui.screen.projects.Projects.MainScreen
 import com.example.taskmaster.ui.viewModel.auth.AuthViewModel
-
+import kotlinx.coroutines.delay
 
 object NavHost {
 
@@ -25,16 +26,29 @@ object NavHost {
     ) {
         val loginUiState by authViewModel.uiState.collectAsState()
 
-        // Observe token state at the top level
-        LaunchedEffect(loginUiState.hasToken) {
-            if (!loginUiState.hasToken) {
-                navController.navigate(AppScreen.Login.route) {
-                    popUpTo(AppScreen.Projects.route) { inclusive = true }
-                }
-            }
-        }
         SharedTransitionLayout {
-            NavHost(navController = navController, startDestination = AppScreen.Projects.route) {
+            NavHost(
+                navController = navController,
+                startDestination = AppScreen.SplashScreen.route
+            ) {
+                composable(AppScreen.SplashScreen.route) {
+
+                    // Observe token
+                    LaunchedEffect(loginUiState.hasToken) {
+                        delay(3000)
+                        if (loginUiState.hasToken) {
+                            navController.navigate(AppScreen.Projects.route) {
+                                popUpTo(AppScreen.SplashScreen.route) { inclusive = true }
+                            }
+                        } else {
+                            navController.navigate(AppScreen.Login.route) {
+                                popUpTo(AppScreen.SplashScreen.route) { inclusive = true }
+                            }
+                        }
+                    }
+
+                    SplashScreen.MainScreen()
+                }
 
                 composable(AppScreen.Projects.route) {
                     MainScreen(
@@ -46,7 +60,6 @@ object NavHost {
                 composable(AppScreen.Login.route) {
                     Login.LoginScreen(navController, authViewModel)
                 }
-
 
             }
         }

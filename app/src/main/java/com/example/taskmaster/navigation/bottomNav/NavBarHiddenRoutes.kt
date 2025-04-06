@@ -6,4 +6,5 @@ import com.example.taskmaster.navigation.AppScreen
 val routesToHideBottomNav = setOf(
     AppScreen.Projects.route,
     AppScreen.Login.route,
+    AppScreen.SplashScreen.route
 )

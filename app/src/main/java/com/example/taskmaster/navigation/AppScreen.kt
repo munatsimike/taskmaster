@@ -8,6 +8,7 @@ import com.example.taskmaster.ui.constants.Constants.ORFI_ID
 
 
 sealed class AppScreen(val route: String, val title: String) {
+    data object SplashScreen : AppScreen("splashScreen", "SplashScreen")
 
     data object Login : AppScreen("login", "Login")
 
