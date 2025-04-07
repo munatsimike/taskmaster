@@ -35,7 +35,6 @@ import com.example.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.example.taskmaster.util.components.CustomCard
 import com.example.taskmaster.util.components.DisplayImageVectorIcon
 import com.example.taskmaster.util.components.ErrorContent
-import com.example.taskmaster.util.components.factory.AnimationFactory
 import com.example.taskmaster.util.components.factory.ButtonFactory.PrimaryButton
 import com.example.taskmaster.util.components.factory.TextFieldFactory.FilledTextField
 
@@ -102,9 +101,6 @@ private fun LoginScreenContent(
                 .padding(30.dp),
             cardBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
         ) {
-
-            val alpha by AnimationFactory.rememberFadeInOutAnimation()
-
             Column(
                 modifier = Modifier
                     .padding(30.dp)

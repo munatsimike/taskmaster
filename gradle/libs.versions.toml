@@ -31,6 +31,7 @@ moshiKotlin = "1.13.0"
 storage = "1.5.0"
 benchmarkTraceprocessorAndroid = "1.4.0-alpha10"
 truth = "1.1.2"
+multidex = "2.0.1"
 
 [libraries]
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -80,6 +81,7 @@ androidx-storage = { group = "androidx.test.services", name = "storage", version
 androidx-benchmark-traceprocessor-android = { group = "androidx.benchmark", name = "benchmark-traceprocessor-android", version.ref = "benchmarkTraceprocessorAndroid" }
 squareup-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "loggingInterceptor" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
+androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

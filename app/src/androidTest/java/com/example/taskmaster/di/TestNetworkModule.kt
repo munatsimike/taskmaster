@@ -1,36 +1,52 @@
 package com.example.taskmaster.di
 
-import androidx.test.espresso.core.internal.deps.dagger.Module
 import com.example.taskmaster.data.remote.api.service.AuthService
 import com.squareup.moshi.Moshi
+import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
+@Module
 @TestInstallIn(
     components = [SingletonComponent::class],
     replaces = [NetworkModule::class]
 )
-@Module
 object TestNetworkModule {
+    // This is the missing link causing the error
 
     @Singleton
     @Provides
     fun providesMockWebServer(): MockWebServer = MockWebServer()
 
+    @Singleton
     @Provides
-    @Named("testMovieService")
-    fun providesTestAuthService(moshi: Moshi, mockWebServer: MockWebServer): AuthService {
-        val retrofit = Retrofit.Builder()
+    fun providesOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
+
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi = Moshi.Builder().add(com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory()).build()
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(
+        mockWebServer: MockWebServer,
+        moshi: Moshi,
+        okHttpClient: OkHttpClient
+    ): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
+            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-        return retrofit.create(AuthService::class.java)
     }
+    @Singleton
+    @Provides
+    fun provideAuthService(retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
 }

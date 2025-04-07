@@ -1,6 +1,6 @@
 package com.example.taskmaster.di
 
-import com.example.taskmaster.BuildConfig
+import androidx.multidex.BuildConfig
 import com.example.taskmaster.data.local.preferences.EncryptedPreferenceManager
 import com.example.taskmaster.data.local.preferences.TokenProvider
 import com.example.taskmaster.data.remote.api.service.AuthService
