@@ -16,7 +16,7 @@ hiltNavigationCompose = "1.2.0"
 kotlinSerialization = "2.1.0"
 material3 = "1.3.1"
 materialVersion = "1.12.0"
-mockk = "1.12.0"
+mockk = "1.13.17"
 roomCompiler = "2.6.1"
 retrofit = "2.9.0"
 converterMoshi = "2.9.0"
@@ -50,6 +50,7 @@ converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.r
 material = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }

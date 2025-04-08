@@ -37,23 +37,23 @@ class AuthServiceTest {
     @Test
     fun `login should return success when response is 200`() = runTest {
         val mockJson = """
-  {
-  "email": "test@example.com",
-  "id": "1",
-  "isSuperUser": 1,
-  "name": "Test User",
-  "phone": "1234567890",
-  "token": "abc123",
-  "userDetails": {
-    "address": "123 Street Name",
-    "avatar": "https://example.com/avatar.jpg",
-    "email": "userdetail@example.com",
-    "id": "10",
-    "name": "John Detail",
-    "phone": "0987654321"
-  }
-}
-""".trimIndent()
+          {
+          "email": "test@example.com",
+          "id": "1",
+          "isSuperUser": 1,
+          "name": "Test User",
+          "phone": "1234567890",
+          "token": "abc123",
+          "userDetails": {
+            "address": "123 Street Name",
+            "avatar": "https://example.com/avatar.jpg",
+            "email": "userdetail@example.com",
+            "id": "10",
+            "name": "John Detail",
+            "phone": "0987654321"
+          }
+        }
+        """.trimIndent()
         mockWebServer.enqueue(
             MockResponse().setResponseCode(200).setBody(mockJson)
         )

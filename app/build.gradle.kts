@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -51,6 +53,12 @@ android {
         correctErrorTypes = true
     }
 
+    packaging {
+        resources {
+            excludes += "/META-INF/LICENSE.md"
+            excludes += "/META-INF/LICENSE-notice.md"
+        }
+    }
 }
 
 dependencies {
@@ -79,10 +87,10 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
 
-    androidTestImplementation (libs.hilt.android.testing)
-    kaptAndroidTest (libs.hilt.android.compiler)
-    testImplementation (libs.hilt.android.testing)
-    kaptTest (libs.hilt.android.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
+    testImplementation(libs.hilt.android.testing)
+    kaptTest(libs.hilt.android.compiler)
 
     // Room for local database
     implementation(libs.androidx.room.runtime)
@@ -114,13 +122,13 @@ dependencies {
     // Serialize
     implementation(libs.kotlinx.serialization.json)
 
-    implementation (libs.androidx.material)
+    implementation(libs.androidx.material)
 
-    implementation (libs.androidx.core.splashscreen)
+    implementation(libs.androidx.core.splashscreen)
 
-    implementation (libs.material3)
+    implementation(libs.material3)
 
-    implementation (libs.material)
+    implementation(libs.material)
 
     // google truth
     testImplementation(libs.truth)
@@ -128,8 +136,9 @@ dependencies {
 
     // Test implementation for MockK and JUnit
     testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
     testImplementation(libs.junit)
 
-    testImplementation (libs.squareup.mockwebserver)
-    androidTestImplementation (libs.squareup.mockwebserver)
+    testImplementation(libs.squareup.mockwebserver)
+    androidTestImplementation(libs.squareup.mockwebserver)
 }
