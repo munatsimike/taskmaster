@@ -142,4 +142,7 @@ dependencies {
 
     testImplementation(libs.squareup.mockwebserver)
     androidTestImplementation(libs.squareup.mockwebserver)
+
+    //timber
+    implementation(libs.timber)
 }

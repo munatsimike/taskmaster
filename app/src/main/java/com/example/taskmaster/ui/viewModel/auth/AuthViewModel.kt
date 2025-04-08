@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -108,9 +109,9 @@ class AuthViewModel @Inject constructor(
                     }
                 }
             } catch (e: CancellationException) {
-                Log.i("token view model", "Coroutine was cancelled in ViewModel", e)
+                Timber.i("token view model", "Coroutine was cancelled in ViewModel", e)
             } catch (e: Exception) {
-                Log.i("token error", e.message.toString())
+                Timber.i("token error", e.message.toString())
             }
         }
     }
