@@ -91,6 +91,7 @@ dependencies {
     kaptAndroidTest(libs.hilt.android.compiler)
     testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.android.compiler)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     // Room for local database
     implementation(libs.androidx.room.runtime)

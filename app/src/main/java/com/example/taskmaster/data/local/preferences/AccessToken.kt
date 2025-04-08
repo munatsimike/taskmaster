@@ -1,7 +1,5 @@
 package com.example.taskmaster.data.local.preferences
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.example.taskmaster.data.local.preferences.PreferenceKeys.ACCESS_TOKEN_KEY
 import java.time.Instant
 
@@ -14,7 +12,6 @@ data class AccessToken (
     fun isNotEmpty(): Boolean = value.isNotEmpty()
 
     // Check if the token is expired
-    @RequiresApi(Build.VERSION_CODES.O)
     fun isExpired(): Boolean {
         return expiresAt?.let { Instant.now().isAfter(it) }
             ?: false // Assume not expired if no expiration set
