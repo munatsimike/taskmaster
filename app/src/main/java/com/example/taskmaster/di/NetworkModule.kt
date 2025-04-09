@@ -4,6 +4,7 @@ import androidx.multidex.BuildConfig
 import com.example.taskmaster.data.local.preferences.EncryptedPreferenceManager
 import com.example.taskmaster.data.local.preferences.TokenProvider
 import com.example.taskmaster.data.remote.api.service.AuthService
+import com.example.taskmaster.data.remote.api.service.ProjectService
 import com.example.taskmaster.data.remote.api.service.client.AuthInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -79,4 +80,10 @@ object NetworkModule {
     @Provides
     fun provideAuthService(retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
+
+    // Provide ProjectService instance
+    @Singleton
+    @Provides
+    fun provideProjectService(retrofit: Retrofit): ProjectService =
+        retrofit.create(ProjectService::class.java)
 }
