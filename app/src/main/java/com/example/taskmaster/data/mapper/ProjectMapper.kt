@@ -1,6 +1,7 @@
 package com.example.taskmaster.data.mapper
 
 import com.example.taskmaster.data.remote.dto.project.CreateProjectRequestDto
+import com.example.taskmaster.data.remote.dto.project.ProjectDto
 import com.example.taskmaster.data.remote.dto.project.UpdateProjectRequestDto
 import com.example.taskmaster.domain.model.project.Project
 /**
@@ -13,6 +14,26 @@ import com.example.taskmaster.domain.model.project.Project
  */
 
 object ProjectMapper {
+
+
+    private fun ProjectDto.toDomainProject(): Project {
+        return Project(
+            id = this.id,
+            name = this.name,
+            description = this.description,
+            address = this.address,
+            thumbnailUrl = this.thumbnailUrl,
+            isDeleted = this.isDeleted == 1,
+            createdAt = this.createdAt,
+            updatedAt = this.updatedAt
+        )
+    }
+
+    fun List<ProjectDto>.toListOfDomainProject(): List<Project> {
+        return this.map {
+            it.toDomainProject()
+        }
+    }
     fun Project.toCreateNewProjectRequest(): CreateProjectRequestDto {
         return CreateProjectRequestDto(
             name = name,
