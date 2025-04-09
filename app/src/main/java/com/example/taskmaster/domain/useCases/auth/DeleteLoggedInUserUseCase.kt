@@ -1,4 +1,4 @@
-package com.example.taskflow.domain.usecases.user
+package com.example.taskmaster.domain.useCases.auth
 
 import com.example.taskmaster.data.repository.AuthRepository
 import javax.inject.Inject

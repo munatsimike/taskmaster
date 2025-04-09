@@ -1,15 +1,14 @@
 package com.example.taskmaster.ui.viewModel.auth
 
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskmaster.data.local.preferences.AccessToken
 import com.example.taskmaster.domain.LoginRequest
 import com.example.taskmaster.domain.model.User
-import com.example.taskmaster.domain.useCases.auth.GetAccessTokenUseCase
+import com.example.taskmaster.domain.useCases.auth.GetAccessTokenUseCaseImp
 import com.example.taskmaster.domain.useCases.auth.LoginUseCase
-import com.example.taskmaster.domain.useCases.auth.LogoutUseCase
+import com.example.taskmaster.domain.useCases.auth.LogoutUseCaseImp
 import com.example.taskmaster.ui.model.state.AuthUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +22,7 @@ import kotlin.coroutines.cancellation.CancellationException
 
 /**AuthViewModel is responsible for managing the UI state of the login screen.
  *
- * This ViewModel interacts with the LoginUseCase to perform the login operation,
+ * This ViewModel interacts with the LoginUseCaseImp to perform the login operation,
  * updates the UI state based on user input, and handles the results of login attempts.
  * It exposes a StateFlow for observing the UI state in the UI layer, allowing the UI
  * to react to changes.
@@ -33,8 +32,8 @@ import kotlin.coroutines.cancellation.CancellationException
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val getAccessTokenUseCase: GetAccessTokenUseCase,
-    private  val logoutUseCase: LogoutUseCase
+    private val getAccessTokenUseCase: GetAccessTokenUseCaseImp,
+    private  val logoutUseCase: LogoutUseCaseImp
 
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<AuthUiState> = MutableStateFlow(AuthUiState())

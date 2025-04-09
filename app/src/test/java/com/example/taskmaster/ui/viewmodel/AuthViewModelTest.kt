@@ -3,9 +3,9 @@ package com.example.taskmaster.ui.viewmodel
 import com.example.taskmaster.data.local.preferences.AccessToken
 import com.example.taskmaster.domain.LoginRequest
 import com.example.taskmaster.domain.model.User
-import com.example.taskmaster.domain.useCases.auth.GetAccessTokenUseCase
-import com.example.taskmaster.domain.useCases.auth.LoginUseCase
-import com.example.taskmaster.domain.useCases.auth.LogoutUseCase
+import com.example.taskmaster.domain.useCases.auth.GetAccessTokenUseCaseImp
+import com.example.taskmaster.domain.useCases.auth.LoginUseCaseImp
+import com.example.taskmaster.domain.useCases.auth.LogoutUseCaseImp
 import com.example.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.google.common.truth.Truth.assertThat
 import io.mockk.Runs
@@ -27,22 +27,22 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class AuthViewModelTest {
 
-    private val loginUseCase = mockk<LoginUseCase>()
-    private val getAccessTokenUseCase = mockk<GetAccessTokenUseCase>()
-    private val logoutUseCase = mockk<LogoutUseCase>()
+    private val loginUseCaseImp = mockk<LoginUseCaseImp>()
+    private val getAccessTokenUseCase = mockk<GetAccessTokenUseCaseImp>()
+    private val logoutUseCase = mockk<LogoutUseCaseImp>()
     private lateinit var authViewModel: AuthViewModel
 
     @Before
     fun setup() {
         Dispatchers.setMain(StandardTestDispatcher())
-        authViewModel = AuthViewModel(loginUseCase, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
     }
 
     @Test
     fun `login updates state on success`() = runTest {
         val mockUser = User("avatar", "Test", 0, "abc123")
 
-        coEvery { loginUseCase(any()) } returns Result.success(mockUser)
+        coEvery { loginUseCaseImp(any()) } returns Result.success(mockUser)
         coEvery { getAccessTokenUseCase() } returns flowOf(AccessToken(value = "abc123"))
 
         authViewModel.onUsernameChange("user")
@@ -65,10 +65,10 @@ class AuthViewModelTest {
             token = "abc123"
         )
 
-        coEvery { loginUseCase(any()) } returns Result.success(user)
+        coEvery { loginUseCaseImp(any()) } returns Result.success(user)
         coEvery { getAccessTokenUseCase() } returns flowOf(AccessToken(value = "abc123"))
 
-        authViewModel = AuthViewModel(loginUseCase, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
         authViewModel.onUsernameChange("john")
         authViewModel.onPasswordChange("pass")
         authViewModel.login()
@@ -84,7 +84,7 @@ class AuthViewModelTest {
     fun `empty token results in hasToken false`() = runTest {
         coEvery { getAccessTokenUseCase() } returns flowOf(AccessToken(value = ""))
 
-        authViewModel = AuthViewModel(loginUseCase, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
 
         advanceUntilIdle()
 
@@ -97,7 +97,7 @@ class AuthViewModelTest {
         coEvery { logoutUseCase.logout() } just Runs
         coEvery { getAccessTokenUseCase() } returns flowOf(AccessToken(value = ""))
 
-        authViewModel = AuthViewModel(loginUseCase, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
         authViewModel.logout()
 
         advanceUntilIdle()
@@ -108,7 +108,7 @@ class AuthViewModelTest {
 
     @Test
     fun `login with blank username or password shows validation error`() = runTest {
-        authViewModel = AuthViewModel(loginUseCase, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
 
         authViewModel.onUsernameChange("") //  blank username
         authViewModel.onPasswordChange("") //  blank password
@@ -122,9 +122,9 @@ class AuthViewModelTest {
     @Test
     fun `login failure shows error message`() = runTest {
         val loginRequest = LoginRequest("user", "pass")
-        coEvery { loginUseCase(loginRequest) } returns Result.failure(Exception("invalid"))
+        coEvery { loginUseCaseImp(loginRequest) } returns Result.failure(Exception("invalid"))
 
-        authViewModel = AuthViewModel(loginUseCase, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
         authViewModel.onUsernameChange("user")
         authViewModel.onPasswordChange("pass")
         authViewModel.login()
