@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.taskmaster.R
 import com.example.taskmaster.navigation.AppScreen
-import com.example.taskmaster.ui.model.state.AuthUiState
+import com.example.taskmaster.ui.common.state.AuthUiState
 import com.example.taskmaster.ui.theme.gradientEnd
 import com.example.taskmaster.ui.theme.gradientStart
 import com.example.taskmaster.ui.viewModel.auth.AuthViewModel

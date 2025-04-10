@@ -1,4 +1,4 @@
-package com.example.taskmaster.ui.model.state
+package com.example.taskmaster.ui.common.state
 
 //this class holds the state of the login UI
 data class AuthUiState(

@@ -9,7 +9,7 @@ import com.example.taskmaster.domain.model.User
 import com.example.taskmaster.domain.useCases.auth.GetAccessTokenUseCaseImp
 import com.example.taskmaster.domain.useCases.auth.LoginUseCase
 import com.example.taskmaster.domain.useCases.auth.LogoutUseCaseImp
-import com.example.taskmaster.ui.model.state.AuthUiState
+import com.example.taskmaster.ui.common.state.AuthUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
