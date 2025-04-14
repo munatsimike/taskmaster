@@ -1,3 +1,3 @@
-package com.example.taskmaster.domain.model
+package com.example.taskmaster.ui.model
 
 data class APIResponseMessage (val message: String = "")

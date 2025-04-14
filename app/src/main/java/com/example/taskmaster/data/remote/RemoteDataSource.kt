@@ -8,7 +8,7 @@ import com.example.taskmaster.data.remote.dto.project.ProjectDto
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.domain.LoginRequest
 import com.example.taskmaster.domain.model.APIResponse
-import com.example.taskmaster.domain.model.APIResponseMessage
+import com.example.taskmaster.ui.model.APIResponseMessage
 import com.example.taskmaster.domain.model.project.Project
 import retrofit2.Response
 import javax.inject.Inject

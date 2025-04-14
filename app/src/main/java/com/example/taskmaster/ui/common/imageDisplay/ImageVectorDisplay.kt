@@ -1,4 +1,4 @@
-package com.example.taskmaster.util.components
+package com.example.taskmaster.ui.common.imageDisplay
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size

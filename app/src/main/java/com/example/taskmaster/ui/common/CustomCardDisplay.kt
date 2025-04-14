@@ -1,4 +1,4 @@
-package com.example.taskmaster.util.components
+package com.example.taskmaster.ui.common
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable

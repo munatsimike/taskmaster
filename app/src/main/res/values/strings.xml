@@ -8,4 +8,107 @@
     <string name="app_logo">App_Logo</string>
     <string name="brass_ring_collective">Brass Ring Collective</string>
     <string name="Managing_real_estate_eamlessly">Managing Real Estate. Seamlessly.</string>
+
+
+    ********** loading messages to be displayed below the loading spinner**********
+    <string name="loading_folders">Loading folders ....</string>
+    <string name="loading_dashboard">Loading dashboard ....</string>
+    <string name="loading_images">Loading images ....</string>
+    <string name="loading_teams">Loading teams ....</string>
+    <string name="loading_schedules">Loading schedules ....</string>
+    <string name="loading_budget_phase">Loading budget phases ....</string>
+    <string name="loading_projects">Loading projects ....</string>
+    <string name="loading_orfi">Loading orfi ....</string>
+
+    *******************button and icon text***************************************
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="download">Download</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="more_options">More Options</string>
+    <string name="add_project">Add project</string>
+
+    **********tags text**********************************************************
+    <string name="red">Loading teams ....</string>
+    <string name="blue">Loading schedules ....</string>
+    <string name="green">Loading budget ....</string>
+
+    ***********text for empty screen ********************************************
+    <string name="empty_screen_text_images">No images available</string>
+    <string name="empty_screen_text_projects">No projects available</string>
+    <string name="empty_screen_text_dashboard">Dashboard is empty</string>
+
+    **************Text field text ***********************************************
+    <string name="folder_description">Folder description</string>
+    <string name="description">Description</string>
+    <string name="confirm_delete_text">"Are you sure you want to delete this %s?</string>
+    <string name="no_connection">No internet connection</string>
+    <string name="location">location</string>
+    <string name="unexpected_error">An unexpected error has occurred</string>
+    <string name="unable_to_resolve_host">"Unable to resolve host"</string>
+    <string name="address">Address</string>
+    <string name="name">Name</string>
+    <string name="create_project">Create project</string>
+    <string name="edit_project">Edit project</string>
+    <string name="failed_to_connect_to_server">failed to connect to</string>
+    <string name="select_image">Select image</string>
+    <string name="select_file">Select file</string>
+    <string name="tasks">Tasks</string>
+    <string name="schedule_overview">Schedule overview</string>
+    <string name="total">Total %s</string>
+    <string name="date">Date</string>
+
+    <string name="loading_image">Loading image …</string>
+    <string name="remove_image">Remove image</string>
+    <string name="placeholder_image_desc">Place holder image</string>
+    <string name="error_loading_file">Error loading file %s</string>
+    <string name="add_file">Add file</string>
+    <string name="edit_file">Edit file</string>
+    <string name="save_changes">Save changes</string>
+    <string name="uploading_file">Uploading file ....</string>
+    <string name="no_file_selected">No file selected</string>
+    <string name="file_name">File name</string>
+    <string name="create_budget">Create budget</string>
+    <string name="edit_budget">Edit budget</string>
+    <string name="phase">Phase</string>
+    <string name="init_budget">Init budget</string>
+    <string name="progress_in_months">Progress (months)</string>
+    <string name="total_duration_in_months">Total Duration (months)</string>
+    <string name="trailing_icon">Trailing icon</string>
+    <string name="select_member">Select member</string>
+    <string name="loading_users">Loading users</string>
+    <string name="all_fields_mandatory">All fields are mandatory</string>
+    <string name="add_budget">Add Budget</string>
+    <string name="invoices">Invoices</string>
+    <string name="no_money_spent">0% of the budget spent</string>
+    <string name="total_budget">Total budget %s</string>
+    <string name="taskflow">TaskFlow</string>
+
+    <string name="budget_exceeded">Budget exceeded by %s</string>
+    <string name="assigned_to">Assigned team member</string>
+    <string name="deadline">Deadline: %s</string>
+    <string name="cannot_delete_schedule_directly">To delete this schedule, first delete the associated : %s</string>
+    <string name="edit_schedule">Edit Schedule</string>
+    <string name="progress">Progress (Months)</string>
+    <string name="close">Close</string>
+    <string name="deadline_exceeded_by">Deadline exceed by %s months</string>
+    <string name="work_covered_percentage">"Progress: %s completed"</string>
+    <string name="view_file">View file</string>
+    <string name="empty_string">""</string>
+    <string name="delete_item">Delete %s? </string>
+    <string name="folder">folder %s </string>
+    <string name="image">folder </string>
+    <string name="project">project %s </string>
+    <string name="resolved">Resolved</string>
+    <string name="due">Due: %s</string>
+    <string name="due_date">Due date</string>
+    <string name="question_theme">Question / Theme</string>
+    <string name="last_update">Last update</string>
+    <string name="today_date">Today\'s date</string>
+    <string name="edit_orfi">Edit ORFI</string>
+    <string name="create_orfi">Create ORFI</string>
+    <string name="assigned_to_short">Assigned to</string>
+    <string name="file">File</string>
+    <string name="paid">Paid %s</string>
 </resources>

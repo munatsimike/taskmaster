@@ -3,7 +3,7 @@ package com.example.taskmaster.domain.useCases.project
 
 import com.example.taskmaster.data.remote.api.NetworkResponse
 import com.example.taskmaster.data.repository.ProjectsRepo
-import com.example.taskmaster.domain.model.APIResponseMessage
+import com.example.taskmaster.ui.model.APIResponseMessage
 import com.example.taskmaster.domain.model.project.Project
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

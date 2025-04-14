@@ -1,6 +1,7 @@
 package com.example.taskmaster.data.remote
 
 import com.example.taskmaster.data.remote.api.service.AuthService
+import com.example.taskmaster.data.remote.api.service.ProjectService
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.data.remote.dto.user.UserDetailsDto
 import com.example.taskmaster.domain.LoginRequest
@@ -18,11 +19,13 @@ class RemoteDataSourceTest {
 
     private lateinit var authService: AuthService
     private lateinit var remoteDataSource: RemoteDataSource
+    private lateinit var projectService: ProjectService
 
     @Before
     fun setup() {
         authService = mockk<AuthService>()
-        remoteDataSource = RemoteDataSource(authService)
+        projectService = mockk<ProjectService>()
+        remoteDataSource = RemoteDataSource(authService, projectService)
     }
 
     @Test

@@ -10,9 +10,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.taskmaster.ui.common.snackbar.CustomSnackbarHostState
 import com.example.taskmaster.ui.screen.SplashScreen
 import com.example.taskmaster.ui.screen.auth.Login
 import com.example.taskmaster.ui.screen.projects.Projects.MainScreen
+import com.example.taskmaster.ui.viewModel.SharedUserViewModel
+import com.example.taskmaster.ui.viewModel.SharedViewModel
 import com.example.taskmaster.ui.viewModel.auth.AuthViewModel
 import kotlinx.coroutines.delay
 
@@ -23,6 +26,9 @@ object NavHost {
     fun AppNavHost(
         navController: NavHostController,
         authViewModel: AuthViewModel = hiltViewModel(),
+        sharedViewModel: SharedViewModel = hiltViewModel(),
+        snackbarHostState: CustomSnackbarHostState,
+        sharedUserViewModel: SharedUserViewModel = hiltViewModel(),
     ) {
         val loginUiState by authViewModel.uiState.collectAsState()
 
@@ -54,6 +60,9 @@ object NavHost {
                     MainScreen(
                         navController = navController,
                         authViewModel = authViewModel,
+                        sharedUserViewModel = sharedUserViewModel,
+                        sharedViewModel = sharedViewModel,
+                        snackBarHostState = snackbarHostState,
                     )
                 }
 

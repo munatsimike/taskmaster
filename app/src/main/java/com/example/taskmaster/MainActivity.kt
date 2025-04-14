@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.example.taskflow.nagivation.bottomNav.BottomNavBar
 import com.example.taskmaster.navigation.NavHost.AppNavHost
+import com.example.taskmaster.ui.common.snackbar.CustomSnackbarHostState
 import com.example.taskmaster.ui.theme.TaskMasterTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,6 +35,7 @@ class MainActivity : ComponentActivity() {
         // enableEdgeToEdge()
         setContent {
             val navHost = rememberNavController()
+            val customSnackbarHostState = remember { CustomSnackbarHostState() }
 
             TaskMasterTheme {
                 Scaffold(
@@ -40,7 +43,11 @@ class MainActivity : ComponentActivity() {
                     bottomBar = { BottomNavBar(navHost) },
                     content = { innerPadding ->
                         Box(modifier = Modifier.padding(innerPadding)) {
-                            AppNavHost(navHost)
+                            AppNavHost(
+                                navHost,
+                                snackbarHostState = customSnackbarHostState,
+
+                            )
                         }
                     })
             }

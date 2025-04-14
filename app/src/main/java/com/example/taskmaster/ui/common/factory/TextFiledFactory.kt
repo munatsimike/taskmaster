@@ -1,4 +1,4 @@
-package com.example.taskmaster.util.components.factory
+package com.example.taskmaster.ui.common.factory
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.clickable
@@ -19,9 +19,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.taskmaster.R
-import com.example.taskmaster.util.components.DisplayImageVectorIcon
-import com.example.taskmaster.util.components.ErrorContent
-import com.example.taskmaster.util.components.factory.TextFactory.LabelText
+import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
+import com.example.taskmaster.ui.common.ErrorContent
+import com.example.taskmaster.ui.common.factory.TextFactory.LabelText
 
 
 object TextFieldFactory {

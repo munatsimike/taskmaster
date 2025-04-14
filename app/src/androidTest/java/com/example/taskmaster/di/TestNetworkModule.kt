@@ -1,6 +1,7 @@
 package com.example.taskmaster.di
 
 import com.example.taskmaster.data.remote.api.service.AuthService
+import com.example.taskmaster.data.remote.api.service.ProjectService
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -49,4 +50,9 @@ object TestNetworkModule {
     @Provides
     fun provideAuthService(retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideProjectService(retrofit: Retrofit): ProjectService =
+        retrofit.create(ProjectService::class.java)
 }
