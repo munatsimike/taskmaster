@@ -1,4 +1,4 @@
-package com.example.taskmaster.util.components.factory
+package com.example.taskmaster.ui.common.factory
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

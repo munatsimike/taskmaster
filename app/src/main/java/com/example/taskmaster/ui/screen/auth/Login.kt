@@ -32,11 +32,11 @@ import com.example.taskmaster.ui.common.state.AuthUiState
 import com.example.taskmaster.ui.theme.gradientEnd
 import com.example.taskmaster.ui.theme.gradientStart
 import com.example.taskmaster.ui.viewModel.auth.AuthViewModel
-import com.example.taskmaster.util.components.CustomCard
-import com.example.taskmaster.util.components.DisplayImageVectorIcon
-import com.example.taskmaster.util.components.ErrorContent
-import com.example.taskmaster.util.components.factory.ButtonFactory.PrimaryButton
-import com.example.taskmaster.util.components.factory.TextFieldFactory.FilledTextField
+import com.example.taskmaster.ui.common.CustomCard
+import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
+import com.example.taskmaster.ui.common.ErrorContent
+import com.example.taskmaster.ui.common.factory.ButtonFactory.PrimaryButton
+import com.example.taskmaster.ui.common.factory.TextFieldFactory.FilledTextField
 
 /**
 * Login object contains composable functions that define the login screen UI.

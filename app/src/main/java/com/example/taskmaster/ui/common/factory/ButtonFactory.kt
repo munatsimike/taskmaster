@@ -1,4 +1,4 @@
-package com.example.taskmaster.util.components.factory
+package com.example.taskmaster.ui.common.factory
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border

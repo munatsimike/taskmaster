@@ -6,7 +6,7 @@ import com.example.taskmaster.data.mapper.APIResponseMapper.toApiResponseMessage
 import com.example.taskmaster.data.mapper.ProjectMapper.toListOfDomainProject
 import com.example.taskmaster.data.remote.RemoteDataSource
 import com.example.taskmaster.data.remote.api.NetworkResponse
-import com.example.taskmaster.domain.model.APIResponseMessage
+import com.example.taskmaster.ui.model.APIResponseMessage
 import com.example.taskmaster.domain.model.project.Project
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

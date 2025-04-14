@@ -7,7 +7,7 @@ import com.example.taskmaster.data.remote.dto.project.AddNewProjectResponseDto
 import com.example.taskmaster.data.remote.dto.project.CreateProjectRequestDto
 import com.example.taskmaster.data.remote.dto.project.dashboard.DashboardAPiResponseDto
 import com.example.taskmaster.data.remote.dto.project.ProjectDto
-import com.example.taskmaster.domain.model.APIResponseMessage
+import com.example.taskmaster.ui.model.APIResponseMessage
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
