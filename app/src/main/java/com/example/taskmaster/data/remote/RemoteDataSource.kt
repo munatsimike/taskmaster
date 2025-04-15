@@ -35,8 +35,8 @@ class RemoteDataSource @Inject constructor(
         return projectService.getProjects()
     }
 
-    suspend fun addOrEditNewProject(projectRequest: Project): Response<out APIResponse> {
-        if (projectRequest.isEditing) {
+    suspend fun addOrEditNewProject(projectRequest: Project, isEditing: Boolean): Response<out APIResponse> {
+        if (isEditing) {
             val updateRequest = projectRequest.toUpdateProjectRequestDto()
             return projectService.updateProject(updateRequest.id, updateRequest)
 

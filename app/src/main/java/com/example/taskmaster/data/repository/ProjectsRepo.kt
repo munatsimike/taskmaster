@@ -21,9 +21,9 @@ class ProjectsRepo @Inject constructor(
     val localDataSource: LocalDataSource,
 ) : BaseRepository(remoteDataSource) {
 
-    fun addOrEditNewProject(addEditProject: Project): Flow<NetworkResponse<APIResponseMessage>> =
+    fun addOrEditNewProject(addEditProject: Project, isEditing: Boolean): Flow<NetworkResponse<APIResponseMessage>> =
         processApiResponse(
-            call = { remoteDataSource.addOrEditNewProject(addEditProject) },
+            call = { remoteDataSource.addOrEditNewProject(addEditProject, isEditing) },
             onSuccess = { response ->
                 response.toApiResponseMessage()
             }

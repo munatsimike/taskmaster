@@ -34,16 +34,15 @@ fun ProjectForm(
 ) {
 
     var errorText by remember { mutableStateOf("") }
-    val formDataState by projectFormViewModel.addEditProjectFormatState.collectAsState()
+    val formDataState by projectFormViewModel.projectState.collectAsState()
 
     Box {
         FormModal(
             formContent = {
                 ProjectFormContent(
-
                     errorText = errorText,
-                    isEditing = formState.isEditing,
-                    formState = formDataState,
+                    formState = formState,
+                    project = formDataState,
                     onEditProject = projectFormViewModel::editFormState,
                     onNameChange = projectFormViewModel::onNameChange,
                     onDescriptionChange = projectFormViewModel::onDescriptionChange,
@@ -53,10 +52,6 @@ fun ProjectForm(
                 )
             }
         ) {
-            if (formState.isEditing) {
-                projectFormViewModel.stopEditing()
-                projectFormViewModel.clearForm()
-            }
             projectFormViewModel.closeForm()
         }
     }
@@ -64,10 +59,9 @@ fun ProjectForm(
 
 @Composable
 private fun ProjectFormContent(
-
     errorText: String,
-    isEditing: Boolean,
-    formState: Project,
+    formState: FormState,
+    project: Project,
     onEditProject: () -> Unit,
     onNameChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
@@ -76,7 +70,7 @@ private fun ProjectFormContent(
 ) {
     val editProjectTxt = stringResource(id = R.string.edit_project)
     val createProjectTxt = stringResource(id = R.string.create_project)
-    val actionText = if (isEditing) editProjectTxt else createProjectTxt
+    val actionText = if (formState.isEditing) editProjectTxt else createProjectTxt
 
     // Form Fields
     Column(
@@ -92,19 +86,19 @@ private fun ProjectFormContent(
         if (errorText.isNotBlank()) ErrorContent(message = errorText)
 
         FilledTextField(
-            value = formState.name,
+            value = project.name,
             label = stringResource(id = R.string.name),
             onValueChange = { onNameChange(it) },
         )
 
         FilledTextField(
-            value = formState.description,
+            value = project.description,
             label = stringResource(id = R.string.description),
             onValueChange = { onDescriptionChange(it) },
             modifier = Modifier.height(80.dp)
         )
         FilledTextField(
-            value = formState.address.orEmpty(),
+            value = project.address.orEmpty(),
             label = stringResource(id = R.string.address),
             onValueChange = { onAddressChange(it) },
             modifier = Modifier
@@ -120,7 +114,7 @@ private fun ProjectFormContent(
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         PrimaryButton(buttonText = actionText, onButtonClick = {
-            if (isEditing) {
+            if (formState.isEditing) {
                 onEditProject()
             } else {
                 onCreateProject()

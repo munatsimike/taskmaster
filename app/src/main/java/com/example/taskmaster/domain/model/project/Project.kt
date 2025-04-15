@@ -3,7 +3,6 @@ package com.example.taskmaster.domain.model.project
 data class Project(
     val id: String = "",
     val name: String = "",
-    val isEditing: Boolean = false,
     val description: String = "",
     val address: String? = null,
     val thumbnailUrl: String? = null,

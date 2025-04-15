@@ -17,18 +17,54 @@ class ProjectFormViewModel @Inject constructor(
     private val addEditProjectUseCase: AddEditProjectUseCase,
 ) : BaseFormViewModel() {
 
-    private val _pojectFormState = MutableStateFlow(Project())
-    val addEditProjectFormatState: StateFlow<Project> = _pojectFormState
+    private val _pojectState = MutableStateFlow(Project())
+    val projectState: StateFlow<Project> = _pojectState
 
-    fun onSelectedChange(project: Project) {
-        _pojectFormState.value = project
+    fun onSelectedProjectChange(project: Project) {
+        _pojectState.value = project
     }
 
     override fun createFormState() {
-        val newProject = _pojectFormState.value
+        createOrEditProject(false)
+    }
+
+    override fun editFormState() {
+        createOrEditProject(true)
+    }
+
+    override fun onIdChange(id: String) {
+    }
+
+    fun onNameChange(name: String) {
+        _pojectState.update { it.copy(name = name) }
+    }
+
+    fun onDescriptionChange(description: String) {
+        _pojectState.update { it.copy(description = description) }
+    }
+
+    fun onAddressChange(address: String) {
+        _pojectState.update { it.copy(address = address) }
+    }
+
+    fun onImageUrlChange(url: String?) {
+        _pojectState.update { it.copy(thumbnailUrl = url) }
+    }
+
+    override fun clearForm() {
+        _pojectState.value = Project()
+    }
+
+    fun handleEdit(project: Project){
+        onSelectedProjectChange(project)
+       showEditForm()
+    }
+
+    private fun createOrEditProject(isEditing: Boolean){
+        val newProject = _pojectState.value
         if (newProject.isValid()) {
             viewModelScope.launch {
-                val response = addEditProjectUseCase(newProject)
+                val response = addEditProjectUseCase(newProject, isEditing)
                 response.collect { apiResponse ->
                     handleResponse(apiResponse)
                 }
@@ -37,41 +73,5 @@ class ProjectFormViewModel @Inject constructor(
         } else {
             NetworkResponse.Error(Exception("Name and description cannot be empty"))
         }
-    }
-
-    override fun editFormState() {
-        createFormState()
-    }
-
-    fun onEnableEditing() {
-        _pojectFormState.update { it.copy(isEditing = true) }
-    }
-
-    override fun onIdChange(id: String) {
-    }
-
-    fun onNameChange(name: String) {
-        _pojectFormState.update { it.copy(name = name) }
-    }
-
-    fun onDescriptionChange(description: String) {
-        _pojectFormState.update { it.copy(description = description) }
-    }
-
-    fun onAddressChange(address: String) {
-        _pojectFormState.update { it.copy(address = address) }
-    }
-
-    fun onImageUrlChange(url: String?) {
-        _pojectFormState.update { it.copy(thumbnailUrl = url) }
-    }
-
-    override fun clearForm() {
-        _pojectFormState.value = Project()
-    }
-
-    fun handleEdit(project: Project){
-        onSelectedChange(project)
-       showEditForm()
     }
 }

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AddEditProjectUseCase @Inject constructor(private val projectsRepo: ProjectsRepo) {
-    operator fun invoke(addOrEditProject: Project): Flow<NetworkResponse<APIResponseMessage>> {
-       return projectsRepo.addOrEditNewProject(addOrEditProject)
+    operator fun invoke(addOrEditProject: Project, isEditing: Boolean): Flow<NetworkResponse<APIResponseMessage>> {
+       return projectsRepo.addOrEditNewProject(addOrEditProject,isEditing)
     }
 }
