@@ -1,9 +1,20 @@
 package com.example.taskmaster.util
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.example.taskmaster.R
+import com.example.taskmaster.data.remote.api.NetworkResponse
 import com.example.taskmaster.domain.LoggedInUser
-import com.example.taskmaster.ui.model.Status
+import com.example.taskmaster.ui.common.DisplayProgressBar
+import com.example.taskmaster.ui.common.ErrorContent
 import com.example.taskmaster.ui.common.header.HeaderData
+import com.example.taskmaster.ui.model.DashboardData
+import com.example.taskmaster.ui.model.Status
 import java.text.NumberFormat
 import java.time.Instant
 import java.time.LocalDate
@@ -88,4 +99,35 @@ fun LocalDate.toIsoString(): String {
 
 fun String.isoStringToLocalDate(): LocalDate {
     return ZonedDateTime.parse(this).toLocalDate() // Parse full date-time string and extract LocalDate
+}
+
+@Composable
+fun ProcessDashboardState(
+    state: NetworkResponse<DashboardData>,
+    content: @Composable (DashboardData) -> Unit
+) {
+    when (state) {
+        is NetworkResponse.Loading -> {
+            Box (modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                DisplayProgressBar(
+                    message = stringResource(id = R.string.loading_dashboard),
+                    isAnimating = true
+                )
+            }
+        }
+
+        is NetworkResponse.Error -> {
+            ErrorContent("An error occurred: ${state.exception.message}")
+        }
+
+        is NetworkResponse.Failure -> {
+            ErrorContent("Failed to load data: ${state.message}")
+        }
+
+        is NetworkResponse.Success -> {
+            // Safely cast to DashboardData
+            val dashboardData = state.data
+            content(dashboardData)
+        }
+    }
 }

@@ -21,8 +21,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.taskmaster.R
-import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
 import com.example.taskmaster.ui.common.factory.AnimationFactory
+import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
 
 object SplashScreen {
 

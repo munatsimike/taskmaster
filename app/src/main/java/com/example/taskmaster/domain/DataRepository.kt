@@ -1,6 +1,6 @@
 package com.example.taskmaster.domain
 
-import com.example.taskmaster.domain.model.User
+import com.example.taskmaster.domain.model.auth.User
 
 /**This interface serves as the blueprint for the data repository layer, providing an abstraction
  * for data operations such as login. It decouples the data management logic from the rest of the

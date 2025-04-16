@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import com.example.taskmaster.ui.common.snackbar.CustomSnackbarHostState
 import com.example.taskmaster.ui.screen.SplashScreen
 import com.example.taskmaster.ui.screen.auth.Login
+import com.example.taskmaster.ui.screen.dashboard.Dashboard
 import com.example.taskmaster.ui.screen.projects.Projects.MainScreen
 import com.example.taskmaster.ui.viewModel.SharedUserViewModel
 import com.example.taskmaster.ui.viewModel.SharedViewModel
@@ -70,6 +71,15 @@ object NavHost {
                     Login.LoginScreen(navController, authViewModel)
                 }
 
+                composable(
+                    AppScreen.Dashboard.route
+                ) {
+                    Dashboard.MainScreen(
+                        navController,
+                        sharedViewModel,
+                        sharedUserViewModel
+                    )
+                }
             }
         }
     }

@@ -1,7 +1,10 @@
 package com.example.taskmaster.ui.theme
 
 import androidx.compose.ui.graphics.Color
-
+val orfiColor = Color(0xFFFA8E1A)
+val budgetPhaseColor = Color(0xFF3AD0CA)
+val teamsColor = Color(0xFF2EBE90)
+val scheduleColor = Color(0xFF1C92FF)
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

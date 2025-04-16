@@ -40,28 +40,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.taskmaster.ui.viewModel.SharedUserViewModel
-import com.example.taskmaster.ui.viewModel.SharedViewModel
-import com.example.taskmaster.ui.common.snackbar.CustomSnackbarHostState
-
 import com.example.taskmaster.R
 import com.example.taskmaster.data.remote.api.NetworkResponse
 import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.navigation.AppScreen
 import com.example.taskmaster.ui.common.ConfirmDialog
+import com.example.taskmaster.ui.common.CustomCard
+import com.example.taskmaster.ui.common.DisplayProgressBar
+import com.example.taskmaster.ui.common.FailureWithRetry
 import com.example.taskmaster.ui.common.imageDisplay.NetworkImageLoader
+import com.example.taskmaster.ui.common.menu.DeleteEditOptionsMenu
+import com.example.taskmaster.ui.common.snackbar.CustomSnackbarHostState
 import com.example.taskmaster.ui.common.snackbar.DisplaySnackBar
+import com.example.taskmaster.ui.common.state.ProcessNetworkState
 import com.example.taskmaster.ui.model.UiMessage
+import com.example.taskmaster.ui.screen.BaseScreenWithFAB
+import com.example.taskmaster.ui.screen.projects.forms.ProjectForm
+import com.example.taskmaster.ui.viewModel.SharedUserViewModel
+import com.example.taskmaster.ui.viewModel.SharedViewModel
 import com.example.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.example.taskmaster.ui.viewModel.projects.ProjectFormViewModel
 import com.example.taskmaster.ui.viewModel.projects.ProjectsViewModel
-import com.example.taskmaster.ui.common.CustomCard
-import com.example.taskmaster.ui.common.menu.DeleteEditOptionsMenu
-import com.example.taskmaster.ui.common.DisplayProgressBar
-import com.example.taskmaster.ui.common.FailureWithRetry
-import com.example.taskmaster.ui.common.state.ProcessNetworkState
-import com.example.taskmaster.ui.screen.BaseScreenWithFAB
-import com.example.taskmaster.ui.screen.projects.forms.ProjectForm
 import com.example.taskmaster.util.headerData
 
 object Projects {

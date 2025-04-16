@@ -4,12 +4,13 @@ import com.example.taskmaster.data.mapper.ProjectMapper.toCreateNewProjectReques
 import com.example.taskmaster.data.mapper.ProjectMapper.toUpdateProjectRequestDto
 import com.example.taskmaster.data.remote.api.service.AuthService
 import com.example.taskmaster.data.remote.api.service.ProjectService
-import com.example.taskmaster.data.remote.dto.project.ProjectDto
+import com.example.taskmaster.data.remote.dto.ProjectDto
+import com.example.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.domain.LoginRequest
 import com.example.taskmaster.domain.model.APIResponse
-import com.example.taskmaster.ui.model.APIResponseMessage
 import com.example.taskmaster.domain.model.project.Project
+import com.example.taskmaster.ui.model.APIResponseMessage
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -46,5 +47,9 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun deleteProject(projectId: String): Response<APIResponseMessage> {
         return projectService.deleteProject(projectId)
+    }
+
+    suspend fun getProjectDashboard(projectId: String): Response<DashboardAPiResponseDto> {
+        return projectService.getProjectDashboard(projectId)
     }
 }

@@ -3,7 +3,7 @@ package com.example.taskmaster.domain.useCases.auth
 
 import com.example.taskmaster.domain.DataRepository
 import com.example.taskmaster.domain.LoginRequest
-import com.example.taskmaster.domain.model.User
+import com.example.taskmaster.domain.model.auth.User
 import javax.inject.Inject
 
 //LoginUseCaseImp is responsible for handling the login operation in the application's business logic layer.

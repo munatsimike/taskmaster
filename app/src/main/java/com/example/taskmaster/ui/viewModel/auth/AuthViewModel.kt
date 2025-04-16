@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskmaster.data.local.preferences.AccessToken
 import com.example.taskmaster.domain.LoginRequest
-import com.example.taskmaster.domain.model.User
+import com.example.taskmaster.domain.model.auth.User
 import com.example.taskmaster.domain.useCases.auth.GetAccessTokenUseCaseImp
 import com.example.taskmaster.domain.useCases.auth.LoginUseCase
 import com.example.taskmaster.domain.useCases.auth.LogoutUseCaseImp

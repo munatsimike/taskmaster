@@ -28,15 +28,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.taskmaster.R
 import com.example.taskmaster.navigation.AppScreen
+import com.example.taskmaster.ui.common.CustomCard
+import com.example.taskmaster.ui.common.ErrorContent
+import com.example.taskmaster.ui.common.factory.ButtonFactory.PrimaryButton
+import com.example.taskmaster.ui.common.factory.TextFieldFactory.FilledTextField
+import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
 import com.example.taskmaster.ui.common.state.AuthUiState
 import com.example.taskmaster.ui.theme.gradientEnd
 import com.example.taskmaster.ui.theme.gradientStart
 import com.example.taskmaster.ui.viewModel.auth.AuthViewModel
-import com.example.taskmaster.ui.common.CustomCard
-import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
-import com.example.taskmaster.ui.common.ErrorContent
-import com.example.taskmaster.ui.common.factory.ButtonFactory.PrimaryButton
-import com.example.taskmaster.ui.common.factory.TextFieldFactory.FilledTextField
 
 /**
 * Login object contains composable functions that define the login screen UI.

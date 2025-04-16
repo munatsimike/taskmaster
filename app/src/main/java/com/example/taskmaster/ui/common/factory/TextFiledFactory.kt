@@ -19,9 +19,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.taskmaster.R
-import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
 import com.example.taskmaster.ui.common.ErrorContent
 import com.example.taskmaster.ui.common.factory.TextFactory.LabelText
+import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
 
 
 object TextFieldFactory {

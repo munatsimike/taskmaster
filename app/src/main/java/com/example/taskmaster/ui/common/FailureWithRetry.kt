@@ -11,8 +11,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.example.taskmaster.R
-import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
 import com.example.taskmaster.ui.common.factory.ButtonFactory.PrimaryButton
+import com.example.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
 
 @Composable
 fun FailureWithRetry(errorMsg: String, onRetry: () -> Unit) {

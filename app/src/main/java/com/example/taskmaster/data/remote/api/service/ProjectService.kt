@@ -1,12 +1,11 @@
 package com.example.taskmaster.data.remote.api.service
 
-
-import com.example.taskmaster.data.remote.dto.project.UpdateProjectRequestDto
-import com.example.taskmaster.data.remote.dto.project.UpdateProjectResponseDto
-import com.example.taskmaster.data.remote.dto.project.AddNewProjectResponseDto
-import com.example.taskmaster.data.remote.dto.project.CreateProjectRequestDto
-import com.example.taskmaster.data.remote.dto.project.dashboard.DashboardAPiResponseDto
-import com.example.taskmaster.data.remote.dto.project.ProjectDto
+import com.example.taskmaster.data.remote.dto.AddNewProjectResponseDto
+import com.example.taskmaster.data.remote.dto.CreateProjectRequestDto
+import com.example.taskmaster.data.remote.dto.ProjectDto
+import com.example.taskmaster.data.remote.dto.UpdateProjectRequestDto
+import com.example.taskmaster.data.remote.dto.UpdateProjectResponseDto
+import com.example.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.example.taskmaster.ui.model.APIResponseMessage
 import retrofit2.Response
 import retrofit2.http.Body

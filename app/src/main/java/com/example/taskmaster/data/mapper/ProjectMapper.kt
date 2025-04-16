@@ -1,9 +1,12 @@
 package com.example.taskmaster.data.mapper
 
-import com.example.taskmaster.data.remote.dto.project.CreateProjectRequestDto
-import com.example.taskmaster.data.remote.dto.project.ProjectDto
-import com.example.taskmaster.data.remote.dto.project.UpdateProjectRequestDto
+import com.example.taskmaster.data.remote.dto.CreateProjectRequestDto
+import com.example.taskmaster.data.remote.dto.ProjectDto
+import com.example.taskmaster.data.remote.dto.UpdateProjectRequestDto
+import com.example.taskmaster.data.remote.dto.dashboard.TotalsDto
 import com.example.taskmaster.domain.model.project.Project
+import com.example.taskmaster.ui.model.Totals
+
 /**
  * Responsible for mapping between Project domain models and their corresponding
  * DTOs used for API requests (e.g., creating or updating a project).
@@ -48,6 +51,17 @@ object ProjectMapper {
             name = name,
             thumbnailUrl = thumbnailUrl,
             description = description
+        )
+    }
+
+    fun TotalsDto.toTotalsModel(): Totals {
+        return Totals(
+            resolvedOrfis = this.resolvedOrfis,
+            totalAmount = this.totalAmount,
+            totalDuration = this.totalDuration,
+            totalOrfis = this.totalOrfis,
+            totalPaid = this.totalPaid,
+            totalScheduleProgress = this.totalScheduleProgress
         )
     }
 }

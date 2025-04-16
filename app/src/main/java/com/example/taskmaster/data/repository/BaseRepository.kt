@@ -1,6 +1,5 @@
 package com.example.taskmaster.data.repository
 
-import android.util.Log
 import com.example.taskmaster.data.remote.RemoteDataSource
 import com.example.taskmaster.data.remote.api.NetworkResponse
 import kotlinx.coroutines.flow.Flow
@@ -13,8 +12,6 @@ import java.util.concurrent.CancellationException
 abstract class BaseRepository(
     protected open val remoteDataSource: RemoteDataSource
 ){
-    /********************** helper functions *********************************************/
-
     // Generic function to process API response and emit a NetworkResponse
     fun <T, R> processApiResponse(
         call: suspend () -> Response<T>, // Make `call` a suspending function
