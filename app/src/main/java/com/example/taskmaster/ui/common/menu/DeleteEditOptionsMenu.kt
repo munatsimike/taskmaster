@@ -38,7 +38,7 @@ fun <T> DeleteEditOptionsMenu(
     offset: DpOffset = DpOffset(x = 0.dp, y = 0.dp),
     modifier: Modifier = Modifier,
     icon: ImageVector = Icons.Default.MoreVert,
-    iconColor: Color =  Color.Unspecified,
+    iconColor: Color = Color.Unspecified,
     iconContentDescription: String = stringResource(id = R.string.more_options),
     containerColor: Color = Color.White,
     shape: RoundedCornerShape = RoundedCornerShape(10.dp),
@@ -73,14 +73,15 @@ fun <T> DeleteEditOptionsMenu(
             ) {
                 menuItems.forEach { item ->
                     DropdownMenuItem(
-                        text = {
-                            item.content(Modifier.fillMaxWidth())
-                        },
                         onClick = {
                             item.onClick()
                             toggleIsExpanded()
-                        }
-                    )
+                        },
+                        text = {
+                            item.content(Modifier.fillMaxWidth())
+                        },
+
+                        )
                     if (item != menuItems.last()) {
                         HorizontalDivider()
                     }
@@ -98,14 +99,15 @@ private fun <T> moreOptionsMenuItems(
 ): List<MenuOption> {
     return listOf(
         MenuOption(
-            content = { modifier -> CustomEditButton(modifier) },
+            content = { modifier -> CustomEditButton(modifier = modifier, onEditClick = { onEditClick(item) }) },
             onClick = { onEditClick(item) }
         ),
         MenuOption(
             content = { modifier ->
                 CustomDeleteButton(
                     modifier = modifier,
-                    secondIconIsVisible = !canDelete
+                    secondIconIsVisible = !canDelete,
+                    onDeleteClick = {onDeleteClick(item)}
                 )
             },
             onClick = { onDeleteClick(item) }
