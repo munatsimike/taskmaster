@@ -12,7 +12,7 @@ sealed class AppScreen(val route: String, val title: String) {
 
     data object Login : AppScreen("login", "Login")
 
-    data object Projects : AppScreen("projects", "My Projects")
+    data object Projects : AppScreen("projects", "Projects")
 
     data object Budget : AppScreen("budgetPhase", "BudgetPhase")
 

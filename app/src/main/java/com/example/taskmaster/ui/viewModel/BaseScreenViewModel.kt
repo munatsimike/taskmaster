@@ -2,7 +2,7 @@ package com.example.taskmaster.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.ui.common.state.CommonUiState
 import com.example.taskmaster.ui.common.state.FormState
 import com.example.taskmaster.ui.model.APIResponseMessage
@@ -53,24 +53,24 @@ abstract class BaseScreenViewModel : ViewModel() {
     }
 
     protected fun processApiMessage(
-        message: NetworkResponse<APIResponseMessage>,
+        message: Resource<APIResponseMessage>,
         setupUiMessage: (MessageType, String) -> Unit
     ) {
         viewModelScope.launch {
             when (message) {
-                is NetworkResponse.Error -> {
+                is Resource.Error -> {
                     val msg = message.exception.localizedMessage ?: "An unexpected error occurred"
                     setupUiMessage(MessageType.ERROR, msg)
                 }
 
-                is NetworkResponse.Failure -> {
+                is Resource.Failure -> {
                     message.errorBody?.let { setupUiMessage(MessageType.ERROR, it) }
                     "Error ${message.code}: ${message.errorBody}"
                 }
 
-                NetworkResponse.Loading -> {}
+                Resource.Loading -> {}
 
-                is NetworkResponse.Success -> {
+                is Resource.Success -> {
                     setupUiMessage(MessageType.SUCCESS, message.data.message)
                     toggleIsSuccessful()
                 }
@@ -114,7 +114,7 @@ abstract class BaseScreenViewModel : ViewModel() {
         }
     }
 
-    open fun handleResponse(response: NetworkResponse<APIResponseMessage>) {
+    open fun handleResponse(response: Resource<APIResponseMessage>) {
         processApiMessage(response) { messageType: MessageType, message: String ->
             updateUiMessage(messageType, message)
         }

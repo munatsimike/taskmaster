@@ -1,9 +1,9 @@
 package com.example.taskmaster.data.repository
 
-import com.example.taskmaster.data.local.LocalDataSource
+import com.example.taskmaster.data.local.LocalDataSourceImp
 import com.example.taskmaster.data.local.preferences.AccessToken
 import com.example.taskmaster.data.local.preferences.PreferenceKeys.ACCESS_TOKEN_KEY
-import com.example.taskmaster.data.remote.RemoteDataSource
+import com.example.taskmaster.data.remote.RemoteDataSourceImp
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.data.remote.dto.user.UserDetailsDto
 import com.example.taskmaster.domain.LoginRequest
@@ -18,15 +18,15 @@ import retrofit2.Response
 
 class AuthRepositoryTest {
 
-    private lateinit var localDataSource: LocalDataSource
-    private lateinit var remoteDataSource: RemoteDataSource
-    private lateinit var authRepository: AuthRepository
+    private lateinit var localDataSource: LocalDataSourceImp
+    private lateinit var remoteDataSource: RemoteDataSourceImp
+    private lateinit var authRepository: AuthRepositoryImp
 
     @Before
     fun setup() {
-        localDataSource = mockk<LocalDataSource>(relaxed = true)
-        remoteDataSource = mockk<RemoteDataSource>()
-        authRepository = AuthRepository(remoteDataSource, localDataSource)
+        localDataSource = mockk<LocalDataSourceImp>(relaxed = true)
+        remoteDataSource = mockk<RemoteDataSourceImp>()
+        authRepository = AuthRepositoryImp(remoteDataSource, localDataSource)
     }
 
     @Test

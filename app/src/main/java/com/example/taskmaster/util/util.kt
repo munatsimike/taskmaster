@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.example.taskmaster.R
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.LoggedInUser
 import com.example.taskmaster.ui.common.DisplayProgressBar
 import com.example.taskmaster.ui.common.ErrorContent
@@ -103,11 +103,11 @@ fun String.isoStringToLocalDate(): LocalDate {
 
 @Composable
 fun ProcessDashboardState(
-    state: NetworkResponse<DashboardData>,
+    state: Resource<DashboardData>,
     content: @Composable (DashboardData) -> Unit
 ) {
     when (state) {
-        is NetworkResponse.Loading -> {
+        is Resource.Loading -> {
             Box (modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 DisplayProgressBar(
                     message = stringResource(id = R.string.loading_dashboard),
@@ -116,15 +116,15 @@ fun ProcessDashboardState(
             }
         }
 
-        is NetworkResponse.Error -> {
+        is Resource.Error -> {
             ErrorContent("An error occurred: ${state.exception.message}")
         }
 
-        is NetworkResponse.Failure -> {
+        is Resource.Failure -> {
             ErrorContent("Failed to load data: ${state.message}")
         }
 
-        is NetworkResponse.Success -> {
+        is Resource.Success -> {
             // Safely cast to DashboardData
             val dashboardData = state.data
             content(dashboardData)

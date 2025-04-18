@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.taskmaster.R
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.navigation.AppScreen
 import com.example.taskmaster.ui.common.ConfirmDialog
@@ -165,7 +165,7 @@ object Projects {
 @Composable
 private fun HomeScreen(
     onFABVisibility: (Boolean) -> Unit,
-    networkState: NetworkResponse<List<Project>>,
+    networkState: Resource<List<Project>>,
     onInvalidCredentials: () -> Unit,
     onProjectClick: (Project) -> Unit,
     onDeleteProject: (String, String) -> Unit,

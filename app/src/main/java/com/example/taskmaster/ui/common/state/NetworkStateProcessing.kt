@@ -7,12 +7,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.taskmaster.R
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.ui.common.DisplayProgressBar
 
 @Composable
 fun <T> ProcessNetworkState(
-    state: NetworkResponse<List<T>>,
+    state: Resource<List<T>>,
     progressBarText: String = "",
     onInvalidCredentials: () -> Unit = {},
     fabVisibility: (Boolean) -> Unit = {},
@@ -22,7 +22,7 @@ fun <T> ProcessNetworkState(
     ) {
 
     when (state) {
-        is NetworkResponse.Loading -> {
+        is Resource.Loading -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 DisplayProgressBar(
                     message = progressBarText,
@@ -32,7 +32,7 @@ fun <T> ProcessNetworkState(
             fabVisibility(false)
         }
 
-        is NetworkResponse.Error -> {
+        is Resource.Error -> {
             val message =
                 state.exception.localizedMessage ?: stringResource(id = R.string.unexpected_error)
 
@@ -48,7 +48,7 @@ fun <T> ProcessNetworkState(
             fabVisibility(false)
         }
 
-        is NetworkResponse.Failure -> {
+        is Resource.Failure -> {
             if (state.code == 401) {
                 onInvalidCredentials()
             } else {
@@ -59,7 +59,7 @@ fun <T> ProcessNetworkState(
             fabVisibility(false)
         }
 
-        is NetworkResponse.Success -> {
+        is Resource.Success -> {
             content(state.data) // Pass the successful data to the content composable
             fabVisibility(true)
         }

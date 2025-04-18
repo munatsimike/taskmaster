@@ -1,6 +1,6 @@
 package com.example.taskmaster.ui.viewModel
 
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.ui.common.state.CommonUiState
 import com.example.taskmaster.ui.common.state.FormState
 import com.example.taskmaster.ui.model.APIResponseMessage
@@ -70,7 +70,7 @@ abstract class BaseFormViewModel : BaseScreenViewModel() {
         }
     }
 
-    override fun handleResponse(response: NetworkResponse<APIResponseMessage>) {
+    override fun handleResponse(response: Resource<APIResponseMessage>) {
         processApiMessage(response) { messageType: MessageType, message: String ->
             updateUiMessage(messageType, message)
         }

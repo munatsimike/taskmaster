@@ -1,9 +1,9 @@
 package com.example.taskmaster.di
 
-import com.example.taskmaster.data.local.LocalDataSource
-import com.example.taskmaster.data.remote.RemoteDataSource
-import com.example.taskmaster.data.repository.AuthRepository
-import com.example.taskmaster.domain.DataRepository
+import com.example.taskmaster.data.local.LocalDataSourceImp
+import com.example.taskmaster.data.remote.RemoteDataSourceImp
+import com.example.taskmaster.data.repository.AuthRepositoryImp
+import com.example.taskmaster.domain.AuthRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,8 +13,8 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
-    // provide dependency for DataRepository
+    // provide dependency for AuthRepository
     @Provides
-    fun provideAuthRepo(userDataSource: RemoteDataSource, localDataSource: LocalDataSource): DataRepository =
-        AuthRepository(userDataSource, localDataSource)
+    fun provideAuthRepo(userDataSource: RemoteDataSourceImp, localDataSource: LocalDataSourceImp): AuthRepository =
+        AuthRepositoryImp(userDataSource, localDataSource)
 }

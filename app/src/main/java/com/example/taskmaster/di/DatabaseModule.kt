@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.taskmaster.data.local.db.AppDatabase
 import com.example.taskmaster.data.local.db.dao.LoggedInUserDao
+import com.example.taskmaster.data.local.db.dao.ProjectDao
 
 import dagger.Module
 import dagger.Provides
@@ -24,4 +25,7 @@ object DatabaseModule {
 
     @Provides
     fun provideLoggedInDao(database: AppDatabase): LoggedInUserDao = database.loggedInDao
+
+    @Provides
+    fun provideProjectsDao(database: AppDatabase): ProjectDao = database.projectDao
 }

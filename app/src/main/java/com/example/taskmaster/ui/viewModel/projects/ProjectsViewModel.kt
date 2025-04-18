@@ -2,7 +2,7 @@ package com.example.taskmaster.ui.viewModel.projects
 
 
 import androidx.lifecycle.viewModelScope
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.domain.useCases.project.DeleteProjectUseCase
 import com.example.taskmaster.domain.useCases.project.GetProjectsUseCase
@@ -21,8 +21,8 @@ class ProjectsViewModel @Inject constructor(
 ) : UiInteractionViewModel() {
 
     private val _projects =
-        MutableStateFlow<NetworkResponse<List<Project>>>(NetworkResponse.Loading)
-    val projects: StateFlow<NetworkResponse<List<Project>>> = _projects
+        MutableStateFlow<Resource<List<Project>>>(Resource.Loading)
+    val projects: StateFlow<Resource<List<Project>>> = _projects
 
     fun deleteProject(projectId: String?) {
         if (projectId != null) {

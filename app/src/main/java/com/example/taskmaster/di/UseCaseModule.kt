@@ -1,7 +1,7 @@
 package com.example.taskmaster.di
 
-import com.example.taskmaster.data.repository.AuthRepository
-import com.example.taskmaster.domain.DataRepository
+import com.example.taskmaster.data.repository.AuthRepositoryImp
+import com.example.taskmaster.domain.AuthRepository
 import com.example.taskmaster.domain.useCases.auth.GetAccessTokenUseCase
 import com.example.taskmaster.domain.useCases.auth.GetAccessTokenUseCaseImp
 import com.example.taskmaster.domain.useCases.auth.LoginUseCase
@@ -17,16 +17,16 @@ import dagger.hilt.components.SingletonComponent
 object UseCaseModule {
 
     @Provides
-    fun provideLoginUseCase(repo: DataRepository): LoginUseCase {
+    fun provideLoginUseCase(repo: AuthRepository): LoginUseCase {
         return LoginUseCaseImp(repo)
     }
 
     @Provides
-    fun provideFakeAccessTokenUseCase(authRepository: AuthRepository): GetAccessTokenUseCase =
+    fun provideFakeAccessTokenUseCase(authRepository: AuthRepositoryImp): GetAccessTokenUseCase =
         GetAccessTokenUseCaseImp(
             authRepository
         )
 
     @Provides
-    fun provideFakeLogoutUseCase(authRepository: AuthRepository): LogoutUseCaseImp = LogoutUseCaseImp(authRepository)
+    fun provideFakeLogoutUseCase(authRepository: AuthRepositoryImp): LogoutUseCaseImp = LogoutUseCaseImp(authRepository)
 }

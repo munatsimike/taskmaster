@@ -1,7 +1,7 @@
 package com.example.taskmaster.ui.viewModel.projects
 
 import androidx.lifecycle.viewModelScope
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.domain.useCases.project.AddEditProjectUseCase
 import com.example.taskmaster.ui.viewModel.BaseFormViewModel
@@ -71,7 +71,7 @@ class ProjectFormViewModel @Inject constructor(
                 handleSubmitBtnClick()
             }
         } else {
-            NetworkResponse.Error(Exception("Name and description cannot be empty"))
+            Resource.Error(Exception("Name and description cannot be empty"))
         }
     }
 }

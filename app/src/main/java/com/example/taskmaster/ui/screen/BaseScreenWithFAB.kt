@@ -23,8 +23,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -182,7 +180,7 @@ fun DisplayUsernameBackButtonRow(
 fun DisplayBackButton(
     showBackButton: Boolean,
     onButtonClick: () -> Unit,
-    tint: Color = MaterialTheme.colorScheme.onPrimary,
+    tint: Color = MaterialTheme.colorScheme.onSurface,
     modifier: Modifier = Modifier
 ) {
     if (showBackButton) {
@@ -201,9 +199,9 @@ fun DisplayBackButton(
         ) {
 
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                imageVector = ImageVector.vectorResource(R.drawable.arrow_back_ios_new_24px),
                 tint = tint,
-                modifier = Modifier.size(30.dp),
+                modifier = Modifier.size(25.dp),
                 contentDescription = null
             )
         }
@@ -310,16 +308,16 @@ private fun ProjectTitleAndCurrentScreen(headerData: HeaderData, modifier: Modif
             imageVector = ImageVector.vectorResource(id = R.drawable.house_24px),
             contentDescription = "",
             modifier.size(30.dp),
-            tint = MaterialTheme.colorScheme.onPrimary
+            tint = MaterialTheme.colorScheme.onSurface
         )
         if (headerData.projectTitle.isNotBlank())
-            Text(text = headerData.projectTitle, color = MaterialTheme.colorScheme.onPrimary)
+            Text(text = headerData.projectTitle, color = MaterialTheme.colorScheme.onSurface)
 
         Text(
             text = headerData.currentPage,
             fontWeight = FontWeight.Bold,
             fontSize = 19.sp,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onSurface
         )
     }
 }

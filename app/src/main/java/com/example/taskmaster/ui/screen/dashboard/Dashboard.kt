@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.LoggedInUser
 import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.navigation.AppScreen
@@ -40,7 +40,7 @@ object Dashboard {
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
 
         val result by dashBoardViewModel.getDashBoardData(project.id)
-            .collectAsState(initial = NetworkResponse.Loading)
+            .collectAsState(initial = Resource.Loading)
 
         DisplayDashboard(
             result, navController, project, loggedInUser
@@ -49,7 +49,7 @@ object Dashboard {
 
     @Composable
     private fun DisplayDashboard(
-        items: NetworkResponse<DashboardData>,
+        items: Resource<DashboardData>,
         navController: NavController,
         project: Project,
         loggedInUser: LoggedInUser,
@@ -62,6 +62,7 @@ object Dashboard {
                     loggedInUser = loggedInUser,
                     projectName = project.name,
                     currentPage = AppScreen.Dashboard.title,
+                    showBackBtn = true
                 )
             ) { navController.popBackStack() }
                 ProcessDashboardState(items, navController)
@@ -70,7 +71,7 @@ object Dashboard {
 
     @Composable
     private fun ProcessDashboardState(
-        networkState: NetworkResponse<DashboardData>,
+        networkState: Resource<DashboardData>,
         navController: NavController,
     ) {
         ProcessDashboardState(state = networkState) { dashBoardData: DashboardData ->

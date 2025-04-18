@@ -1,14 +1,16 @@
 package com.example.taskmaster.data.repository
 
 import com.example.taskmaster.data.local.LocalDataSource
+import com.example.taskmaster.data.local.db.enties.ProjectEntity
 import com.example.taskmaster.data.mapper.APIResponseMapper.toApiResponseMessage
 import com.example.taskmaster.data.mapper.BudgetPhaseMapper.toLstOfDashBoardBudgetPhaseModel
 import com.example.taskmaster.data.mapper.OrfiMapper.toLstOfOrfiModel
-import com.example.taskmaster.data.mapper.ProjectMapper.toListOfDomainProject
-import com.example.taskmaster.data.mapper.ProjectMapper.toTotalsModel
 import com.example.taskmaster.data.mapper.ScheduleMapper.toListOfScheduleModel
+import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toListOfDomainProject
+import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toTotalsModel
 import com.example.taskmaster.data.remote.RemoteDataSource
-import com.example.taskmaster.data.remote.api.NetworkResponse
+import com.example.taskmaster.data.remote.api.Resource
+import com.example.taskmaster.domain.ProjectRepository
 import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.ui.model.APIResponseMessage
 import com.example.taskmaster.ui.model.DashboardData
@@ -16,19 +18,19 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
- * ProjectsRepo is responsible for managing data operations by communicating
+ * ProjectsRepoImp is responsible for managing data operations by communicating
  * with various data sources, such as remote and local sources, to fetch, process,
  * and convert data into domain models suitable for use within the app.
  */
-class ProjectsRepo @Inject constructor(
+class ProjectsRepoImp @Inject constructor(
     override val remoteDataSource: RemoteDataSource,
-    val localDataSource: LocalDataSource,
-) : BaseRepository(remoteDataSource) {
+    val localDataSourceImp: LocalDataSource
+) : ProjectRepository, BaseRepository(remoteDataSource) {
 
-    fun addOrEditNewProject(
+    override fun addOrEditNewProject(
         addEditProject: Project,
         isEditing: Boolean
-    ): Flow<NetworkResponse<APIResponseMessage>> =
+    ): Flow<Resource<APIResponseMessage>> =
         processApiResponse(
             call = { remoteDataSource.addOrEditNewProject(addEditProject, isEditing) },
             onSuccess = { response ->
@@ -36,7 +38,7 @@ class ProjectsRepo @Inject constructor(
             }
         )
 
-    fun deleteProject(projectId: String): Flow<NetworkResponse<APIResponseMessage>> =
+    override fun deleteProject(projectId: String): Flow<Resource<APIResponseMessage>> =
         processApiResponse(
             call = { remoteDataSource.deleteProject(projectId) },
             onSuccess = { response ->
@@ -44,13 +46,13 @@ class ProjectsRepo @Inject constructor(
             }
         )
 
-    fun getProjects(): Flow<NetworkResponse<List<Project>>> =
+    override fun getProjects(): Flow<Resource<List<Project>>> =
         processApiResponse(call = { remoteDataSource.getProjects() } // Wrap the call in a suspending lambda
         ) { response ->
             response.toListOfDomainProject() // Transform the response body to a list of domain models
         }
 
-    fun getProjectDashboard(projectId: String): Flow<NetworkResponse<DashboardData>> =
+    override fun getProjectDashboard(projectId: String): Flow<Resource<DashboardData>> =
         processApiResponse(
             call = { remoteDataSource.getProjectDashboard(projectId) }
         ) { response ->
@@ -62,4 +64,8 @@ class ProjectsRepo @Inject constructor(
                 totals = totalsModel
             )
         }
+
+    override suspend fun saveProjectsToDb(entity: ProjectEntity) {
+        TODO("Not yet implemented")
+    }
 }

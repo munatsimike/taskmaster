@@ -1,4 +1,4 @@
-package com.example.taskmaster.data.mapper
+package com.example.taskmaster.data.mapper.project
 
 import com.example.taskmaster.data.remote.dto.CreateProjectRequestDto
 import com.example.taskmaster.data.remote.dto.ProjectDto
@@ -16,8 +16,7 @@ import com.example.taskmaster.ui.model.Totals
  * to the remote data source.
  */
 
-object ProjectMapper {
-
+object ProjectDomainToDtoMapper {
 
     private fun ProjectDto.toDomainProject(): Project {
         return Project(
