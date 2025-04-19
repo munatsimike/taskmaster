@@ -13,13 +13,13 @@ abstract class BaseRepository(
     protected open val remoteDataSource: RemoteDataSource
 ){
 
-    fun <T, R, E> processAndCacheApiResponse(
-        call: suspend () -> Response<T>,
-        toEntityMapper: (T) -> List<E>,
-        saveEntities: suspend (List<E>) -> Unit,
-        fromEntityMapper: (E) -> R,
-        fetchEntities: () -> Flow<List<E>>
-    ): Flow<Resource<List<R>>> = flow {
+    fun <DtoModel, DomainModel, EntityModel> processAndCacheApiResponse(
+        call: suspend () -> Response<DtoModel>,
+        toEntityMapper: (DtoModel) -> List<EntityModel>,
+        saveEntities: suspend (List<EntityModel>) -> Unit,
+        fromEntityMapper: (EntityModel) -> DomainModel,
+        fetchEntities: () -> Flow<List<EntityModel>>
+    ): Flow<Resource<List<DomainModel>>> = flow {
         emit(Resource.Loading)
 
         val response = call()
@@ -44,10 +44,10 @@ abstract class BaseRepository(
     }
 
     // Generic function to process API response and emit a Resource
-    fun <T, R> processApiResponse(
-        call: suspend () -> Response<T>, // Make `call` a suspending function
-        onSuccess: (T) -> R
-    ): Flow<Resource<R>> = flow {
+    fun <ResponseModel, MappedModel> processApiResponse(
+        call: suspend () -> Response<ResponseModel>, // Make `call` a suspending function
+        onSuccess: (ResponseModel) -> MappedModel
+    ): Flow<Resource<MappedModel>> = flow {
         // Call the suspending function inside the flow
         val result = call()
         if (result.isSuccessful) {
