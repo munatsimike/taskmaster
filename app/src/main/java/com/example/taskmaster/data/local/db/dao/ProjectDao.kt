@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveProjects(projects: List<ProjectEntity>)
+    suspend fun saveProjects(projects: List<ProjectEntity>)
 
     @Query("SELECT * FROM projects")
     fun getAllProjects(): Flow<List<ProjectEntity>>

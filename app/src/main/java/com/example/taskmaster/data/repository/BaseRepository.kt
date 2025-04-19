@@ -12,6 +12,37 @@ import java.util.concurrent.CancellationException
 abstract class BaseRepository(
     protected open val remoteDataSource: RemoteDataSource
 ){
+
+    fun <T, R, E> processAndCacheApiResponse(
+        call: suspend () -> Response<T>,
+        toEntityMapper: (T) -> List<E>,
+        saveEntities: suspend (List<E>) -> Unit,
+        fromEntityMapper: (E) -> R,
+        fetchEntities: () -> Flow<List<E>>
+    ): Flow<Resource<List<R>>> = flow {
+        emit(Resource.Loading)
+
+        val response = call()
+
+        if (response.isSuccessful) {
+            response.body()?.let { body ->
+                val entities = toEntityMapper(body)
+                saveEntities(entities) // Save to DB
+            } ?: emit(Resource.Failure(null, "Response body is null", null))
+        } else {
+            emit(Resource.Failure(response.code(), response.message(), response.errorBody()?.string()))
+        }
+
+        fetchEntities().collect { entities ->
+            val domainModels = entities.map { fromEntityMapper(it) }
+            emit(Resource.Success(domainModels))
+        }
+    }.catch { e ->
+        if (e is CancellationException) throw e
+        Timber.e(e, "Error in processAndCacheApiResponse")
+        emit(Resource.Error(e))
+    }
+
     // Generic function to process API response and emit a Resource
     fun <T, R> processApiResponse(
         call: suspend () -> Response<T>, // Make `call` a suspending function

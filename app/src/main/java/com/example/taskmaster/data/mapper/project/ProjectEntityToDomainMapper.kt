@@ -4,7 +4,7 @@ import com.example.taskmaster.data.local.db.enties.ProjectEntity
 import com.example.taskmaster.data.mapper.EntityToDomain
 import com.example.taskmaster.domain.model.project.Project
 
-class ProjectEntityToDomainMapper: EntityToDomain<ProjectEntity, Project> {
+object ProjectEntityToDomainMapper: EntityToDomain<ProjectEntity, Project> {
     override fun ProjectEntity.toDomainModel(): Project {
         return Project(
             id = this.id,

@@ -10,7 +10,7 @@ import com.example.taskmaster.data.local.preferences.EncryptedPreferenceManager
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class LocalDataSourceImp @Inject constructor(
+class LocalDataSourceImpl @Inject constructor(
     private val encryptedPreferenceManager: EncryptedPreferenceManager,
     private val loggedInUserDao: LoggedInUserDao,
     private val projectDao: ProjectDao
@@ -50,5 +50,4 @@ class LocalDataSourceImp @Inject constructor(
     override fun getAllProjects(): Flow<List<ProjectEntity>> {
      return  projectDao.getAllProjects()
     }
-
 }

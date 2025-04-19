@@ -19,5 +19,6 @@ interface ProjectRepository {
     fun getProjects(): Flow<Resource<List<Project>>>
 
     fun getProjectDashboard(projectId: String): Flow<Resource<DashboardData>>
-    suspend fun saveProjectsToDb(entity: ProjectEntity)
+    suspend fun saveProjectsToDb(projects: List<ProjectEntity>)
+    fun getAllProjects(): Flow<List<ProjectEntity>>
 }

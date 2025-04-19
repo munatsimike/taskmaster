@@ -6,8 +6,9 @@ import com.example.taskmaster.data.mapper.APIResponseMapper.toApiResponseMessage
 import com.example.taskmaster.data.mapper.BudgetPhaseMapper.toLstOfDashBoardBudgetPhaseModel
 import com.example.taskmaster.data.mapper.OrfiMapper.toLstOfOrfiModel
 import com.example.taskmaster.data.mapper.ScheduleMapper.toListOfScheduleModel
-import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toListOfDomainProject
 import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toTotalsModel
+import com.example.taskmaster.data.mapper.project.ProjectDtoToEntityMapper.toEntityList
+import com.example.taskmaster.data.mapper.project.ProjectEntityToDomainMapper.toDomainModel
 import com.example.taskmaster.data.remote.RemoteDataSource
 import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.ProjectRepository
@@ -47,10 +48,13 @@ class ProjectsRepoImp @Inject constructor(
         )
 
     override fun getProjects(): Flow<Resource<List<Project>>> =
-        processApiResponse(call = { remoteDataSource.getProjects() } // Wrap the call in a suspending lambda
-        ) { response ->
-            response.toListOfDomainProject() // Transform the response body to a list of domain models
-        }
+        processAndCacheApiResponse(
+            call = { remoteDataSource.getProjects() },
+            toEntityMapper = { it.toEntityList() },
+            saveEntities = { localDataSourceImp.saveProjects(it) },
+            fromEntityMapper = { it.toDomainModel() },
+            fetchEntities = { localDataSourceImp.getAllProjects() }
+        )
 
     override fun getProjectDashboard(projectId: String): Flow<Resource<DashboardData>> =
         processApiResponse(
@@ -65,7 +69,10 @@ class ProjectsRepoImp @Inject constructor(
             )
         }
 
-    override suspend fun saveProjectsToDb(entity: ProjectEntity) {
-        TODO("Not yet implemented")
+    override suspend fun saveProjectsToDb(projects: List<ProjectEntity>) {
+        localDataSourceImp.saveProjects(projects)
     }
+
+    override fun getAllProjects(): Flow<List<ProjectEntity>> = localDataSourceImp.getAllProjects()
+
 }

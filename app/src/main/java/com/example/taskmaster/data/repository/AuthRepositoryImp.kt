@@ -1,13 +1,13 @@
 package com.example.taskmaster.data.repository
 
-import com.example.taskmaster.data.local.LocalDataSourceImp
+import com.example.taskmaster.data.local.LocalDataSourceImpl
 import com.example.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.example.taskmaster.data.local.preferences.AccessToken
 import com.example.taskmaster.data.local.preferences.PreferenceKeys.ACCESS_TOKEN_KEY
 import com.example.taskmaster.data.mapper.AuthMapper.toDomainUser
 import com.example.taskmaster.data.mapper.AuthMapper.toLoggedInUser
 import com.example.taskmaster.data.mapper.AuthMapper.toLoggedInUserEntity
-import com.example.taskmaster.data.remote.RemoteDataSourceImp
+import com.example.taskmaster.data.remote.RemoteDataSourceImpl
 import com.example.taskmaster.domain.AuthRepository
 import com.example.taskmaster.domain.LoggedInUser
 import com.example.taskmaster.domain.LoginRequest
@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AuthRepositoryImp @Inject  constructor(
-    private val remoteDataSource: RemoteDataSourceImp,
-    private val localDataSource: LocalDataSourceImp
+    private val remoteDataSource: RemoteDataSourceImpl,
+    private val localDataSource: LocalDataSourceImpl
 ): AuthRepository {
     /**
      * This function interacts with Remotedatasource to perform login operations

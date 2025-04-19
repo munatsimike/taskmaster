@@ -5,7 +5,7 @@ data class ProjectDto(
     val createdAt: String,
     val description: String,
     val id: String,
-    val isDeleted: Any,
+    val isDeleted: Int,
     val name: String,
     val thumbnailUrl: String?,
     val updatedAt: String?

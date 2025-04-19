@@ -15,10 +15,10 @@ import retrofit2.Response
 import javax.inject.Inject
 
 /**
- *  * RemoteDataSourceImp is responsible for interacting with the remote server to access and manage data.
+ *  * RemoteDataSourceImpl is responsible for interacting with the remote server to access and manage data.
  *  * It acts as a bridge between the data service (Retrofit interface) and the repository layer,
  */
-class RemoteDataSourceImp @Inject constructor(
+class RemoteDataSourceImpl @Inject constructor(
     private val authService: AuthService,
     private val projectService: ProjectService,
 ): RemoteDataSource {

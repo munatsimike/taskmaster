@@ -18,14 +18,14 @@ import retrofit2.Response
 class RemoteDataSourceTest {
 
     private lateinit var authService: AuthService
-    private lateinit var remoteDataSource: RemoteDataSourceImp
+    private lateinit var remoteDataSource: RemoteDataSourceImpl
     private lateinit var projectService: ProjectService
 
     @Before
     fun setup() {
         authService = mockk<AuthService>()
         projectService = mockk<ProjectService>()
-        remoteDataSource = RemoteDataSourceImp(authService, projectService)
+        remoteDataSource = RemoteDataSourceImpl(authService, projectService)
     }
 
     @Test
