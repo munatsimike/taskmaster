@@ -1,6 +1,5 @@
 package com.example.taskmaster.data.repository
 
-import com.example.taskmaster.data.remote.RemoteDataSource
 import com.example.taskmaster.data.remote.api.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -9,38 +8,45 @@ import retrofit2.Response
 import timber.log.Timber
 import java.util.concurrent.CancellationException
 
-abstract class BaseRepository(
-    protected open val remoteDataSource: RemoteDataSource
-){
+abstract class BaseRepository {
 
     fun <DtoModel, DomainModel, EntityModel> processAndCacheApiResponse(
         call: suspend () -> Response<DtoModel>,
         toEntityMapper: (DtoModel) -> List<EntityModel>,
-        saveEntities: suspend (List<EntityModel>) -> Unit,
-        fromEntityMapper: (EntityModel) -> DomainModel,
-        fetchEntities: () -> Flow<List<EntityModel>>
+        saveEntities: suspend (List<EntityModel>) -> Unit
+    ): Flow<Resource<List<DomainModel>>> = flow {
+        emit(Resource.Loading)
+        try {
+            val response = call()
+            if (response.isSuccessful) {
+                response.body()?.let { body ->
+                    val entities = toEntityMapper(body)
+                    saveEntities(entities) // Save fresh data
+                } ?: emit(Resource.Failure(null, "Response body is null", null))
+            } else {
+                emit(Resource.Failure(response.code(), response.message(), response.errorBody()?.string()))
+            }
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            Timber.e(e, "Network call failed")
+            emit(Resource.Failure(null, e.localizedMessage ?: "Network error", null))
+        }
+    }
+
+    fun <EntityModel, DomainModel> fetchFromLocalDb(
+        fetchEntities: () -> Flow<List<EntityModel>>,
+        fromEntityMapper: (EntityModel) -> DomainModel
     ): Flow<Resource<List<DomainModel>>> = flow {
         emit(Resource.Loading)
 
-        val response = call()
-
-        if (response.isSuccessful) {
-            response.body()?.let { body ->
-                val entities = toEntityMapper(body)
-                saveEntities(entities) // Save to DB
-            } ?: emit(Resource.Failure(null, "Response body is null", null))
-        } else {
-            emit(Resource.Failure(response.code(), response.message(), response.errorBody()?.string()))
-        }
-
         fetchEntities().collect { entities ->
-            val domainModels = entities.map { fromEntityMapper(it) }
-            emit(Resource.Success(domainModels))
+            if (entities.isEmpty()) {
+                emit(Resource.Failure(null, "NO_DATA", null))
+            } else {
+                val domainModels = entities.map { fromEntityMapper(it) }
+                emit(Resource.Success(domainModels))
+            }
         }
-    }.catch { e ->
-        if (e is CancellationException) throw e
-        Timber.e(e, "Error in processAndCacheApiResponse")
-        emit(Resource.Error(e))
     }
 
     // Generic function to process API response and emit a Resource

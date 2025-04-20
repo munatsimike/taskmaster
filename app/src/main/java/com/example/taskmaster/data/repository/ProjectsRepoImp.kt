@@ -16,6 +16,8 @@ import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.ui.model.APIResponseMessage
 import com.example.taskmaster.ui.model.DashboardData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 /**
@@ -24,16 +26,16 @@ import javax.inject.Inject
  * and convert data into domain models suitable for use within the app.
  */
 class ProjectsRepoImp @Inject constructor(
-    override val remoteDataSource: RemoteDataSource,
-    val localDataSourceImp: LocalDataSource
-) : ProjectRepository, BaseRepository(remoteDataSource) {
+    private val remoteDataSourceImpl: RemoteDataSource,
+    private val localDataSourceImpl: LocalDataSource
+) : ProjectRepository, BaseRepository() {
 
     override fun addOrEditNewProject(
         addEditProject: Project,
         isEditing: Boolean
     ): Flow<Resource<APIResponseMessage>> =
         processApiResponse(
-            call = { remoteDataSource.addOrEditNewProject(addEditProject, isEditing) },
+            call = { remoteDataSourceImpl.addOrEditNewProject(addEditProject, isEditing) },
             onSuccess = { response ->
                 response.toApiResponseMessage()
             }
@@ -41,24 +43,28 @@ class ProjectsRepoImp @Inject constructor(
 
     override fun deleteProject(projectId: String): Flow<Resource<APIResponseMessage>> =
         processApiResponse(
-            call = { remoteDataSource.deleteProject(projectId) },
+            call = { remoteDataSourceImpl.deleteProject(projectId) },
             onSuccess = { response ->
                 response
             }
         )
 
-    override fun getProjects(): Flow<Resource<List<Project>>> =
-        processAndCacheApiResponse(
-            call = { remoteDataSource.getProjects() },
+    override fun getProjects(): Flow<Resource<List<Project>>> = flow {
+        emitAll(processAndCacheApiResponse(
+            call = { remoteDataSourceImpl.getProjects() },
             toEntityMapper = { it.toEntityList() },
-            saveEntities = { localDataSourceImp.saveProjects(it) },
-            fromEntityMapper = { it.toDomainModel() },
-            fetchEntities = { localDataSourceImp.getAllProjects() }
-        )
+            saveEntities = { localDataSourceImpl.saveProjects(it) }
+        ))
+
+        emitAll(fetchFromLocalDb(
+            fetchEntities = { localDataSourceImpl.getAllProjects() },
+            fromEntityMapper = { it.toDomainModel() }
+        ))
+    }
 
     override fun getProjectDashboard(projectId: String): Flow<Resource<DashboardData>> =
         processApiResponse(
-            call = { remoteDataSource.getProjectDashboard(projectId) }
+            call = { remoteDataSourceImpl.getProjectDashboard(projectId) }
         ) { response ->
             val totalsModel = response.totals.toTotalsModel()
             DashboardData(
@@ -70,9 +76,8 @@ class ProjectsRepoImp @Inject constructor(
         }
 
     override suspend fun saveProjectsToDb(projects: List<ProjectEntity>) {
-        localDataSourceImp.saveProjects(projects)
+        localDataSourceImpl.saveProjects(projects)
     }
 
-    override fun getAllProjects(): Flow<List<ProjectEntity>> = localDataSourceImp.getAllProjects()
-
+    override fun getAllProjects(): Flow<List<ProjectEntity>> = localDataSourceImpl.getAllProjects()
 }
