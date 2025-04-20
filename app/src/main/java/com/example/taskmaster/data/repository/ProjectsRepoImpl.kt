@@ -21,11 +21,11 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 /**
- * ProjectsRepoImp is responsible for managing data operations by communicating
+ * ProjectsRepoImpl is responsible for managing data operations by communicating
  * with various data sources, such as remote and local sources, to fetch, process,
  * and convert data into domain models suitable for use within the app.
  */
-class ProjectsRepoImp @Inject constructor(
+class ProjectsRepoImpl @Inject constructor(
     private val remoteDataSourceImpl: RemoteDataSource,
     private val localDataSourceImpl: LocalDataSource
 ) : ProjectRepository, BaseRepository() {
@@ -64,7 +64,7 @@ class ProjectsRepoImp @Inject constructor(
 
     override fun getProjectDashboard(projectId: String): Flow<Resource<DashboardData>> =
         processApiResponse(
-            call = { remoteDataSourceImpl.getProjectDashboard(projectId) }
+            call = { remoteDataSourceImpl.getDashboard(projectId) }
         ) { response ->
             val totalsModel = response.totals.toTotalsModel()
             DashboardData(

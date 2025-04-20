@@ -24,7 +24,7 @@ interface ProjectService {
     suspend fun getProjects(): Response<List<ProjectDto>>
 
     @GET("projects/dashboard/{id}")
-    suspend fun getProjectDashboard(@Path("id") projectId: String): Response<DashboardAPiResponseDto>
+    suspend fun getDashboard(@Path("id") projectId: String): Response<DashboardAPiResponseDto>
 
     @POST("projects")
     suspend fun createNewProject(@Body addProjectRequest: CreateProjectRequestDto): Response<AddNewProjectResponseDto>

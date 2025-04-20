@@ -18,5 +18,5 @@ interface RemoteDataSource {
 
     suspend fun deleteProject(projectId: String): Response<APIResponseMessage>
 
-    suspend fun getProjectDashboard(projectId: String): Response<DashboardAPiResponseDto>
+    suspend fun getDashboard(projectId: String): Response<DashboardAPiResponseDto>
 }

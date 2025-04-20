@@ -49,7 +49,7 @@ class RemoteDataSourceImpl @Inject constructor(
         return projectService.deleteProject(projectId)
     }
 
-    override suspend fun getProjectDashboard(projectId: String): Response<DashboardAPiResponseDto> {
-        return projectService.getProjectDashboard(projectId)
+    override suspend fun getDashboard(projectId: String): Response<DashboardAPiResponseDto> {
+        return projectService.getDashboard(projectId)
     }
 }
