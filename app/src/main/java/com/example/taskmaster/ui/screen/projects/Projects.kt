@@ -1,5 +1,6 @@
 package com.example.taskmaster.ui.screen.projects
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -47,7 +48,6 @@ import com.example.taskmaster.navigation.AppScreen
 import com.example.taskmaster.ui.common.ConfirmDialog
 import com.example.taskmaster.ui.common.CustomCard
 import com.example.taskmaster.ui.common.DisplayProgressBar
-import com.example.taskmaster.ui.common.FailureWithRetry
 import com.example.taskmaster.ui.common.imageDisplay.NetworkImageLoader
 import com.example.taskmaster.ui.common.menu.DeleteEditOptionsMenu
 import com.example.taskmaster.ui.common.snackbar.CustomSnackbarHostState
@@ -90,6 +90,7 @@ object Projects {
 
         LaunchedEffect(loggedInUser.id, screenState.triggerFetch) {
             projectsViewModel.getAllProjects()
+            projectsViewModel.updateProjects()
         }
 
         DisplaySnackBar(
@@ -122,7 +123,7 @@ object Projects {
                 loggedInUser = loggedInUser,
                 projectName = stringResource(id = R.string.empty_string),
                 currentPage = AppScreen.Projects.title,
-            ), onLogoutClick = {authViewModel.logout()}
+            ), onLogoutClick = { authViewModel.logout() }
         ) {
             // check if there is a bearer token
             if (loginUiState.hasToken) {
@@ -178,7 +179,7 @@ private fun HomeScreen(
         ProcessNetworkState(
             onInvalidCredentials = onInvalidCredentials,
             onErrorFailure = { msg: String ->
-                FailureWithRetry(onRetry = onRetry, errorMsg = msg)
+                Log.i("mik", msg)
             },
             progressBarText = stringResource(id = R.string.loading_projects),
             fabVisibility = onFABVisibility,

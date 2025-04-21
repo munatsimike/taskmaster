@@ -18,7 +18,6 @@ fun <T> ProcessNetworkState(
     fabVisibility: (Boolean) -> Unit = {},
     onErrorFailure: @Composable (String) -> Unit = {},
     content: @Composable (List<T>) -> Unit,
-
     ) {
 
     when (state) {

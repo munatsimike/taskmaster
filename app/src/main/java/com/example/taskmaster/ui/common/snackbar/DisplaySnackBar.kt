@@ -49,7 +49,6 @@ private fun LaunchSnackBar(
                     message = message,
                     type = messageType
                 )
-
             )
             if (result == SnackbarResult.Dismissed) {
                 onDismissed()

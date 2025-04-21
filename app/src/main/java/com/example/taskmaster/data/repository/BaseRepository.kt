@@ -10,12 +10,14 @@ import java.util.concurrent.CancellationException
 
 abstract class BaseRepository {
 
-    fun <DtoModel, DomainModel, EntityModel> processAndCacheApiResponse(
+    fun <DtoModel,EntityModel> processAndCacheApiResponse(
         call: suspend () -> Response<DtoModel>,
         toEntityMapper: (DtoModel) -> List<EntityModel>,
         saveEntities: suspend (List<EntityModel>) -> Unit
-    ): Flow<Resource<List<DomainModel>>> = flow {
+    ): Flow<Resource<Unit>> = flow {
+
         emit(Resource.Loading)
+
         try {
             val response = call()
             if (response.isSuccessful) {

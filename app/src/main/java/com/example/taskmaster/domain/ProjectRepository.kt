@@ -16,6 +16,8 @@ interface ProjectRepository {
 
     fun deleteProject(projectId: String): Flow<Resource<APIResponseMessage>>
 
+   fun updateProjects():  Flow<Resource<Unit>>
+
     fun getProjects(): Flow<Resource<List<Project>>>
 
     fun getProjectDashboard(projectId: String): Flow<Resource<DashboardData>>

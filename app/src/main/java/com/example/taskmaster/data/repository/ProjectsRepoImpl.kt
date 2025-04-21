@@ -50,15 +50,18 @@ class ProjectsRepoImpl @Inject constructor(
         )
 
     override fun getProjects(): Flow<Resource<List<Project>>> = flow {
+        emitAll(fetchFromLocalDb(
+            fetchEntities = { localDataSourceImpl.getAllProjects() },
+            fromEntityMapper = { it.toDomainModel() }
+        ))
+    }
+
+    // 2. Update local database from remote
+    override fun updateProjects(): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSourceImpl.getProjects() },
             toEntityMapper = { it.toEntityList() },
             saveEntities = { localDataSourceImpl.saveProjects(it) }
-        ))
-
-        emitAll(fetchFromLocalDb(
-            fetchEntities = { localDataSourceImpl.getAllProjects() },
-            fromEntityMapper = { it.toDomainModel() }
         ))
     }
 
