@@ -9,9 +9,9 @@ import com.example.taskmaster.data.remote.dto.ProjectResponseDto
 import com.example.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.domain.LoginRequest
-import com.example.taskmaster.domain.model.APIResponse
+import com.example.taskmaster.domain.model.RemoteResponse
 import com.example.taskmaster.domain.model.project.Project
-import com.example.taskmaster.ui.model.APIResponseMessage
+import com.example.taskmaster.ui.model.ResponseMessage
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -38,7 +38,7 @@ class RemoteDataSourceImpl @Inject constructor(
         return projectService.getProjects()
     }
 
-    override suspend fun addOrEditNewProject(projectRequest: Project, isEditing: Boolean): Response<out APIResponse> {
+    override suspend fun addOrEditNewProject(projectRequest: Project, isEditing: Boolean): Response<out RemoteResponse> {
         if (isEditing) {
             val updateRequest = projectRequest.toUpdateProjectRequestDto()
             return projectService.updateProject(updateRequest.id, updateRequest)
@@ -47,7 +47,7 @@ class RemoteDataSourceImpl @Inject constructor(
         return projectService.createNewProject(projectRequest.toCreateNewProjectRequest())
     }
 
-    override suspend fun deleteProject(projectId: String): Response<APIResponseMessage> {
+    override suspend fun deleteProject(projectId: String): Response<ResponseMessage> {
         return projectService.deleteProject(projectId)
     }
 

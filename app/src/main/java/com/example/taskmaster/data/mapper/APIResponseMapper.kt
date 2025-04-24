@@ -1,11 +1,11 @@
 package com.example.taskmaster.data.mapper
 
-import com.example.taskmaster.domain.model.APIResponse
-import com.example.taskmaster.ui.model.APIResponseMessage
+import com.example.taskmaster.domain.model.RemoteResponse
+import com.example.taskmaster.ui.model.ResponseMessage
 
 object APIResponseMapper {
-    fun APIResponse.toApiResponseMessage(): APIResponseMessage {
-        return APIResponseMessage(
+    fun RemoteResponse.toApiResponseMessage(): ResponseMessage {
+        return ResponseMessage(
             message = message
         )
     }

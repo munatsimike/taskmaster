@@ -3,8 +3,8 @@ package com.example.taskmaster.ui.viewModel
 import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.ui.common.state.CommonUiState
 import com.example.taskmaster.ui.common.state.FormState
-import com.example.taskmaster.ui.model.APIResponseMessage
 import com.example.taskmaster.ui.model.MessageType
+import com.example.taskmaster.ui.model.ResponseMessage
 import com.example.taskmaster.ui.model.UiMessage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -70,7 +70,7 @@ abstract class BaseFormViewModel : BaseScreenViewModel() {
         }
     }
 
-    override fun handleResponse(response: Resource<APIResponseMessage>) {
+    override fun handleResponse(response: Resource<ResponseMessage>) {
         processApiMessage(response) { messageType: MessageType, message: String ->
             updateUiMessage(messageType, message)
         }

@@ -1,6 +1,6 @@
 package com.example.taskmaster.domain.model
 
-interface APIResponse {
+interface RemoteResponse {
     val message: String
 }
 

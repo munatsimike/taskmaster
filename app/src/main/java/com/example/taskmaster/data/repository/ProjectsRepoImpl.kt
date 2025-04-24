@@ -9,7 +9,7 @@ import com.example.taskmaster.data.remote.RemoteDataSource
 import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.ProjectRepository
 import com.example.taskmaster.domain.model.project.Project
-import com.example.taskmaster.ui.model.APIResponseMessage
+import com.example.taskmaster.ui.model.ResponseMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -28,7 +28,7 @@ class ProjectsRepoImpl @Inject constructor(
     override fun addOrEditNewProject(
         addEditProject: Project,
         isEditing: Boolean
-    ): Flow<Resource<APIResponseMessage>> =
+    ): Flow<Resource<ResponseMessage>> =
         processApiResponse(
             call = { remoteDataSourceImpl.addOrEditNewProject(addEditProject, isEditing) },
             onSuccess = { response ->
@@ -36,7 +36,7 @@ class ProjectsRepoImpl @Inject constructor(
             }
         )
 
-    override fun deleteProject(projectId: String): Flow<Resource<APIResponseMessage>> =
+    override fun deleteProject(projectId: String): Flow<Resource<ResponseMessage>> =
         processApiResponse(
             call = { remoteDataSourceImpl.deleteProject(projectId) },
             onSuccess = { response ->

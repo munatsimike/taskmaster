@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.ui.common.state.CommonUiState
 import com.example.taskmaster.ui.common.state.FormState
-import com.example.taskmaster.ui.model.APIResponseMessage
 import com.example.taskmaster.ui.model.MessageType
+import com.example.taskmaster.ui.model.ResponseMessage
 import com.example.taskmaster.ui.model.UiMessage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -53,7 +53,7 @@ abstract class BaseScreenViewModel : ViewModel() {
     }
 
     protected fun processApiMessage(
-        message: Resource<APIResponseMessage>,
+        message: Resource<ResponseMessage>,
         setupUiMessage: (MessageType, String) -> Unit
     ) {
         viewModelScope.launch {
@@ -114,7 +114,7 @@ abstract class BaseScreenViewModel : ViewModel() {
         }
     }
 
-    open fun handleResponse(response: Resource<APIResponseMessage>) {
+    open fun handleResponse(response: Resource<ResponseMessage>) {
         processApiMessage(response) { messageType: MessageType, message: String ->
             updateUiMessage(messageType, message)
         }

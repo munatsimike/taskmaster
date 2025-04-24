@@ -5,7 +5,7 @@ import com.example.taskmaster.data.remote.dto.CreateProjectRequestDto
 import com.example.taskmaster.data.remote.dto.ProjectResponseDto
 import com.example.taskmaster.data.remote.dto.UpdateProjectRequestDto
 import com.example.taskmaster.data.remote.dto.UpdateProjectResponseDto
-import com.example.taskmaster.ui.model.APIResponseMessage
+import com.example.taskmaster.ui.model.ResponseMessage
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -26,7 +26,7 @@ interface ProjectService {
     suspend fun createNewProject(@Body addProjectRequest: CreateProjectRequestDto): Response<AddNewProjectResponseDto>
 
     @DELETE("projects/{id}")
-    suspend fun deleteProject(@Path("id") projectId: String): Response<APIResponseMessage>
+    suspend fun deleteProject(@Path("id") projectId: String): Response<ResponseMessage>
 
     @PUT("projects/{id}")
     suspend fun updateProject(

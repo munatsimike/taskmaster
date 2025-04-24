@@ -1,6 +1,6 @@
 package com.example.taskmaster.data.remote.dto
 
-import com.example.taskmaster.domain.model.APIResponse
+import com.example.taskmaster.domain.model.RemoteResponse
 import com.squareup.moshi.Json
 
 data class UpdateProjectResponseDto(
@@ -9,4 +9,4 @@ data class UpdateProjectResponseDto(
     val name: String,
     val updated_at: String,
     @Json(ignore = true) override val message: String = "Project updated successfully",
-): APIResponse
+): RemoteResponse
