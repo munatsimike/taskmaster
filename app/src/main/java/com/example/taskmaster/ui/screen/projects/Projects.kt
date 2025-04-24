@@ -1,6 +1,5 @@
 package com.example.taskmaster.ui.screen.projects
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -134,13 +133,12 @@ object Projects {
                     networkState = projects,
                     onInvalidCredentials = onInvalidCredentials,
                     onProjectClick = onProjectClick,
-                    onEditProject = { project: Project ->
-                        projectFormViewModel.handleEdit(project)
-                    },
                     onDeleteProject = { item: String, projectId: String ->
                         projectsViewModel.handleDeleteItem(item, projectId)
                     },
-                    onRetry = { projectFormViewModel.triggerDataFetch() }
+                    onEditProject = { project: Project ->
+                        projectFormViewModel.handleEdit(project)
+                    }
                 )
             } else {
                 DisplayProgressBar()
@@ -171,16 +169,12 @@ private fun HomeScreen(
     onProjectClick: (Project) -> Unit,
     onDeleteProject: (String, String) -> Unit,
     onEditProject: (Project) -> Unit,
-    onRetry: () -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopStart
     ) {
         ProcessNetworkState(
             onInvalidCredentials = onInvalidCredentials,
-            onErrorFailure = { msg: String ->
-                Log.i("mik", msg)
-            },
             progressBarText = stringResource(id = R.string.loading_projects),
             fabVisibility = onFABVisibility,
             state = networkState
@@ -258,7 +252,6 @@ private fun DisplayProject(
                 project = project,
                 onEditClick = onEditProject,
                 onDeleteClick = onDeleteProject
-
             )
         }
     }

@@ -1,11 +1,13 @@
 package com.example.taskmaster.data.remote.dto.dashboard
 
-import com.example.taskmaster.data.remote.dto.orfi.OrfiDto
-import com.example.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
+import com.example.taskmaster.data.remote.dto.orfi.OrfiResponseDto
+import com.example.taskmaster.data.remote.dto.schedule.ScheduleResponseDto
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class DashboardAPiResponseDto(
     val budgetPhases: List<BudgetPhaseDashBoardDto>,
-    val orfis: List<OrfiDto>,
-    val schedules: List<ScheduleFetchResponse>,
-    val totals: TotalsDto
+    val orfis: List<OrfiResponseDto>,
+    val schedules: List<ScheduleResponseDto>,
+    val totals: TotalsResponseDto
 )

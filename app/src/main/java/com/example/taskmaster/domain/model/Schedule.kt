@@ -9,7 +9,7 @@ data class Schedule(
     val isDeleted: Boolean?,
     val phase: String,
     val progress: Float,
-    val project_id: String,
+    val projectId: String,
     val startDate: String,
     val totalDuration: Int   //
 ) {

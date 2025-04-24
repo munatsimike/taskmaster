@@ -1,17 +1,15 @@
 package com.example.taskmaster.data.remote.dto.dashboard
 
-import com.example.taskmaster.data.remote.dto.budget.BaseBudgetPhaseDto
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+// DTO received from the API representing a budget phase in the project dashboard.
+@Serializable
 data class BudgetPhaseDashBoardDto(
-    override val id: String,
-    override val phase: String,
-    override val project_id: String,
-    override val totalAmount: Int,
-    override val totalPaid: Int
-) : BaseBudgetPhaseDto(
-    phase = phase,
-    project_id = project_id,
-    id = id,
-    totalAmount = totalAmount,
-    totalPaid = totalPaid
+    val id: String,
+    val phase: String,
+    @SerialName("project_id")
+    val projectId: String,
+    val totalAmount: Int,
+    val totalPaid: Int
 )

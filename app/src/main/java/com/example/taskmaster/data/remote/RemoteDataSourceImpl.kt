@@ -3,8 +3,9 @@ package com.example.taskmaster.data.remote
 import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toCreateNewProjectRequest
 import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toUpdateProjectRequestDto
 import com.example.taskmaster.data.remote.api.service.AuthService
+import com.example.taskmaster.data.remote.api.service.DashboardService
 import com.example.taskmaster.data.remote.api.service.ProjectService
-import com.example.taskmaster.data.remote.dto.ProjectDto
+import com.example.taskmaster.data.remote.dto.ProjectResponseDto
 import com.example.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.domain.LoginRequest
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class RemoteDataSourceImpl @Inject constructor(
     private val authService: AuthService,
     private val projectService: ProjectService,
+    private val dashboardService: DashboardService
 ): RemoteDataSource {
     /**dataService
      * attempts to login through the data service and returns server response wrapped in a response object
@@ -32,7 +34,7 @@ class RemoteDataSourceImpl @Inject constructor(
     }
 
     // The following functions implement Create, Read, Update, and Delete (CRUD) operations for Project entities in the remote data source.
-    override suspend fun getProjects(): Response<List<ProjectDto>> {
+    override suspend fun getProjects(): Response<List<ProjectResponseDto>> {
         return projectService.getProjects()
     }
 
@@ -50,6 +52,6 @@ class RemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getDashboard(projectId: String): Response<DashboardAPiResponseDto> {
-        return projectService.getDashboard(projectId)
+        return dashboardService.getDashboard(projectId)
     }
 }

@@ -1,11 +1,11 @@
 package com.example.taskmaster.data.mapper
 
-import com.example.taskmaster.data.remote.dto.orfi.OrfiDto
+import com.example.taskmaster.data.remote.dto.orfi.OrfiResponseDto
 import com.example.taskmaster.ui.model.orfi.Orfi
 
 object OrfiMapper {
 
-    private fun OrfiDto.toOrfiModel(): Orfi {
+    private fun OrfiResponseDto.toOrfiModel(): Orfi {
         return Orfi(
             assignedAvatar = this.assignedAvatar, // Depending on use case, you might want to handle avatar differently
             assignedName = this.assignedName,
@@ -21,7 +21,7 @@ object OrfiMapper {
             updatedAt = this.updatedAt   // Consider using a
         )
     }
-    fun List<OrfiDto>.toLstOfOrfiModel(): List<Orfi> {
+    fun List<OrfiResponseDto>.toLstOfOrfiModel(): List<Orfi> {
         return this.map {
             it.toOrfiModel()
         }

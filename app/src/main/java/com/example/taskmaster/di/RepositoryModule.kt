@@ -5,8 +5,10 @@ import com.example.taskmaster.data.local.LocalDataSourceImpl
 import com.example.taskmaster.data.remote.RemoteDataSource
 import com.example.taskmaster.data.remote.RemoteDataSourceImpl
 import com.example.taskmaster.data.repository.AuthRepositoryImp
+import com.example.taskmaster.data.repository.DashboardRepositoryImpl
 import com.example.taskmaster.data.repository.ProjectsRepoImpl
 import com.example.taskmaster.domain.AuthRepository
+import com.example.taskmaster.domain.DashboardRepository
 import com.example.taskmaster.domain.ProjectRepository
 import dagger.Module
 import dagger.Provides
@@ -31,4 +33,11 @@ object RepositoryModule {
         remoteDataSource: RemoteDataSource
     ): ProjectRepository =
         ProjectsRepoImpl(remoteDataSource, localDataSource)
+
+    @Provides
+    fun provideDashboardRepo(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource
+    ): DashboardRepository =
+        DashboardRepositoryImpl(remoteDataSource, localDataSource)
 }

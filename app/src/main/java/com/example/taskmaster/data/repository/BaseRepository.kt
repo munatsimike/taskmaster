@@ -10,7 +10,7 @@ import java.util.concurrent.CancellationException
 
 abstract class BaseRepository {
 
-    fun <DtoModel,EntityModel> processAndCacheApiResponse(
+    fun <DtoModel, EntityModel> processAndCacheApiResponse(
         call: suspend () -> Response<DtoModel>,
         toEntityMapper: (DtoModel) -> List<EntityModel>,
         saveEntities: suspend (List<EntityModel>) -> Unit
@@ -18,20 +18,45 @@ abstract class BaseRepository {
 
         emit(Resource.Loading)
 
-        try {
+        when (val result = safeApiCall(call)) {
+            is Resource.Success -> {
+                val entities = toEntityMapper(result.data)
+                saveEntities(entities)
+                emit(Resource.Success(Unit)) // We don't need to return data here, just success
+            }
+
+            is Resource.Failure -> emit(result)
+            is Resource.Error -> result.exception.localizedMessage?.let {
+                Resource.Failure(
+                    null,
+                    it, null
+                )
+            }
+                ?.let { emit(it) } // Should not normally happen if safeApiCall always returns Failure, but safe fallback
+            else -> {}
+        }
+    }
+
+    suspend fun <T> safeApiCall(
+        call: suspend () -> Response<T>
+    ): Resource<T> {
+        return try {
             val response = call()
             if (response.isSuccessful) {
                 response.body()?.let { body ->
-                    val entities = toEntityMapper(body)
-                    saveEntities(entities) // Save fresh data
-                } ?: emit(Resource.Failure(null, "Response body is null", null))
+                    Resource.Success(body)
+                } ?: Resource.Failure(null, "Response body is null", null)
             } else {
-                emit(Resource.Failure(response.code(), response.message(), response.errorBody()?.string()))
+                Resource.Failure(
+                    response.code(),
+                    response.message(),
+                    response.errorBody()?.string()
+                )
             }
         } catch (e: Exception) {
             if (e is CancellationException) throw e
             Timber.e(e, "Network call failed")
-            emit(Resource.Failure(null, e.localizedMessage ?: "Network error", null))
+            Resource.Failure(null, e.localizedMessage ?: "Network error", null)
         }
     }
 

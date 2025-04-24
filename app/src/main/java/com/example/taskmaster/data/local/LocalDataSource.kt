@@ -1,5 +1,6 @@
 package com.example.taskmaster.data.local
 
+import com.example.taskmaster.data.local.db.enties.DashboardEntity
 import com.example.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.example.taskmaster.data.local.db.enties.ProjectEntity
 import com.example.taskmaster.data.local.preferences.AccessToken
@@ -19,5 +20,10 @@ interface LocalDataSource {
     fun getLoggedInUser(): Flow<LoggedInUserEntity?>
 
     suspend fun saveProjects(projects: List<ProjectEntity>)
+
     fun getAllProjects(): Flow<List<ProjectEntity>>
+
+    suspend fun saveDashboard(dashboard: DashboardEntity)
+    
+    fun getDashBoard(): Flow<DashboardEntity?>
 }

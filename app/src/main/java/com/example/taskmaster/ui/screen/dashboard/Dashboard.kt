@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -17,9 +18,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.LoggedInUser
+import com.example.taskmaster.domain.model.DashboardData
 import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.navigation.AppScreen
-import com.example.taskmaster.ui.model.DashboardData
 import com.example.taskmaster.ui.screen.DisplayScreenHeader
 import com.example.taskmaster.ui.theme.lightGray
 import com.example.taskmaster.ui.viewModel.DashBoardViewModel
@@ -39,7 +40,11 @@ object Dashboard {
         val project by sharedViewModel.project.collectAsState()
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
 
-        val result by dashBoardViewModel.getDashBoardData(project.id)
+        LaunchedEffect(project.id) {
+            dashBoardViewModel.updateDashboardData(project.id)
+        }
+
+        val result by dashBoardViewModel.fetchDashBoardData(project.id)
             .collectAsState(initial = Resource.Loading)
 
         DisplayDashboard(

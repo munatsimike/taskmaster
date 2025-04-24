@@ -4,6 +4,6 @@ import com.example.taskmaster.domain.model.APIResponse
 
 data class AddNewProjectResponseDto(
     override val message: String,
-    val project: ProjectDto
+    val project: ProjectResponseDto
 ): APIResponse
 

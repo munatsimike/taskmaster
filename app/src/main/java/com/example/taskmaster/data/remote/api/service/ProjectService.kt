@@ -2,10 +2,9 @@ package com.example.taskmaster.data.remote.api.service
 
 import com.example.taskmaster.data.remote.dto.AddNewProjectResponseDto
 import com.example.taskmaster.data.remote.dto.CreateProjectRequestDto
-import com.example.taskmaster.data.remote.dto.ProjectDto
+import com.example.taskmaster.data.remote.dto.ProjectResponseDto
 import com.example.taskmaster.data.remote.dto.UpdateProjectRequestDto
 import com.example.taskmaster.data.remote.dto.UpdateProjectResponseDto
-import com.example.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.example.taskmaster.ui.model.APIResponseMessage
 import retrofit2.Response
 import retrofit2.http.Body
@@ -21,10 +20,7 @@ interface ProjectService {
      * @return A Response object containing a list of projects
      */
     @GET("projects")
-    suspend fun getProjects(): Response<List<ProjectDto>>
-
-    @GET("projects/dashboard/{id}")
-    suspend fun getDashboard(@Path("id") projectId: String): Response<DashboardAPiResponseDto>
+    suspend fun getProjects(): Response<List<ProjectResponseDto>>
 
     @POST("projects")
     suspend fun createNewProject(@Body addProjectRequest: CreateProjectRequestDto): Response<AddNewProjectResponseDto>

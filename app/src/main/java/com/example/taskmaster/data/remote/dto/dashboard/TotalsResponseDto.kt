@@ -1,6 +1,9 @@
 package com.example.taskmaster.data.remote.dto.dashboard
 
-data class TotalsDto(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class TotalsResponseDto(
     val resolvedOrfis: Int,
     val totalAmount: Int,
     val totalDuration: Int,

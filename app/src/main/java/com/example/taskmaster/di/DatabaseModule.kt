@@ -3,6 +3,7 @@ package com.example.taskmaster.di
 import android.content.Context
 import androidx.room.Room
 import com.example.taskmaster.data.local.db.AppDatabase
+import com.example.taskmaster.data.local.db.dao.DashboardDao
 import com.example.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.example.taskmaster.data.local.db.dao.ProjectDao
 
@@ -20,7 +21,7 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context = context, klass = AppDatabase::class.java, "app_d.").build()
+        return Room.databaseBuilder(context = context, klass = AppDatabase::class.java, "app_d.").fallbackToDestructiveMigration().build()
     }
 
     @Provides
@@ -28,4 +29,8 @@ object DatabaseModule {
 
     @Provides
     fun provideProjectsDao(database: AppDatabase): ProjectDao = database.projectDao
+
+    @Provides
+    fun provideDashboardDao(database: AppDatabase): DashboardDao = database.dashboardDao
+
 }

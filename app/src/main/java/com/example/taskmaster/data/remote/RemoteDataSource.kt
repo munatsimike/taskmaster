@@ -1,6 +1,6 @@
 package com.example.taskmaster.data.remote
 
-import com.example.taskmaster.data.remote.dto.ProjectDto
+import com.example.taskmaster.data.remote.dto.ProjectResponseDto
 import com.example.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.domain.LoginRequest
@@ -12,7 +12,7 @@ import retrofit2.Response
 interface RemoteDataSource {
     suspend fun login(loginRequest: LoginRequest): Response<UserApiResponseDto>
 
-    suspend fun getProjects(): Response<List<ProjectDto>>
+    suspend fun getProjects(): Response<List<ProjectResponseDto>>
 
     suspend fun addOrEditNewProject(projectRequest: Project, isEditing: Boolean): Response<out APIResponse>
 

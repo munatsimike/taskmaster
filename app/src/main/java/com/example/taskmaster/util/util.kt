@@ -10,10 +10,10 @@ import androidx.compose.ui.res.stringResource
 import com.example.taskmaster.R
 import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.LoggedInUser
+import com.example.taskmaster.domain.model.DashboardData
 import com.example.taskmaster.ui.common.DisplayProgressBar
 import com.example.taskmaster.ui.common.ErrorContent
 import com.example.taskmaster.ui.common.header.HeaderData
-import com.example.taskmaster.ui.model.DashboardData
 import com.example.taskmaster.ui.model.Status
 import java.text.NumberFormat
 import java.time.Instant

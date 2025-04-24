@@ -3,10 +3,6 @@ package com.example.taskmaster.data.repository
 import com.example.taskmaster.data.local.LocalDataSource
 import com.example.taskmaster.data.local.db.enties.ProjectEntity
 import com.example.taskmaster.data.mapper.APIResponseMapper.toApiResponseMessage
-import com.example.taskmaster.data.mapper.BudgetPhaseMapper.toLstOfDashBoardBudgetPhaseModel
-import com.example.taskmaster.data.mapper.OrfiMapper.toLstOfOrfiModel
-import com.example.taskmaster.data.mapper.ScheduleMapper.toListOfScheduleModel
-import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toTotalsModel
 import com.example.taskmaster.data.mapper.project.ProjectDtoToEntityMapper.toEntityList
 import com.example.taskmaster.data.mapper.project.ProjectEntityToDomainMapper.toDomainModel
 import com.example.taskmaster.data.remote.RemoteDataSource
@@ -14,7 +10,6 @@ import com.example.taskmaster.data.remote.api.Resource
 import com.example.taskmaster.domain.ProjectRepository
 import com.example.taskmaster.domain.model.project.Project
 import com.example.taskmaster.ui.model.APIResponseMessage
-import com.example.taskmaster.ui.model.DashboardData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -64,19 +59,6 @@ class ProjectsRepoImpl @Inject constructor(
             saveEntities = { localDataSourceImpl.saveProjects(it) }
         ))
     }
-
-    override fun getProjectDashboard(projectId: String): Flow<Resource<DashboardData>> =
-        processApiResponse(
-            call = { remoteDataSourceImpl.getDashboard(projectId) }
-        ) { response ->
-            val totalsModel = response.totals.toTotalsModel()
-            DashboardData(
-                budgetPhases = response.budgetPhases.toLstOfDashBoardBudgetPhaseModel(),
-                orfis = response.orfis.toLstOfOrfiModel(),
-                schedules = response.schedules.toListOfScheduleModel(),
-                totals = totalsModel
-            )
-        }
 
     override suspend fun saveProjectsToDb(projects: List<ProjectEntity>) {
         localDataSourceImpl.saveProjects(projects)

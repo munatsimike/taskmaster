@@ -1,4 +1,4 @@
-package com.example.taskflow.domain.model.budget
+package com.example.taskmaster.domain.model.budget
 
 abstract class BaseBudgetPhase(
     open val phase: String,

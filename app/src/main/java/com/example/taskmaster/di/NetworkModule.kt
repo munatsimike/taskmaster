@@ -1,21 +1,23 @@
 package com.example.taskmaster.di
 
-import androidx.multidex.BuildConfig
 import com.example.taskmaster.data.local.preferences.EncryptedPreferenceManager
 import com.example.taskmaster.data.local.preferences.TokenProvider
 import com.example.taskmaster.data.remote.api.service.AuthService
+import com.example.taskmaster.data.remote.api.service.DashboardService
 import com.example.taskmaster.data.remote.api.service.ProjectService
 import com.example.taskmaster.data.remote.api.service.client.AuthInterceptor
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -52,7 +54,7 @@ object NetworkModule {
         OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
             .also { client ->
-                if (BuildConfig.DEBUG) {
+                if (com.example.taskmaster.BuildConfig.DEBUG) {
                     val logger = HttpLoggingInterceptor()
                     logger.setLevel(HttpLoggingInterceptor.Level.BODY)
                     client.addInterceptor(logger)
@@ -60,19 +62,27 @@ object NetworkModule {
             }
             .build()
 
-    // Provide Moshi instance
+    @OptIn(ExperimentalSerializationApi::class)
     @Singleton
     @Provides
-    fun provideMoshi(): Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    fun provideKotlinxSerializationConverterFactory(): Converter.Factory {
+        val json = Json {
+            ignoreUnknownKeys = true
+            explicitNulls = false
+            isLenient = true
+        }
+
+        return json.asConverterFactory("application/json".toMediaType())
+    }
 
     // Provide Retrofit instance
     @Singleton
     @Provides
-    fun provideRetrofit(moshi: Moshi, okHttpClient: OkHttpClient): Retrofit =
+    fun provideRetrofit( converterFactory: Converter.Factory, okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL) // Replace BASE_URL with your actual base URL
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(converterFactory)
             .build()
 
     // Provide AuthService instance
@@ -86,4 +96,11 @@ object NetworkModule {
     @Provides
     fun provideProjectService(retrofit: Retrofit): ProjectService =
         retrofit.create(ProjectService::class.java)
+
+    // Provide ProjectService instance
+    @Singleton
+    @Provides
+    fun provideDashboardService(retrofit: Retrofit): DashboardService =
+        retrofit.create(DashboardService::class.java)
 }
+

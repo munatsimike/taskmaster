@@ -1,6 +1,9 @@
 package com.example.taskmaster.data.remote.dto
 
-data class ProjectDto(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ProjectResponseDto(
     val address: String?,
     val createdAt: String,
     val description: String,

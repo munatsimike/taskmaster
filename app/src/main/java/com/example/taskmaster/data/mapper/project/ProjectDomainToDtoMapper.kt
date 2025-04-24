@@ -1,11 +1,10 @@
 package com.example.taskmaster.data.mapper.project
 
 import com.example.taskmaster.data.remote.dto.CreateProjectRequestDto
-import com.example.taskmaster.data.remote.dto.ProjectDto
 import com.example.taskmaster.data.remote.dto.UpdateProjectRequestDto
-import com.example.taskmaster.data.remote.dto.dashboard.TotalsDto
+import com.example.taskmaster.data.remote.dto.dashboard.TotalsResponseDto
+import com.example.taskmaster.domain.model.Totals
 import com.example.taskmaster.domain.model.project.Project
-import com.example.taskmaster.ui.model.Totals
 
 /**
  * Responsible for mapping between Project domain models and their corresponding
@@ -18,24 +17,6 @@ import com.example.taskmaster.ui.model.Totals
 
 object ProjectDomainToDtoMapper {
 
-    private fun ProjectDto.toDomainProject(): Project {
-        return Project(
-            id = this.id,
-            name = this.name,
-            description = this.description,
-            address = this.address,
-            thumbnailUrl = this.thumbnailUrl,
-            isDeleted = this.isDeleted == 1,
-            createdAt = this.createdAt,
-            updatedAt = this.updatedAt
-        )
-    }
-
-    fun List<ProjectDto>.toListOfDomainProject(): List<Project> {
-        return this.map {
-            it.toDomainProject()
-        }
-    }
     fun Project.toCreateNewProjectRequest(): CreateProjectRequestDto {
         return CreateProjectRequestDto(
             name = name,
@@ -53,7 +34,7 @@ object ProjectDomainToDtoMapper {
         )
     }
 
-    fun TotalsDto.toTotalsModel(): Totals {
+    fun TotalsResponseDto.toTotalsModel(): Totals {
         return Totals(
             resolvedOrfis = this.resolvedOrfis,
             totalAmount = this.totalAmount,

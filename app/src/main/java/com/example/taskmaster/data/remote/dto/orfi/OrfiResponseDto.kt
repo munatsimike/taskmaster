@@ -1,6 +1,9 @@
 package com.example.taskmaster.data.remote.dto.orfi
 
-data class OrfiDto(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class OrfiResponseDto(
     val assignedAvatar: String? = null,
     val assignedName: String? = null,
     val assignedTo: String?= null ,

@@ -1,4 +1,4 @@
-package com.example.taskmaster.ui.model
+package com.example.taskmaster.domain.model
 
 data class Totals(
     val resolvedOrfis: Int,

@@ -1,8 +1,10 @@
 package com.example.taskmaster.data.local
 
 
+import com.example.taskmaster.data.local.db.dao.DashboardDao
 import com.example.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.example.taskmaster.data.local.db.dao.ProjectDao
+import com.example.taskmaster.data.local.db.enties.DashboardEntity
 import com.example.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.example.taskmaster.data.local.db.enties.ProjectEntity
 import com.example.taskmaster.data.local.preferences.AccessToken
@@ -13,7 +15,8 @@ import javax.inject.Inject
 class LocalDataSourceImpl @Inject constructor(
     private val encryptedPreferenceManager: EncryptedPreferenceManager,
     private val loggedInUserDao: LoggedInUserDao,
-    private val projectDao: ProjectDao
+    private val projectDao: ProjectDao,
+    private val dashboardDao: DashboardDao
 ) : LocalDataSource {
 
     // Functions to save and retrieve access tokens (SharedPreferences)
@@ -49,5 +52,13 @@ class LocalDataSourceImpl @Inject constructor(
 
     override fun getAllProjects(): Flow<List<ProjectEntity>> {
      return  projectDao.getAllProjects()
+    }
+
+    override suspend fun saveDashboard(dashboard: DashboardEntity) {
+        dashboardDao.saveDashboard(dashboard)
+    }
+
+    override fun getDashBoard(): Flow<DashboardEntity?> {
+       return dashboardDao.fetchDashboard()
     }
 }

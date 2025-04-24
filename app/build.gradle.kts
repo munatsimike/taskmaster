@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.androidx.storage)
     implementation(libs.androidx.benchmark.traceprocessor.android)
     implementation(libs.androidx.multidex)
+    implementation(libs.firebase.crashlytics.buildtools)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -140,7 +141,9 @@ dependencies {
 
     testImplementation(libs.squareup.mockwebserver)
     androidTestImplementation(libs.squareup.mockwebserver)
-
     //timber
     implementation(libs.timber)
+    //gson
+    implementation (libs.gson)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
 }
