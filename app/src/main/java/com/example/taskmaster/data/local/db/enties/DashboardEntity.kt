@@ -9,8 +9,8 @@ import com.example.taskmaster.data.remote.dto.schedule.ScheduleResponseDto
 
 @Entity(tableName = "dashboard")
 class DashboardEntity (
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val projectId: String,
     val budgetPhases: List<BudgetPhaseDashBoardDto?>,
     val orfis: List<OrfiResponseDto>,
     val schedules: List<ScheduleResponseDto>,

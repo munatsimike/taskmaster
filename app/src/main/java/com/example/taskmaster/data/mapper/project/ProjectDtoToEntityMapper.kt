@@ -5,7 +5,7 @@ import com.example.taskmaster.data.mapper.DtoToEntityMapper
 import com.example.taskmaster.data.remote.dto.ProjectResponseDto
 
 object ProjectDtoToEntityMapper : DtoToEntityMapper<ProjectResponseDto, ProjectEntity> {
-    override fun ProjectResponseDto.toEntity(): ProjectEntity {
+    override fun ProjectResponseDto.toEntity(projectId:String?): ProjectEntity {
         return ProjectEntity(
             id = id,
             address = address,

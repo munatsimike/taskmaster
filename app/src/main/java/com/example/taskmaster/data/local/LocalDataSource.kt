@@ -25,5 +25,5 @@ interface LocalDataSource {
 
     suspend fun saveDashboard(dashboard: DashboardEntity)
     
-    fun getDashBoard(): Flow<DashboardEntity?>
+    fun getDashBoard(projectId: String): Flow<DashboardEntity?>
 }

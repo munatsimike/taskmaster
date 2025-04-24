@@ -12,6 +12,6 @@ interface DashboardDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveDashboard(dashboard: DashboardEntity)
 
-    @Query("SELECT * FROM dashboard")
-    fun fetchDashboard(): Flow<DashboardEntity?>
+    @Query("SELECT * FROM dashboard WHERE projectId=:projectId")
+    fun fetchDashboard(projectId: String): Flow<DashboardEntity?>
 }

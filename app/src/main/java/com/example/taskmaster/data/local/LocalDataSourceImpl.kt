@@ -58,7 +58,7 @@ class LocalDataSourceImpl @Inject constructor(
         dashboardDao.saveDashboard(dashboard)
     }
 
-    override fun getDashBoard(): Flow<DashboardEntity?> {
-       return dashboardDao.fetchDashboard()
+    override fun getDashBoard(projectId: String): Flow<DashboardEntity?> {
+       return dashboardDao.fetchDashboard(projectId)
     }
 }

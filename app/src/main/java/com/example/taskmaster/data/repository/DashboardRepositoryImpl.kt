@@ -17,7 +17,7 @@ class DashboardRepositoryImpl(
 ) : DashboardRepository, BaseRepository() {
 
     override fun fetchDashboard(projectId: String): Flow<Resource<DashboardData>> = flow {
-        localDataSource.getDashBoard().collect { entity ->
+        localDataSource.getDashBoard(projectId).collect { entity ->
             if (entity != null) {
                 emit(Resource.Success(entity.toDomainModel()))
             }else {
@@ -30,13 +30,12 @@ class DashboardRepositoryImpl(
     override fun updateDashboard(projectId: String): Flow<Resource<Unit>> = flow {
         when (val result = safeApiCall(call = { remoteDataSource.getDashboard(projectId) })) {
             is Resource.Success -> {
-                val entities = (result.data).toEntity()
+                val entities = (result.data).toEntity(projectId)
                 localDataSource.saveDashboard(entities)
                 emit(Resource.Success(Unit)) // We don't need to return data here, just success
             }
 
             is Resource.Failure -> {
-                Log.i("ask", result.toString())
                 emit(result)
             }
 
