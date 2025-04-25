@@ -9,17 +9,17 @@ plugins {
 }
 
 android {
-    namespace = "com.example.taskmaster"
+    namespace = "com.teqie.taskmaster"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.taskmaster"
+        applicationId = "com.teqie.taskmaster"
         minSdk = 31
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "com.example.taskmaster.HiltTestRunner"
+        testInstrumentationRunner = "com.teqie.taskmaster.HiltTestRunner"
     }
 
     buildTypes {
