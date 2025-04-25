@@ -1,5 +1,8 @@
 package com.example.taskmaster.data.remote.dto.user
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UserApiResponseDto(
     val email: String,
     val id: String,

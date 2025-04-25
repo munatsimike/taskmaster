@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.taskmaster.ui.common.buttons.CloseButton
 import com.example.taskmaster.ui.common.factory.AnimationFactory.AnimatedColor
+import com.example.taskmaster.ui.theme.darkBlue
 import com.example.taskmaster.ui.theme.gradientEnd
 import com.example.taskmaster.ui.theme.gradientStart
 
@@ -29,8 +30,8 @@ fun AddFloatingActionButton(
                     buttonText = buttonText,
                     btnImage = Icons.Default.Add,
                     fabGradientColors = listOf(
-                        AnimatedColor(gradientEnd, gradientStart).value,
-                        AnimatedColor().value
+                        AnimatedColor(darkBlue, darkBlue).value,
+                        darkBlue
                     )
                 ) {
                     onClick()

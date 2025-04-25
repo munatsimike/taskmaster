@@ -5,6 +5,7 @@ import com.example.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.example.taskmaster.data.local.preferences.AccessToken
 import com.example.taskmaster.data.local.preferences.PreferenceKeys.ACCESS_TOKEN_KEY
 import com.example.taskmaster.data.mapper.AuthMapper.toDomainUser
+import com.example.taskmaster.data.mapper.AuthMapper.toDto
 import com.example.taskmaster.data.mapper.AuthMapper.toLoggedInUser
 import com.example.taskmaster.data.mapper.AuthMapper.toLoggedInUserEntity
 import com.example.taskmaster.data.remote.RemoteDataSourceImpl
@@ -28,7 +29,7 @@ class AuthRepositoryImp @Inject  constructor(
 
     override suspend fun login(loginRequest: LoginRequest): Result<User> {
         // attempt to login and receives a Response object containing the server response as UserAPiResponse
-        val result = remoteDataSource.login(loginRequest)
+        val result = remoteDataSource.login(loginRequest.toDto())
         return if (result.isSuccessful) {
             //convert the response body to a User domain model and wrap it in a success Result.
             result.body()?.let { response ->

@@ -10,6 +10,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,42 +23,41 @@ import androidx.compose.ui.unit.dp
 fun ExtendedFABButton(
     buttonText: String,
     btnImage: ImageVector,
-    fabGradientColors: List<Color>, // Add gradient colors as a parameter
+    fabGradientColors: List<Color>,
     expanded: Boolean = true,
     onClick: () -> Unit
 ) {
-    Box(
-        modifier = Modifier
-            .background(
-                brush = Brush.horizontalGradient(fabGradientColors),
-                shape = RoundedCornerShape(47) // Match FAB shape
-            )
-            .height(45.dp)
-            .padding(horizontal = 2.dp)
+    Surface(
+        shape = RoundedCornerShape(47),
+        shadowElevation = 4.dp,
+        modifier = Modifier.height(45.dp),
+        color = Color.Transparent
     ) {
-        ExtendedFloatingActionButton(
-            onClick = { onClick() },
-            icon = {
-                Icon(
-                    imageVector = btnImage,
-                    contentDescription = null,
-                    modifier = Modifier.size(16.dp), // Reduced icon size
-                    tint = Color.White
-                )
-            },
-            text = {
-                Text(
-                    text = buttonText,
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodySmall // Reduced text size
-                )
-            },
-            containerColor = Color.Transparent, // Use transparent as the background is handled by the gradient
-            expanded = expanded,
-            elevation = FloatingActionButtonDefaults.elevation(
-                defaultElevation = 4.dp, // Slightly reduced elevation
-                pressedElevation = 8.dp
+        Box(
+            modifier = Modifier
+                .background(Brush.horizontalGradient(fabGradientColors))
+        ) {
+            ExtendedFloatingActionButton(
+                onClick = onClick,
+                icon = {
+                    Icon(
+                        imageVector = btnImage,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp),
+                        tint = Color.White
+                    )
+                },
+                text = {
+                    Text(
+                        text = buttonText,
+                        color = Color.White,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                },
+                containerColor = Color.Transparent,
+                expanded = expanded,
+                elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp)
             )
-        )
+        }
     }
 }

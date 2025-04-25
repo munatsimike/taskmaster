@@ -1,6 +1,8 @@
 package com.example.taskmaster.data.remote
 
+import com.example.taskmaster.data.mapper.AuthMapper.toDto
 import com.example.taskmaster.data.remote.api.service.AuthService
+import com.example.taskmaster.data.remote.api.service.DashboardService
 import com.example.taskmaster.data.remote.api.service.ProjectService
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.data.remote.dto.user.UserDetailsDto
@@ -20,12 +22,14 @@ class RemoteDataSourceTest {
     private lateinit var authService: AuthService
     private lateinit var remoteDataSource: RemoteDataSourceImpl
     private lateinit var projectService: ProjectService
+    private lateinit var dashboardService: DashboardService
 
     @Before
     fun setup() {
         authService = mockk<AuthService>()
+        dashboardService = mockk<DashboardService>()
         projectService = mockk<ProjectService>()
-        remoteDataSource = RemoteDataSourceImpl(authService, projectService)
+        remoteDataSource = RemoteDataSourceImpl(authService, projectService, dashboardService)
     }
 
     @Test
@@ -49,8 +53,8 @@ class RemoteDataSourceTest {
             )
         )
 
-        coEvery { authService.login(LoginRequest("user2", "user123")) } returns expectedResponse
-        val response = remoteDataSource.login(LoginRequest("user2", "user123"))
+        coEvery { authService.login(LoginRequest("user2", "user123").toDto()) } returns expectedResponse
+        val response = remoteDataSource.login(LoginRequest("user2", "user123").toDto())
         assertThat(response.isSuccessful).isTrue()
         assertThat(response.body()?.userDetails?.name).isEqualTo("John Detail")
     }
@@ -68,7 +72,7 @@ class RemoteDataSourceTest {
 
         coEvery { authService.login(any()) } returns errorResponse
 
-        val result = remoteDataSource.login(LoginRequest("wrong", "creds"))
+        val result = remoteDataSource.login(LoginRequest("wrong", "creds").toDto())
         assertThat(result.code()).isEqualTo(401)
         val errorString = result.errorBody()?.string()
         assertThat(errorString).contains("Invalid credentials")

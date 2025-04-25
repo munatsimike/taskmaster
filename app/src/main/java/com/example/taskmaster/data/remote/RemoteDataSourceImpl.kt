@@ -1,11 +1,13 @@
 package com.example.taskmaster.data.remote
 
+import com.example.taskmaster.data.mapper.AuthMapper.toDto
 import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toCreateNewProjectRequest
 import com.example.taskmaster.data.mapper.project.ProjectDomainToDtoMapper.toUpdateProjectRequestDto
 import com.example.taskmaster.data.remote.api.service.AuthService
 import com.example.taskmaster.data.remote.api.service.DashboardService
 import com.example.taskmaster.data.remote.api.service.ProjectService
 import com.example.taskmaster.data.remote.dto.ProjectResponseDto
+import com.example.taskmaster.data.remote.dto.auth.LoginRequestDto
 import com.example.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.domain.LoginRequest
@@ -28,7 +30,7 @@ class RemoteDataSourceImpl @Inject constructor(
      * attempts to login through the data service and returns server response wrapped in a response object
      * @param loginRequest contains the username and password
      */
-    override suspend fun login(loginRequest: LoginRequest): Response<UserApiResponseDto> {
+    override suspend fun login(loginRequest: LoginRequestDto): Response<UserApiResponseDto> {
         // make api request using retrofit service and returns the server response
         return authService.login(loginRequest)
     }

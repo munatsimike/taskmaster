@@ -1,5 +1,6 @@
 package com.example.taskmaster.data.remote.api.service
 
+import com.example.taskmaster.data.mapper.AuthMapper.toDto
 import com.example.taskmaster.domain.LoginRequest
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -57,7 +58,7 @@ class AuthServiceTest {
         mockWebServer.enqueue(
             MockResponse().setResponseCode(200).setBody(mockJson)
         )
-        val result = authService.login(LoginRequest("user2", "user123"))
+        val result = authService.login(LoginRequest("user2", "user123").toDto())
         val body = result.body()
         assertThat(result.isSuccessful).isTrue()
         assertThat(result.code()).isEqualTo(200)
@@ -76,7 +77,7 @@ class AuthServiceTest {
         )
 
         // Act: Call the login endpoint with invalid credentials
-        val result = authService.login(LoginRequest("invalidUser", "wrongPassword"))
+        val result = authService.login(LoginRequest("invalidUser", "wrongPassword").toDto())
 
         // Assert
         assertThat(result.isSuccessful).isFalse()

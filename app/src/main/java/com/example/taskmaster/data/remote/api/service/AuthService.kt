@@ -1,5 +1,6 @@
 package com.example.taskmaster.data.remote.api.service
 
+import com.example.taskmaster.data.remote.dto.auth.LoginRequestDto
 import com.example.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.example.taskmaster.domain.LoginRequest
 
@@ -14,5 +15,5 @@ import retrofit2.http.POST
  */
 interface AuthService {
     @POST("auth/login")
-   suspend fun login(@Body request: LoginRequest): Response<UserApiResponseDto>
+   suspend fun login(@Body request: LoginRequestDto): Response<UserApiResponseDto>
 }
