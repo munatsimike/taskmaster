@@ -1,6 +1,6 @@
 package com.teqie.taskmaster.data.repository
 
-import com.teqie.taskmaster.data.remote.api.Resource
+import com.teqie.taskmaster.domain.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -37,6 +37,7 @@ abstract class BaseRepository {
         }
     }
 
+    // used to save dashboard with extra column project Id. the dto does not have project id
     suspend fun <T> safeApiCall(
         call: suspend () -> Response<T>
     ): Resource<T> {

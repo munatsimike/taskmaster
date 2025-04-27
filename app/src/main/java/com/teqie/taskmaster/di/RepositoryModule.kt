@@ -5,9 +5,11 @@ import com.teqie.taskmaster.data.local.LocalDataSourceImpl
 import com.teqie.taskmaster.data.remote.RemoteDataSource
 import com.teqie.taskmaster.data.remote.RemoteDataSourceImpl
 import com.teqie.taskmaster.data.repository.AuthRepositoryImp
+import com.teqie.taskmaster.data.repository.BudgetPhaseRepositoryImpl
 import com.teqie.taskmaster.data.repository.DashboardRepositoryImpl
 import com.teqie.taskmaster.data.repository.ProjectsRepoImpl
 import com.teqie.taskmaster.domain.AuthRepository
+import com.teqie.taskmaster.domain.BudgetPhaseRepository
 import com.teqie.taskmaster.domain.DashboardRepository
 import com.teqie.taskmaster.domain.ProjectRepository
 import dagger.Module
@@ -40,4 +42,11 @@ object RepositoryModule {
         remoteDataSource: RemoteDataSource
     ): DashboardRepository =
         DashboardRepositoryImpl(remoteDataSource, localDataSource)
+
+    @Provides
+    fun provideBudgetPhaseRepo(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource
+    ): BudgetPhaseRepository =
+        BudgetPhaseRepositoryImpl(localDataSource, remoteDataSource)
 }

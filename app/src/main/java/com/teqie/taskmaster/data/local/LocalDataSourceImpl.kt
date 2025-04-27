@@ -1,10 +1,14 @@
 package com.teqie.taskmaster.data.local
 
 
+import com.teqie.taskmaster.data.local.db.dao.BudgetPhaseDao
 import com.teqie.taskmaster.data.local.db.dao.DashboardDao
+import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
+import com.teqie.taskmaster.data.local.db.enties.BudgetPhaseEntity
 import com.teqie.taskmaster.data.local.db.enties.DashboardEntity
+import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
 import com.teqie.taskmaster.data.local.preferences.AccessToken
@@ -16,7 +20,9 @@ class LocalDataSourceImpl @Inject constructor(
     private val encryptedPreferenceManager: EncryptedPreferenceManager,
     private val loggedInUserDao: LoggedInUserDao,
     private val projectDao: ProjectDao,
-    private val dashboardDao: DashboardDao
+    private val dashboardDao: DashboardDao,
+    private val budgetPhaseDao: BudgetPhaseDao,
+    private val invoiceDao: InvoiceDao
 ) : LocalDataSource {
 
     // Functions to save and retrieve access tokens (SharedPreferences)
@@ -47,11 +53,11 @@ class LocalDataSourceImpl @Inject constructor(
 
     // Functions to save and retrieve projects (Room Database)
     override suspend fun saveProjects(projects: List<ProjectEntity>) {
-       projectDao.saveProjects(projects)
+        projectDao.saveProjects(projects)
     }
 
     override fun getAllProjects(): Flow<List<ProjectEntity>> {
-     return  projectDao.getAllProjects()
+        return projectDao.getAllProjects()
     }
 
     override suspend fun saveDashboard(dashboard: DashboardEntity) {
@@ -59,6 +65,22 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override fun getDashBoard(projectId: String): Flow<DashboardEntity?> {
-       return dashboardDao.fetchDashboard(projectId)
+        return dashboardDao.fetchDashboard(projectId)
     }
+
+    override suspend fun saveBudgetPhase(budgetPhases: List<BudgetPhaseEntity>) {
+        budgetPhaseDao.saveBudgetPhase(budgetPhases)
+    }
+
+    override fun getBudgetPhases(projectId: String): Flow<List<BudgetPhaseEntity>> {
+        return budgetPhaseDao.fetchBudgetPhase(projectId)
+    }
+
+    override suspend fun saveInvoices(invoices: List<InvoiceEntity>) {
+        invoiceDao.saveInvoices(invoices)
+    }
+
+    override fun getInvoices(budgetId: String): Flow<List<InvoiceEntity>> =
+        invoiceDao.fetchInvoices(budgetId)
+
 }

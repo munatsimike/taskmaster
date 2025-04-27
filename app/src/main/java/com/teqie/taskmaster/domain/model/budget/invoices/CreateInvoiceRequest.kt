@@ -1,9 +1,9 @@
-package com.teqie.taskmaster.domain.model.budget
+package com.teqie.taskmaster.domain.model.budget.invoices
 
 import com.teqie.taskmaster.util.toIsoString
 import java.time.LocalDate
 
-data class InvoiceRequest(
+data class CreateInvoiceRequest(
     val id: String = "",
     val amount: String = "",
     val budgetId: String = "",

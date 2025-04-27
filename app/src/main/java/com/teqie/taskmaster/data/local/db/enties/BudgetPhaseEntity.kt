@@ -1,22 +1,20 @@
-package com.teqie.taskmaster.data.remote.dto.budget
+package com.teqie.taskmaster.data.local.db.enties
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Serializable
-data class BudgetPhaseResponseDto(
+@Entity(tableName = "budget_phase")
+class BudgetPhaseEntity(
+    @PrimaryKey(autoGenerate = false)
     val id: String,
     val phase: String,
-    @SerialName("project_id")
     val projectId: String,
     val totalAmount: Int,
     val totalPaid: Int,
-    @SerialName("user_id")
     val userId: String,
     val assignedToUsername: String,
     val assignedToName: String,
     val assignedToAvatar: String?,
-    @SerialName("initial_budget")
     val initialBudget: Double,
     val budget: Double
 )

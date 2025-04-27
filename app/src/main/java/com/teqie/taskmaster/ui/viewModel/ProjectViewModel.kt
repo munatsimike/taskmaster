@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-abstract class BaseScreenViewModel : ViewModel() {
+abstract class ProjectViewModel : ViewModel() {
 
-    protected val _screenState = MutableStateFlow(CommonUiState ())
+    protected val _screenState = MutableStateFlow(CommonUiState())
     val screenState: StateFlow<CommonUiState> = _screenState
 
     open fun toggleIsSuccessful() {
@@ -38,6 +38,7 @@ abstract class BaseScreenViewModel : ViewModel() {
         _screenState.update { it.copy(bottomSheetState = it.bottomSheetState.copy(isVisible = false)) }
     }
 
+
     fun showTooltip() {
         _screenState.update { it.copy(showToolTip = true) }
     }
@@ -46,7 +47,7 @@ abstract class BaseScreenViewModel : ViewModel() {
         _screenState.update { it.copy(showToolTip = false) }
     }
 
-    fun clearUiScreenStateMessage(uiScreenState: CommonUiState ) {
+    fun clearUiScreenStateMessage(uiScreenState: CommonUiState) {
         uiScreenState.takeIf { it.hasMessage() }?.let {
             _screenState.update { current -> current.copy(message = UiMessage()) }
         }
@@ -106,7 +107,7 @@ abstract class BaseScreenViewModel : ViewModel() {
         }
     }
 
-    fun getServerResponseMsg(formState: FormState, uiScreenState: CommonUiState ): UiMessage {
+    fun getServerResponseMsg(formState: FormState, uiScreenState: CommonUiState): UiMessage {
         return when {
             !formState.isVisible && formState.hasMessage() -> formState.message
             uiScreenState.hasMessage() -> uiScreenState.message
@@ -125,7 +126,7 @@ abstract class BaseScreenViewModel : ViewModel() {
         return message.error != null || message.success != null
     }
 
-    private fun CommonUiState .hasMessage(): Boolean {
+    private fun CommonUiState.hasMessage(): Boolean {
         return message.error != null || message.success != null
     }
 
@@ -142,6 +143,6 @@ abstract class BaseScreenViewModel : ViewModel() {
     }
 
     private fun resetScreenState() {
-        _screenState.value = CommonUiState ()
+        _screenState.value = CommonUiState()
     }
 }

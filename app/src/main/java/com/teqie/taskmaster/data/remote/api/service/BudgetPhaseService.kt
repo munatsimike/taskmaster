@@ -7,8 +7,8 @@ import com.teqie.taskmaster.data.remote.dto.budget.CreateFileDto
 import com.teqie.taskmaster.data.remote.dto.budget.CreateInvoiceFileResponse
 import com.teqie.taskmaster.data.remote.dto.budget.UpdateBudgetPhaseDto
 import com.teqie.taskmaster.data.remote.dto.budget.UpdateBudgetPhaseResponseDto
+import com.teqie.taskmaster.data.remote.dto.budget.invoice.CreateInvoiceRequestDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.CreateInvoiceResponse
-import com.teqie.taskmaster.data.remote.dto.budget.invoice.CrreateInvoicetDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.InvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.UpdateInvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.file.InvoiceFileResponseDto
@@ -22,7 +22,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-interface BudgetService {
+interface BudgetPhaseService {
     @GET("api/budget-phases/project/{id}")
     suspend fun getBudgets(@Path("id") projectId: String): Response<List<BudgetPhaseResponseDto>>
 
@@ -33,7 +33,11 @@ interface BudgetService {
     suspend fun getInvoiceFiles(@Path("id")invoiceId: String): Response<List<InvoiceFileResponseDto>>
 
     @PUT("api/budget-invoices/{id}")
-    suspend fun updateBudgetInvoice(@Path("id")invoiceId: String, @Body invoiceUpdateRequest: CrreateInvoicetDto) : Response<UpdateInvoiceResponseDto>
+    suspend fun updateInvoice(@Path("id")invoiceId: String, @Body invoiceUpdateRequest: CreateInvoiceRequestDto) : Response<UpdateInvoiceResponseDto>
+    @PUT("api/budget-invoices/{id}")
+    suspend fun updateBudgetInvoice(@Path("id")invoiceId: String, @Body invoiceUpdateRequest: InvoiceRequestDto) : Response<UpdateInvoiceResponseDto>
+
+
 
     @POST("api/budget-phases")
     suspend fun createNewBudgetPhase(@Body newBudgetPhaseDto: CreateBudgetPhaseDto): Response<CreateBudgetPhaseResponse>
@@ -45,7 +49,7 @@ interface BudgetService {
     suspend fun deleteInvoice(@Path("id")invoiceId: String): Response<ResponseMessage>
 
     @POST("api/budget-invoices")
-    suspend fun createBudgetInvoice(@Body createInvoiceRequest: CrreateInvoicetDto) : Response<CreateInvoiceResponse>
+    suspend fun createBudgetInvoice(@Body createInvoiceRequest: CreateInvoiceRequestDto) : Response<CreateInvoiceResponse>
 
     @PUT("api/invoice-files/{id}")
     suspend fun updateBudgetInvoiceFile(@Path("id")invoiceId: String, @Body invoiceRequestDto: UpdateFileDto): Response<ResponseMessage>

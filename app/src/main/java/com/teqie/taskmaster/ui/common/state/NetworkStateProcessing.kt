@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.teqie.taskmaster.R
-import com.teqie.taskmaster.data.remote.api.Resource
+import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.ui.common.DisplayProgressBar
 
 @Composable

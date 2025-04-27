@@ -3,7 +3,9 @@ package com.teqie.taskmaster.di
 import android.content.Context
 import androidx.room.Room
 import com.teqie.taskmaster.data.local.db.AppDatabase
+import com.teqie.taskmaster.data.local.db.dao.BudgetPhaseDao
 import com.teqie.taskmaster.data.local.db.dao.DashboardDao
+import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
 
@@ -33,4 +35,9 @@ object DatabaseModule {
     @Provides
     fun provideDashboardDao(database: AppDatabase): DashboardDao = database.dashboardDao
 
+    @Provides
+    fun provideBudgetPhaseDao(database: AppDatabase): BudgetPhaseDao = database.budgetPhaseDao
+
+    @Provides
+    fun provideInvoiceDao(database: AppDatabase): InvoiceDao = database.invoiceDao
 }

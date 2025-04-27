@@ -4,8 +4,8 @@ import com.teqie.taskmaster.data.local.LocalDataSource
 import com.teqie.taskmaster.data.mapper.dashboard.DashboardDtoToEntity.toEntity
 import com.teqie.taskmaster.data.mapper.dashboard.DashboardEntityToDomain.toDomainModel
 import com.teqie.taskmaster.data.remote.RemoteDataSource
-import com.teqie.taskmaster.data.remote.api.Resource
 import com.teqie.taskmaster.domain.DashboardRepository
+import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.DashboardData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

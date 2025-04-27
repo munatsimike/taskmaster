@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.teqie.taskmaster.data.remote.api.Resource
 import com.teqie.taskmaster.domain.LoggedInUser
+import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.DashboardData
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.navigation.AppScreen

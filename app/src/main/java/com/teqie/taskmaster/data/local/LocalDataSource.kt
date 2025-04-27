@@ -1,6 +1,8 @@
 package com.teqie.taskmaster.data.local
 
+import com.teqie.taskmaster.data.local.db.enties.BudgetPhaseEntity
 import com.teqie.taskmaster.data.local.db.enties.DashboardEntity
+import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
 import com.teqie.taskmaster.data.local.preferences.AccessToken
@@ -26,4 +28,12 @@ interface LocalDataSource {
     suspend fun saveDashboard(dashboard: DashboardEntity)
     
     fun getDashBoard(projectId: String): Flow<DashboardEntity?>
+
+    suspend fun saveBudgetPhase(budgetPhases: List<BudgetPhaseEntity>)
+
+    fun getBudgetPhases(projectId: String): Flow<List<BudgetPhaseEntity>>
+
+    suspend fun saveInvoices(invoices: List<InvoiceEntity>)
+
+    fun getInvoices(budgetId: String): Flow<List<InvoiceEntity>>
 }

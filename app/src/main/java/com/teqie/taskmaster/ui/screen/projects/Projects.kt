@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.teqie.taskmaster.R
-import com.teqie.taskmaster.data.remote.api.Resource
+import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.navigation.AppScreen
 import com.teqie.taskmaster.ui.common.ConfirmDialog

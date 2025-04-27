@@ -1,4 +1,4 @@
-package com.teqie.taskmaster.data.remote.api
+package com.teqie.taskmaster.domain
 
 sealed class Resource<out T> {
     data object Loading : Resource<Nothing>()

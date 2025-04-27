@@ -1,6 +1,6 @@
 package com.teqie.taskmaster.ui.viewModel
 
-import com.teqie.taskmaster.data.remote.api.Resource
+import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.ui.common.state.CommonUiState
 import com.teqie.taskmaster.ui.common.state.FormState
 import com.teqie.taskmaster.ui.model.MessageType

@@ -18,6 +18,7 @@ import com.teqie.taskmaster.ui.screen.projects.Projects.MainScreen
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
+import com.teqie.taskmaster.ui.viewModel.budgetPhase.BudgetViewModel
 import kotlinx.coroutines.delay
 
 object NavHost {
@@ -30,6 +31,7 @@ object NavHost {
         sharedViewModel: SharedViewModel = hiltViewModel(),
         snackbarHostState: CustomSnackbarHostState,
         sharedUserViewModel: SharedUserViewModel = hiltViewModel(),
+        budgetViewModel: BudgetViewModel = hiltViewModel(),
     ) {
         val loginUiState by authViewModel.uiState.collectAsState()
 
@@ -78,6 +80,17 @@ object NavHost {
                         navController,
                         sharedViewModel,
                         sharedUserViewModel
+                    )
+                }
+
+                composable(AppScreen.Budget.route) {
+                    BudgetPhase.BudgetPhaseMainScreen(
+                        navController = navController,
+                        sharedViewModel,
+                        sharedUserViewModel,
+                        authViewModel,
+                        snackbarHostState,
+                        budgetPhaseViewModel = budgetViewModel,
                     )
                 }
             }

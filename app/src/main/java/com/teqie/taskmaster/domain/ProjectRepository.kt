@@ -1,7 +1,6 @@
 package com.teqie.taskmaster.domain
 
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
-import com.teqie.taskmaster.data.remote.api.Resource
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.ui.model.ResponseMessage
 import kotlinx.coroutines.flow.Flow

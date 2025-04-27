@@ -1,4 +1,4 @@
-package com.teqie.taskmaster.domain.model.budget
+package com.teqie.taskmaster.domain.model.budget.invoices
 
 import com.teqie.taskmaster.domain.model.teamMember.AssignedTeamMember
 import kotlin.math.roundToInt

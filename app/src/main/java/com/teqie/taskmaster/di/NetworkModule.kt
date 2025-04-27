@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.teqie.taskmaster.data.local.preferences.EncryptedPreferenceManager
 import com.teqie.taskmaster.data.local.preferences.TokenProvider
 import com.teqie.taskmaster.data.remote.api.service.AuthService
+import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
 import com.teqie.taskmaster.data.remote.api.service.DashboardService
 import com.teqie.taskmaster.data.remote.api.service.ProjectService
 import com.teqie.taskmaster.data.remote.api.service.client.AuthInterceptor
@@ -102,5 +103,11 @@ object NetworkModule {
     @Provides
     fun provideDashboardService(retrofit: Retrofit): DashboardService =
         retrofit.create(DashboardService::class.java)
+
+
+    @Singleton
+    @Provides
+    fun provideBudgetPhaseService(retrofit: Retrofit): BudgetPhaseService =
+        retrofit.create(BudgetPhaseService::class.java)
 }
 

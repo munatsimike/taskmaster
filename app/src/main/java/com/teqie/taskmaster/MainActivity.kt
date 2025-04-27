@@ -48,7 +48,6 @@ class MainActivity : ComponentActivity() {
                             AppNavHost(
                                 navHost,
                                 snackbarHostState = customSnackbarHostState,
-
                             )
                         }
                     })

@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.teqie.taskmaster.R
-import com.teqie.taskmaster.data.remote.api.Resource
 import com.teqie.taskmaster.domain.LoggedInUser
+import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.DashboardData
 import com.teqie.taskmaster.ui.common.DisplayProgressBar
 import com.teqie.taskmaster.ui.common.ErrorContent

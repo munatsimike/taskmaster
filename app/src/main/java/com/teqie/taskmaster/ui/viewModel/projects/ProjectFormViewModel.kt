@@ -1,7 +1,7 @@
 package com.teqie.taskmaster.ui.viewModel.projects
 
 import androidx.lifecycle.viewModelScope
-import com.teqie.taskmaster.data.remote.api.Resource
+import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.domain.useCases.project.AddEditProjectUseCase
 import com.teqie.taskmaster.ui.viewModel.BaseFormViewModel

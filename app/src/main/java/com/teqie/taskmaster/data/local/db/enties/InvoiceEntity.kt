@@ -1,19 +1,19 @@
-package com.teqie.taskmaster.data.remote.dto.budget.invoice
+package com.teqie.taskmaster.data.local.db.enties
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Serializable
-data class InvoiceResponseDto(
+@Entity(tableName = "invoice")
+class InvoiceEntity(
+    @PrimaryKey
+    val id: String,
     val amount: Double,
     val assignedTo: Int,
     val assignedToAvatar: String? = null,
     val assignedToName: String? = null,
     val assignedToUsername: String,
-    @SerialName("budget_id")
     val budgetId: String,
     val date: String,
-    val id: String,
     val isDeleted: Int,
     val paid: Double
 )
