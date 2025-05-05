@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.teqie.taskmaster.R
-import com.teqie.taskmaster.ui.common.CustomCard
+import com.teqie.taskmaster.ui.components.CustomCard
 import com.teqie.taskmaster.ui.theme.budgetPhaseColor
 import com.teqie.taskmaster.util.formatCurrency
 

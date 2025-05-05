@@ -5,13 +5,19 @@ import com.teqie.taskmaster.data.local.LocalDataSourceImpl
 import com.teqie.taskmaster.data.remote.RemoteDataSource
 import com.teqie.taskmaster.data.remote.RemoteDataSourceImpl
 import com.teqie.taskmaster.data.repository.AuthRepositoryImp
-import com.teqie.taskmaster.data.repository.BudgetPhaseRepositoryImpl
 import com.teqie.taskmaster.data.repository.DashboardRepositoryImpl
+import com.teqie.taskmaster.data.repository.FileManagementRepoImpl
 import com.teqie.taskmaster.data.repository.ProjectsRepoImpl
+import com.teqie.taskmaster.data.repository.TeamsRepositoryImpl
+import com.teqie.taskmaster.data.repository.budget.BudgetPhaseRepositoryImpl
+import com.teqie.taskmaster.data.repository.budget.InvoiceRepositoryImpl
 import com.teqie.taskmaster.domain.AuthRepository
-import com.teqie.taskmaster.domain.BudgetPhaseRepository
 import com.teqie.taskmaster.domain.DashboardRepository
 import com.teqie.taskmaster.domain.ProjectRepository
+import com.teqie.taskmaster.domain.buget.BudgetPhaseRepository
+import com.teqie.taskmaster.domain.buget.InvoiceRepository
+import com.teqie.taskmaster.domain.file.FileManagementRepository
+import com.teqie.taskmaster.domain.teams.TeamsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,8 +30,8 @@ object RepositoryModule {
     // provide dependency for AuthRepository
     @Provides
     fun provideAuthRepo(
-        userDataSource: RemoteDataSourceImpl,
-        localDataSource: LocalDataSourceImpl
+        userDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource
     ): AuthRepository =
         AuthRepositoryImp(userDataSource, localDataSource)
 
@@ -49,4 +55,25 @@ object RepositoryModule {
         remoteDataSource: RemoteDataSource
     ): BudgetPhaseRepository =
         BudgetPhaseRepositoryImpl(localDataSource, remoteDataSource)
+
+    @Provides
+    fun provideFileManagementRepo(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource
+    ): FileManagementRepository =
+        FileManagementRepoImpl(remoteDataSource,localDataSource)
+
+    @Provides
+    fun provideInvoiceRepo(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource
+    ): InvoiceRepository =
+        InvoiceRepositoryImpl(localDataSource, remoteDataSource)
+
+    @Provides
+    fun provideTeamsRepo(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource
+    ): TeamsRepository =
+        TeamsRepositoryImpl(localDataSource, remoteDataSource)
 }

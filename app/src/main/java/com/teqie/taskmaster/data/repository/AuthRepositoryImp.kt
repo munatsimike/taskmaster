@@ -1,5 +1,6 @@
 package com.teqie.taskmaster.data.repository
 
+import com.teqie.taskmaster.data.local.LocalDataSource
 import com.teqie.taskmaster.data.local.LocalDataSourceImpl
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.preferences.AccessToken
@@ -8,6 +9,7 @@ import com.teqie.taskmaster.data.mapper.AuthMapper.toDomainUser
 import com.teqie.taskmaster.data.mapper.AuthMapper.toDto
 import com.teqie.taskmaster.data.mapper.AuthMapper.toLoggedInUser
 import com.teqie.taskmaster.data.mapper.AuthMapper.toLoggedInUserEntity
+import com.teqie.taskmaster.data.remote.RemoteDataSource
 import com.teqie.taskmaster.data.remote.RemoteDataSourceImpl
 import com.teqie.taskmaster.domain.AuthRepository
 import com.teqie.taskmaster.domain.LoggedInUser
@@ -18,8 +20,8 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AuthRepositoryImp @Inject  constructor(
-    private val remoteDataSource: RemoteDataSourceImpl,
-    private val localDataSource: LocalDataSourceImpl
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
 ): AuthRepository {
     /**
      * This function interacts with Remotedatasource to perform login operations

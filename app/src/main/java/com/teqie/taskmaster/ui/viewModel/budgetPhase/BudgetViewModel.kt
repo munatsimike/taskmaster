@@ -4,8 +4,10 @@ import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.budget.BudgetPhase
 import com.teqie.taskmaster.domain.model.budget.invoices.Invoice
+import com.teqie.taskmaster.domain.useCases.budgetPhase.DeleteBudgetPhaseUseCase
 import com.teqie.taskmaster.domain.useCases.budgetPhase.GetBudgetPhaseUseCase
 import com.teqie.taskmaster.domain.useCases.budgetPhase.SyncBudgetPhasesToLocalUseCase
+import com.teqie.taskmaster.ui.model.MessageType
 import com.teqie.taskmaster.ui.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,6 +19,7 @@ import javax.inject.Inject
 class BudgetViewModel @Inject constructor(
     private val getBudgetPhasesUseCase: GetBudgetPhaseUseCase,
     private val syncBudgetPhasesToLocalUseCase: SyncBudgetPhasesToLocalUseCase,
+    private val deleteBudgetPhaseUseCase: DeleteBudgetPhaseUseCase
 ) : BaseViewModel() {
 
     private val _budgetState =
@@ -33,6 +36,19 @@ class BudgetViewModel @Inject constructor(
                 _budgetState.value = it
             }
         }
+    }
+
+    fun deleteBudgetPhase(budgetPhaseId: String) {
+        if (budgetPhaseId.isNotBlank()) {
+            viewModelScope.launch {
+                deleteBudgetPhaseUseCase(budgetPhaseId).collect {
+                    processApiMessage(it) { messageType: MessageType, message: String ->
+                        updateUiMessage(messageType, message)
+                    }
+                }
+            }
+        }
+        hideConfirmDeleteDialog()
     }
 }
 

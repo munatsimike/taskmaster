@@ -6,7 +6,9 @@ import com.teqie.taskmaster.data.local.preferences.TokenProvider
 import com.teqie.taskmaster.data.remote.api.service.AuthService
 import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
 import com.teqie.taskmaster.data.remote.api.service.DashboardService
+import com.teqie.taskmaster.data.remote.api.service.FileManagerService
 import com.teqie.taskmaster.data.remote.api.service.ProjectService
+import com.teqie.taskmaster.data.remote.api.service.TeamService
 import com.teqie.taskmaster.data.remote.api.service.client.AuthInterceptor
 import dagger.Module
 import dagger.Provides
@@ -77,6 +79,7 @@ object NetworkModule {
     }
 
     // Provide Retrofit instance
+
     @Singleton
     @Provides
     fun provideRetrofit( converterFactory: Converter.Factory, okHttpClient: OkHttpClient): Retrofit =
@@ -104,10 +107,20 @@ object NetworkModule {
     fun provideDashboardService(retrofit: Retrofit): DashboardService =
         retrofit.create(DashboardService::class.java)
 
-
     @Singleton
     @Provides
     fun provideBudgetPhaseService(retrofit: Retrofit): BudgetPhaseService =
         retrofit.create(BudgetPhaseService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideTeamsService(retrofit: Retrofit): TeamService =
+        retrofit.create(TeamService::class.java)
+
+    @UploadClient
+    @Singleton
+    @Provides
+    fun provideFileManagementService(retrofit: Retrofit): FileManagerService =
+        retrofit.create(FileManagerService::class.java)
 }
 

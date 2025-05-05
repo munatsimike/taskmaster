@@ -9,7 +9,7 @@ import com.teqie.taskmaster.domain.model.auth.User
 import com.teqie.taskmaster.domain.useCases.auth.GetAccessTokenUseCaseImp
 import com.teqie.taskmaster.domain.useCases.auth.LoginUseCase
 import com.teqie.taskmaster.domain.useCases.auth.LogoutUseCaseImp
-import com.teqie.taskmaster.ui.common.state.AuthUiState
+import com.teqie.taskmaster.ui.components.state.AuthUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

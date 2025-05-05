@@ -11,10 +11,9 @@ import com.teqie.taskmaster.R
 import com.teqie.taskmaster.domain.LoggedInUser
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.DashboardData
-import com.teqie.taskmaster.ui.common.DisplayProgressBar
-import com.teqie.taskmaster.ui.common.ErrorContent
-import com.teqie.taskmaster.ui.common.header.HeaderData
-import com.teqie.taskmaster.ui.model.Status
+import com.teqie.taskmaster.ui.components.DisplayProgressBar
+import com.teqie.taskmaster.ui.components.ErrorContent
+import com.teqie.taskmaster.ui.components.header.HeaderData
 import java.text.NumberFormat
 import java.time.Instant
 import java.time.LocalDate

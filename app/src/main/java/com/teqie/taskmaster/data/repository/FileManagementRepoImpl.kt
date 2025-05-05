@@ -1,0 +1,51 @@
+package com.teqie.taskmaster.data.repository
+
+import com.teqie.taskmaster.data.local.LocalDataSource
+import com.teqie.taskmaster.data.remote.RemoteDataSource
+import com.teqie.taskmaster.data.repository.budget.BaseRepository
+import com.teqie.taskmaster.domain.Resource
+import com.teqie.taskmaster.domain.file.FileManagementRepository
+import com.teqie.taskmaster.domain.file.PresignedUrl
+import com.teqie.taskmaster.domain.model.file.FileType
+import com.teqie.taskmaster.domain.util.FileExtension
+import com.teqie.taskmaster.ui.model.ResponseMessage
+import kotlinx.coroutines.flow.Flow
+import java.io.File
+
+class FileManagementRepoImpl(
+    val remoteDataSource: RemoteDataSource,
+    val localDataSource: LocalDataSource
+): FileManagementRepository, BaseRepository() {
+
+    override fun getPreSignedUrl(fileName: String, fileType: String): Flow<Resource<PresignedUrl>> =
+        processApiResponse(
+            call = { remoteDataSource.getPreSignedUrl(fileName, fileType) },
+            onSuccess = { response ->
+                PresignedUrl(response.url)
+            }
+        )
+
+    override fun uploadFileToPreSignedUrl(file: File, preSignedUrl: PresignedUrl): String {
+        return remoteDataSource.uploadFileToPreSignedUrl(file, preSignedUrl)
+    }
+
+    override fun deleteFile(fileId: String, fileType: FileType): Flow<Resource<ResponseMessage>> {
+        TODO("Not yet implemented")
+    }
+
+    // Downloads and saves the file
+    override suspend fun downloadFile(
+        fileUrl: String,
+        fileName: String,
+        fileType: FileExtension,
+        progress: (Int) -> Unit
+    ) {
+        // Perform network request on IO dispatcher
+        val response = remoteDataSource.downloadFile(fileUrl)
+        if (response.isSuccessful) {
+            response.body()?.let { responseBody ->
+                localDataSource.saveFileToStorage(responseBody, fileName, fileType, progress)
+            } ?: throw Exception("response is empty")
+        }
+    }
+}

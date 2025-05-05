@@ -17,12 +17,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.teqie.taskmaster.R
+import com.teqie.taskmaster.domain.Resource
+import com.teqie.taskmaster.domain.model.budget.BudgetPhase
 import com.teqie.taskmaster.navigation.AppScreen
-import com.teqie.taskmaster.ui.common.ConfirmDialog
-import com.teqie.taskmaster.ui.common.factory.TextFactory.TitleText
-import com.teqie.taskmaster.ui.common.snackbar.CustomSnackbarHostState
-import com.teqie.taskmaster.ui.common.snackbar.DisplaySnackBar
-import com.teqie.taskmaster.ui.common.state.ProcessNetworkState
+import com.teqie.taskmaster.ui.components.ConfirmDialog
+import com.teqie.taskmaster.ui.components.factory.TextFactory.TitleText
+import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
+import com.teqie.taskmaster.ui.components.snackbar.DisplaySnackBar
+import com.teqie.taskmaster.ui.components.state.ProcessNetworkState
+import com.teqie.taskmaster.ui.model.IconWithText
 import com.teqie.taskmaster.ui.screen.BaseScreenWithFAB
 import com.teqie.taskmaster.ui.screen.bugdetPhase.forms.ManageBudgetPhaseForm
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
@@ -30,6 +33,9 @@ import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.teqie.taskmaster.ui.viewModel.budgetPhase.BudgetFormViewModel
 import com.teqie.taskmaster.ui.viewModel.budgetPhase.BudgetViewModel
+import com.teqie.taskmaster.util.components.CardHorizontalBarGraph
+import com.teqie.taskmaster.util.components.CustomRowWithAssignedTeamMember
+import com.teqie.taskmaster.util.components.CustomScreenCard
 import com.teqie.taskmaster.util.formatCurrency
 import com.teqie.taskmaster.util.headerData
 import kotlin.math.abs
@@ -125,7 +131,7 @@ object BudgetPhase {
 
 @Composable
 private fun BudgetPhaseContent(
-    networkState: NetworkResponse<List<BudgetPhase>>,
+    networkState: Resource<List<BudgetPhase>>,
     fabVisibility: (Boolean) -> Unit,
     onNavigateToInvoices: (String, String) -> Unit,
     onEditBudgetPhase: (BudgetPhase) -> Unit,

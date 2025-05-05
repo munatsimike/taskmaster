@@ -20,11 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teqie.taskmaster.R
 import com.teqie.taskmaster.domain.model.project.Project
-import com.teqie.taskmaster.ui.common.ErrorContent
-import com.teqie.taskmaster.ui.common.FormModal
-import com.teqie.taskmaster.ui.common.factory.ButtonFactory.PrimaryButton
-import com.teqie.taskmaster.ui.common.factory.TextFieldFactory.FilledTextField
-import com.teqie.taskmaster.ui.common.state.FormState
+import com.teqie.taskmaster.ui.components.ErrorContent
+import com.teqie.taskmaster.ui.components.FormModal
+import com.teqie.taskmaster.ui.components.factory.ButtonFactory.PrimaryButton
+import com.teqie.taskmaster.ui.components.factory.TextFieldFactory.FilledTextField
+import com.teqie.taskmaster.ui.components.state.FormState
 import com.teqie.taskmaster.ui.viewModel.projects.ProjectFormViewModel
 
 @Composable

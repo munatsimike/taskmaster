@@ -3,8 +3,8 @@ package com.teqie.taskmaster.ui.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.Resource
-import com.teqie.taskmaster.ui.common.state.CommonUiState
-import com.teqie.taskmaster.ui.common.state.FormState
+import com.teqie.taskmaster.ui.components.state.CommonUiState
+import com.teqie.taskmaster.ui.components.state.FormState
 import com.teqie.taskmaster.ui.model.MessageType
 import com.teqie.taskmaster.ui.model.ResponseMessage
 import com.teqie.taskmaster.ui.model.UiMessage

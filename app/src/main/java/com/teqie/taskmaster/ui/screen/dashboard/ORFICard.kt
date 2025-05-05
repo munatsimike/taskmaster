@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
 import com.teqie.taskmaster.domain.model.Totals
-import com.teqie.taskmaster.ui.common.CustomCard
+import com.teqie.taskmaster.ui.components.CustomCard
 import com.teqie.taskmaster.ui.theme.orfiColor
 
 

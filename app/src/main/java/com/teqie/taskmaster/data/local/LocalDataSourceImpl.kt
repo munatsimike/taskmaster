@@ -11,9 +11,12 @@ import com.teqie.taskmaster.data.local.db.enties.DashboardEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
+import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
 import com.teqie.taskmaster.data.local.preferences.AccessToken
 import com.teqie.taskmaster.data.local.preferences.EncryptedPreferenceManager
+import com.teqie.taskmaster.domain.util.FileExtension
 import kotlinx.coroutines.flow.Flow
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(
@@ -22,7 +25,8 @@ class LocalDataSourceImpl @Inject constructor(
     private val projectDao: ProjectDao,
     private val dashboardDao: DashboardDao,
     private val budgetPhaseDao: BudgetPhaseDao,
-    private val invoiceDao: InvoiceDao
+    private val invoiceDao: InvoiceDao,
+    private val internalStorage: FileStorageManager,
 ) : LocalDataSource {
 
     // Functions to save and retrieve access tokens (SharedPreferences)
@@ -83,4 +87,16 @@ class LocalDataSourceImpl @Inject constructor(
     override fun getInvoices(budgetId: String): Flow<List<InvoiceEntity>> =
         invoiceDao.fetchInvoices(budgetId)
 
+    override suspend fun saveFileToStorage(
+        responseBody: ResponseBody,
+        fileName: String,
+        fileType: FileExtension,
+        progress: (Int) -> Unit
+    ) {
+        internalStorage.saveFileToStorage(responseBody, fileName, fileType, progress)
+    }
+
+    override fun fetchProjectTeamMembers(projectId: String): Flow<List<TeamMemberEntity>> {
+        TODO("Not yet implemented")
+    }
 }

@@ -33,11 +33,7 @@ interface BudgetPhaseService {
     suspend fun getInvoiceFiles(@Path("id")invoiceId: String): Response<List<InvoiceFileResponseDto>>
 
     @PUT("api/budget-invoices/{id}")
-    suspend fun updateInvoice(@Path("id")invoiceId: String, @Body invoiceUpdateRequest: CreateInvoiceRequestDto) : Response<UpdateInvoiceResponseDto>
-    @PUT("api/budget-invoices/{id}")
-    suspend fun updateBudgetInvoice(@Path("id")invoiceId: String, @Body invoiceUpdateRequest: InvoiceRequestDto) : Response<UpdateInvoiceResponseDto>
-
-
+    suspend fun updateBudgetInvoice(@Path("id")invoiceId: String, @Body invoiceUpdateRequest: CreateInvoiceRequestDto) : Response<UpdateInvoiceResponseDto>
 
     @POST("api/budget-phases")
     suspend fun createNewBudgetPhase(@Body newBudgetPhaseDto: CreateBudgetPhaseDto): Response<CreateBudgetPhaseResponse>

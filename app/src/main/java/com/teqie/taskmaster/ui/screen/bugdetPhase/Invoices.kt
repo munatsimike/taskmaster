@@ -20,20 +20,26 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.teqie.taskmaster.R
+import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.budget.invoices.Invoice
 import com.teqie.taskmaster.navigation.AppScreen
-import com.teqie.taskmaster.ui.common.ConfirmDialog
-import com.teqie.taskmaster.ui.common.factory.ButtonFactory.PrimaryButton
-import com.teqie.taskmaster.ui.common.factory.TextFactory.TitleText
-import com.teqie.taskmaster.ui.common.snackbar.CustomSnackbarHostState
-import com.teqie.taskmaster.ui.common.snackbar.DisplaySnackBar
-import com.teqie.taskmaster.ui.common.state.ProcessNetworkState
+import com.teqie.taskmaster.ui.components.ConfirmDialog
+import com.teqie.taskmaster.ui.components.factory.ButtonFactory.PrimaryButton
+import com.teqie.taskmaster.ui.components.factory.TextFactory.TitleText
+import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
+import com.teqie.taskmaster.ui.components.snackbar.DisplaySnackBar
+import com.teqie.taskmaster.ui.components.state.ProcessNetworkState
+import com.teqie.taskmaster.ui.model.IconWithText
 import com.teqie.taskmaster.ui.screen.BaseScreenWithFAB
 import com.teqie.taskmaster.ui.screen.bugdetPhase.forms.ManageInvoiceForm
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.teqie.taskmaster.ui.viewModel.budgetPhase.BudgetViewModel
+import com.teqie.taskmaster.ui.viewModel.budgetPhase.InvoiceFormViewModel
+import com.teqie.taskmaster.util.components.CardHorizontalBarGraph
+import com.teqie.taskmaster.util.components.CustomRowWithAssignedTeamMember
+import com.teqie.taskmaster.util.components.CustomScreenCard
 import com.teqie.taskmaster.util.formatCurrency
 import com.teqie.taskmaster.util.headerData
 import com.teqie.taskmaster.util.isoToReadableDate
@@ -64,7 +70,7 @@ object Invoices {
         ) { invoiceFormViewModel.toggleIsFormSubmitted() }
 
         LaunchedEffect(budgetId, uiScreenState.triggerFetch) {
-            budgetViewModel.fetchInvoices(budgetId)
+          //  budgetViewModel.fetchInvoices(budgetId)
         }
 
         DisplaySnackBar(
@@ -111,7 +117,7 @@ object Invoices {
             ConfirmDialog(
                 itemToDelete = uiScreenState.deleteDialogState.selectedItem.orEmpty(),
                 onConfirm = {
-                    budgetViewModel.deleteInvoice(uiScreenState.deleteDialogState.selectedItemId)
+                  //  budgetViewModel.deleteInvoice(uiScreenState.deleteDialogState.selectedItemId)
                 }) {
                 budgetViewModel.hideConfirmDeleteDialog()
             }
@@ -122,7 +128,7 @@ object Invoices {
 @Composable
 private fun InvoiceScreenContent(
     cardTag: String,
-    networkState: NetworkResponse<List<Invoice>>,
+    networkState: Resource<List<Invoice>>,
     onDelete: (Invoice) -> Unit,
     onEdit: (Invoice) -> Unit,
     onNavigateToInvoiceFile: (String) -> Unit

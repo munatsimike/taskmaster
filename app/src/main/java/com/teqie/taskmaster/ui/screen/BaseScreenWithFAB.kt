@@ -46,11 +46,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teqie.taskmaster.R
 import com.teqie.taskmaster.domain.LoggedInUser
-import com.teqie.taskmaster.ui.common.AddFloatingActionButton
-import com.teqie.taskmaster.ui.common.factory.AnimationFactory.AnimatedColor
-import com.teqie.taskmaster.ui.common.header.HeaderData
-import com.teqie.taskmaster.ui.common.imageDisplay.DisplayImageVectorIcon
-import com.teqie.taskmaster.ui.common.imageDisplay.NetworkImageLoader
+import com.teqie.taskmaster.ui.components.AddFloatingActionButton
+import com.teqie.taskmaster.ui.components.factory.AnimationFactory.AnimatedColor
+import com.teqie.taskmaster.ui.components.header.HeaderData
+import com.teqie.taskmaster.ui.components.imageDisplay.DisplayImageVectorIcon
+import com.teqie.taskmaster.ui.components.imageDisplay.NetworkImageLoader
 import com.teqie.taskmaster.ui.theme.darkBlue
 import com.teqie.taskmaster.ui.theme.gradientEnd
 import com.teqie.taskmaster.ui.theme.gradientStart
