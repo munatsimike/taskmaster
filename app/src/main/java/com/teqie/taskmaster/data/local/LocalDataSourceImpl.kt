@@ -6,6 +6,7 @@ import com.teqie.taskmaster.data.local.db.dao.DashboardDao
 import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
+import com.teqie.taskmaster.data.local.db.dao.TeamMemberDao
 import com.teqie.taskmaster.data.local.db.enties.BudgetPhaseEntity
 import com.teqie.taskmaster.data.local.db.enties.DashboardEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
@@ -27,6 +28,7 @@ class LocalDataSourceImpl @Inject constructor(
     private val budgetPhaseDao: BudgetPhaseDao,
     private val invoiceDao: InvoiceDao,
     private val internalStorage: FileStorageManager,
+    private val teamMemberDao: TeamMemberDao
 ) : LocalDataSource {
 
     // Functions to save and retrieve access tokens (SharedPreferences)
@@ -97,6 +99,10 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override fun fetchProjectTeamMembers(projectId: String): Flow<List<TeamMemberEntity>> {
-        TODO("Not yet implemented")
+        return teamMemberDao.getProjectTeamMembers(projectId)
+    }
+
+    override suspend fun saveTeamMembers(members: List<TeamMemberEntity>) {
+        teamMemberDao.saveTeamMembers(members)
     }
 }

@@ -9,15 +9,17 @@ import com.teqie.taskmaster.data.local.db.dao.DashboardDao
 import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
+import com.teqie.taskmaster.data.local.db.dao.TeamMemberDao
 import com.teqie.taskmaster.data.local.db.enties.BudgetPhaseEntity
 import com.teqie.taskmaster.data.local.db.enties.DashboardEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
+import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
 
 @Database(
-    entities = [LoggedInUserEntity::class, ProjectEntity::class, DashboardEntity::class, BudgetPhaseEntity::class, InvoiceEntity::class],
-    version = 1
+    entities = [LoggedInUserEntity::class, ProjectEntity::class, DashboardEntity::class, BudgetPhaseEntity::class, InvoiceEntity::class, TeamMemberEntity::class],
+    version = 2
 )
 @TypeConverters(DashboardConverters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -26,4 +28,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract val dashboardDao: DashboardDao
     abstract val budgetPhaseDao: BudgetPhaseDao
     abstract val invoiceDao: InvoiceDao
+    abstract val teamMemberDao:  TeamMemberDao
 }

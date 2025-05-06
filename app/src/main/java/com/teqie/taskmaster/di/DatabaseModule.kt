@@ -8,6 +8,7 @@ import com.teqie.taskmaster.data.local.db.dao.DashboardDao
 import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
+import com.teqie.taskmaster.data.local.db.dao.TeamMemberDao
 
 import dagger.Module
 import dagger.Provides
@@ -40,4 +41,7 @@ object DatabaseModule {
 
     @Provides
     fun provideInvoiceDao(database: AppDatabase): InvoiceDao = database.invoiceDao
+
+    @Provides
+    fun provideTeamMemberDao(database: AppDatabase): TeamMemberDao = database.teamMemberDao
 }

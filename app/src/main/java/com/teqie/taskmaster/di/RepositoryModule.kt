@@ -1,9 +1,7 @@
 package com.teqie.taskmaster.di
 
 import com.teqie.taskmaster.data.local.LocalDataSource
-import com.teqie.taskmaster.data.local.LocalDataSourceImpl
 import com.teqie.taskmaster.data.remote.RemoteDataSource
-import com.teqie.taskmaster.data.remote.RemoteDataSourceImpl
 import com.teqie.taskmaster.data.repository.AuthRepositoryImp
 import com.teqie.taskmaster.data.repository.DashboardRepositoryImpl
 import com.teqie.taskmaster.data.repository.FileManagementRepoImpl

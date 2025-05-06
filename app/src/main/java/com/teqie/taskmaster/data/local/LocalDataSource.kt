@@ -29,7 +29,7 @@ interface LocalDataSource {
     fun getAllProjects(): Flow<List<ProjectEntity>>
 
     suspend fun saveDashboard(dashboard: DashboardEntity)
-    
+
     fun getDashBoard(projectId: String): Flow<DashboardEntity?>
 
     suspend fun saveBudgetPhase(budgetPhases: List<BudgetPhaseEntity>)
@@ -48,5 +48,5 @@ interface LocalDataSource {
     )
 
     fun fetchProjectTeamMembers(projectId: String): Flow<List<TeamMemberEntity>>
-
+    suspend fun saveTeamMembers(members: List<TeamMemberEntity>)
 }

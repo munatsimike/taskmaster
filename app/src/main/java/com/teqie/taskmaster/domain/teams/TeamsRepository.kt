@@ -9,4 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface TeamsRepository {
     suspend fun createAssignUser(createUserRequest: CreateUserRequest): Flow<Resource<ResponseMessage>>
     fun getTeamsByProject(projectId: String): Flow<Resource<List<TeamMember>>>
+    fun syncTeamsToLocalDb(projectId: String): Flow<Resource<Unit>>
 }

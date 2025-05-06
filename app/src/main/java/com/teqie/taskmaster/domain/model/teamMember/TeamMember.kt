@@ -1,7 +1,7 @@
 package com.teqie.taskmaster.domain.model.teamMember
 
 data class TeamMember(
-    val assignedAt: String,
+    val assignedAt: String?,
     val avatarUrl: String?=null,
     val email: String?,
     val id: String,

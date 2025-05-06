@@ -22,8 +22,8 @@ import javax.inject.Inject
  * and convert data into domain models suitable for use within the app.
  */
 class ProjectsRepoImpl @Inject constructor(
-    private val remoteDataSourceImpl: RemoteDataSource,
-    private val localDataSourceImpl: LocalDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
 ) : ProjectRepository, BaseRepository() {
 
     override fun addOrEditNewProject(
@@ -31,7 +31,7 @@ class ProjectsRepoImpl @Inject constructor(
         isEditing: Boolean
     ): Flow<Resource<ResponseMessage>> =
         processApiResponse(
-            call = { remoteDataSourceImpl.addOrEditNewProject(addEditProject, isEditing) },
+            call = { remoteDataSource.addOrEditNewProject(addEditProject, isEditing) },
             onSuccess = { response ->
                 response.toApiResponseMessage()
             }
@@ -39,7 +39,7 @@ class ProjectsRepoImpl @Inject constructor(
 
     override fun deleteProject(projectId: String): Flow<Resource<ResponseMessage>> =
         processApiResponse(
-            call = { remoteDataSourceImpl.deleteProject(projectId) },
+            call = { remoteDataSource.deleteProject(projectId) },
             onSuccess = { response ->
                 response
             }
@@ -47,7 +47,7 @@ class ProjectsRepoImpl @Inject constructor(
 
     override fun getProjects(): Flow<Resource<List<Project>>> = flow {
         emitAll(fetchFromLocalDb(
-            fetchEntities = { localDataSourceImpl.getAllProjects() },
+            fetchEntities = { localDataSource.getAllProjects() },
             fromEntityMapper = { it.toDomainModel() }
         ))
     }
@@ -55,15 +55,15 @@ class ProjectsRepoImpl @Inject constructor(
     // 2. Update local database from remote
     override fun updateProjects(): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
-            call = { remoteDataSourceImpl.getProjects() },
+            call = { remoteDataSource.getProjects() },
             toEntityMapper = { it.toEntityList() },
-            saveEntities = { localDataSourceImpl.saveProjects(it) }
+            saveEntities = { localDataSource.saveProjects(it) }
         ))
     }
 
     override suspend fun saveProjectsToDb(projects: List<ProjectEntity>) {
-        localDataSourceImpl.saveProjects(projects)
+        localDataSource.saveProjects(projects)
     }
 
-    override fun getAllProjects(): Flow<List<ProjectEntity>> = localDataSourceImpl.getAllProjects()
+    override fun getAllProjects(): Flow<List<ProjectEntity>> = localDataSource.getAllProjects()
 }
