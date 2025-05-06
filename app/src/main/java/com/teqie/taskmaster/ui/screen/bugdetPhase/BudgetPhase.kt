@@ -69,6 +69,7 @@ object BudgetPhase {
         ) { budgetFormViewModel.clearUiMessage(formState, uiScreenState) }
 
         LaunchedEffect(project.id, uiScreenState.triggerFetch) {
+            budgetPhaseViewModel.syncBudgetPhasesToLocal(project.id)
             budgetPhaseViewModel.fetchBudgetPhases(projectId = project.id)
         }
 
@@ -189,11 +190,13 @@ private fun BudgetPhaseCardHeaderContent(
 ) {
     Column {
         TitleText(text = budgetPhase.phase, modifier = Modifier.align(Alignment.CenterHorizontally))
-        CustomRowWithAssignedTeamMember(
-            avaTaUrl = budgetPhase.assignedTeamMember.assignedToAvatar,
-            assignedTeamMemberName = budgetPhase.assignedTeamMember.assignedToName,
-            buttonText = stringResource(id = R.string.invoices),
-        ) { onNavigateToInvoices(budgetPhase.id, budgetPhase.phase) }
+        budgetPhase.assignedTeamMember.assignedToName?.let {
+            CustomRowWithAssignedTeamMember(
+                avaTaUrl = budgetPhase.assignedTeamMember.assignedToAvatar,
+                assignedTeamMemberName = it,
+                buttonText = stringResource(id = R.string.invoices),
+            ) { onNavigateToInvoices(budgetPhase.id, budgetPhase.phase) }
+        }
     }
 }
 

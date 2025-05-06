@@ -1,5 +1,6 @@
 package com.teqie.taskmaster.ui.viewModel.budgetPhase
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.budget.BudgetPhase
@@ -26,9 +27,23 @@ class BudgetViewModel @Inject constructor(
         MutableStateFlow<Resource<List<BudgetPhase>>>(Resource.Loading)
     val budgetState: StateFlow<Resource<List<BudgetPhase>>> = _budgetState
 
+    private val _response =
+        MutableStateFlow(Resource.Loading)
+    val response: StateFlow<Resource<Unit>> = _response
+
+
     private val _invoicesState =
         MutableStateFlow<Resource<List<Invoice>>>(Resource.Loading)
     val invoicesState: StateFlow<Resource<List<Invoice>>> = _invoicesState
+
+    fun syncBudgetPhasesToLocal(projectId: String) {
+        viewModelScope.launch {
+            syncBudgetPhasesToLocalUseCase(projectId).collect{
+                Log.i("error", it.toString())
+
+            }
+        }
+    }
 
     fun fetchBudgetPhases(projectId: String) {
         viewModelScope.launch {

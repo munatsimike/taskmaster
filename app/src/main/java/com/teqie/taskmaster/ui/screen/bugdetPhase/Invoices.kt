@@ -202,12 +202,14 @@ private fun InvoiceCardHeaderContent(
             text = "Paid ${formatCurrency(invoice.paid)} of ${formatCurrency(invoice.amount)}",
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
-        CustomRowWithAssignedTeamMember(
-            avaTaUrl = invoice.assignedTeamMember.assignedToAvatar,
-            assignedTeamMemberName = invoice.assignedTeamMember.assignedToName,
-            buttonText = stringResource(id = R.string.file),
-            btnIcon = R.drawable.document_24px
-        ) { onNavigateToInvoiceFile(invoice.id) }
+        invoice.assignedTeamMember.assignedToName?.let {
+            CustomRowWithAssignedTeamMember(
+                avaTaUrl = invoice.assignedTeamMember.assignedToAvatar,
+                assignedTeamMemberName = it,
+                buttonText = stringResource(id = R.string.file),
+                btnIcon = R.drawable.document_24px
+            ) { onNavigateToInvoiceFile(invoice.id) }
+        }
     }
 }
 

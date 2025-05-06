@@ -17,5 +17,5 @@ interface BudgetPhaseRepository {
     fun deleteBudgetPhase(budgetId: String): Flow<Resource<ResponseMessage>>
 
     fun syncBudgetPhasesToLocal(projectId: String): Flow<Resource<Unit>>
-    abstract fun addNewBudgetPhase(newBudgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>>
+    fun addNewBudgetPhase(newBudgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>>
 }

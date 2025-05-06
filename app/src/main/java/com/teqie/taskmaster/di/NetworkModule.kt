@@ -1,6 +1,7 @@
 package com.teqie.taskmaster.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.squareup.moshi.Moshi
 import com.teqie.taskmaster.data.local.preferences.EncryptedPreferenceManager
 import com.teqie.taskmaster.data.local.preferences.TokenProvider
 import com.teqie.taskmaster.data.remote.api.service.AuthService
@@ -21,6 +22,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -122,5 +124,35 @@ object NetworkModule {
     @Provides
     fun provideFileManagementService(retrofit: Retrofit): FileManagerService =
         retrofit.create(FileManagerService::class.java)
+
+    // Secondary OkHttpClient for file uploads without AuthInterceptor
+    @UploadClient
+    @Provides
+    @Singleton
+    fun provideUploadOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .also { client ->
+                if (com.teqie.taskmaster.BuildConfig.DEBUG) {
+                    val logger = HttpLoggingInterceptor()
+                    logger.setLevel(HttpLoggingInterceptor.Level.BODY)
+                    client.addInterceptor(logger)
+                }
+            }
+            .build()
+
+    // Secondary Retrofit instance for file uploads
+    @UploadClient
+    @Singleton
+    @Provides
+    fun provideUploadRetrofit(
+        @UploadClient okHttpClient: OkHttpClient,
+        moshi: Moshi
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(okHttpClient)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .build()
+
 }
 

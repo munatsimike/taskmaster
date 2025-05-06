@@ -6,7 +6,7 @@ import com.teqie.taskmaster.domain.model.teamMember.AssignedTeamMember
 class BudgetPhase (
     override val id: String,
     override val phase: String,
-    override val projectId: String,
+    override val projectId: String?,
     override val totalAmount: Int,
     override val totalPaid: Int,
     val initialBudget:Double,
