@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.teamMember.TeamMember
 import com.teqie.taskmaster.domain.useCases.user.GetTeamsByProjectUseCase
+import com.teqie.taskmaster.domain.useCases.user.SyncTeamsToLocalDbUseCase
 import com.teqie.taskmaster.ui.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,14 +15,21 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamsViewModel @Inject constructor(
     private val getTeamsByProjectUseCase: GetTeamsByProjectUseCase,
+    private val syncTeamsToLocalDbUseCase: SyncTeamsToLocalDbUseCase
 ) : BaseViewModel() {
 
     private val _fetchProjectUsers = MutableStateFlow(false)
     val fetchProjectUsers: StateFlow<Boolean> = _fetchProjectUsers
 
-    private val _teamsByProjectState =
-        MutableStateFlow<Resource<List<TeamMember>>>(Resource.Loading)
+    private val _teamsByProjectState = MutableStateFlow<Resource<List<TeamMember>>>(Resource.Loading)
     val teamsByProjectState: StateFlow<Resource<List<TeamMember>>> = _teamsByProjectState
+
+    fun syncTeamsToLocalDb(projectId: String){
+        viewModelScope.launch {
+            syncTeamsToLocalDbUseCase(projectId).collect{
+            }
+        }
+    }
 
     fun getTeamsByProject(projectId: String) {
         viewModelScope.launch {

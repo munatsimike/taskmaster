@@ -6,8 +6,8 @@ import com.teqie.taskmaster.domain.teams.TeamsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetTeamsByProjectUseCase @Inject constructor(val teamsRepo: TeamsRepository) {
-    suspend operator fun invoke(projectId: String): Flow<Resource<List<TeamMember>>> {
+class GetTeamsByProjectUseCase @Inject constructor(private val teamsRepo: TeamsRepository) {
+    operator fun invoke(projectId: String): Flow<Resource<List<TeamMember>>> {
         return teamsRepo.getTeamsByProject(projectId)
     }
 }

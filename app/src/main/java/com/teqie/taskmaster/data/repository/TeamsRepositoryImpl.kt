@@ -38,13 +38,9 @@ class TeamsRepositoryImpl @Inject constructor(
     }
 
     override fun getTeamsByProject(projectId: String): Flow<Resource<List<TeamMember>>> = flow {
-        try {
             localDataSource.fetchProjectTeamMembers(projectId).collect { teamMembersDto ->
                 val domainList = teamMembersDto.toDomainList()
                 emit(Resource.Success(domainList))
             }
-        } catch (e: Exception) {
-            emit(Resource.Error(Throwable("Unknown error")))
-        }
     }
 }

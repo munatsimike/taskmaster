@@ -3,6 +3,7 @@ package com.teqie.taskmaster.ui.viewModel.teams
 import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.model.user.CreateUserRequest
 import com.teqie.taskmaster.domain.useCases.user.CreateUserUseCase
+import com.teqie.taskmaster.domain.useCases.user.SyncTeamsToLocalDbUseCase
 import com.teqie.taskmaster.ui.viewModel.BaseFormViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamsFormViewModel @Inject constructor(
     private val createUserUseCase: CreateUserUseCase,
+    private val syncTeamsToLocalDbUseCase: SyncTeamsToLocalDbUseCase
 
     ) : BaseFormViewModel() {
     override fun createFormState() {

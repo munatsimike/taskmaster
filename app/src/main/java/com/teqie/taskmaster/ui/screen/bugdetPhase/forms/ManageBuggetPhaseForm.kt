@@ -43,7 +43,8 @@ fun ManageBudgetPhaseForm(
         mutableStateOf<List<TeamMember>>(emptyList())
     }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(projectId) {
+        usersViewModel.syncTeamsToLocalDb(projectId)
         usersViewModel.getTeamsByProject(projectId)
     }
 
