@@ -16,6 +16,7 @@ import com.teqie.taskmaster.ui.screen.auth.Login
 import com.teqie.taskmaster.ui.screen.bugdetPhase.BudgetPhase
 import com.teqie.taskmaster.ui.screen.dashboard.Dashboard
 import com.teqie.taskmaster.ui.screen.projects.Projects.MainScreen
+import com.teqie.taskmaster.ui.screen.teams.Teams
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
@@ -92,6 +93,16 @@ object NavHost {
                         authViewModel,
                         snackbarHostState,
                         budgetPhaseViewModel = budgetViewModel,
+                    )
+                }
+
+                composable(AppScreen.Teams.route) {
+                    Teams.TeamsMainScreen(
+                        sharedViewModel,
+                        navController,
+                        authViewModel,
+                        snackbarHostState,
+                        sharedUserViewModel
                     )
                 }
             }

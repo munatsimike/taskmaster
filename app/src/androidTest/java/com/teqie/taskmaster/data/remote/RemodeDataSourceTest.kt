@@ -8,10 +8,15 @@ import com.teqie.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.teqie.taskmaster.data.remote.dto.user.UserDetailsDto
 import com.teqie.taskmaster.domain.LoginRequest
 import com.google.common.truth.Truth.assertThat
+import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
+import com.teqie.taskmaster.data.remote.api.service.FileManagerService
+import com.teqie.taskmaster.data.remote.api.service.TeamService
+import com.teqie.taskmaster.di.UploadClient
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Test
@@ -23,13 +28,28 @@ class RemoteDataSourceTest {
     private lateinit var remoteDataSource: RemoteDataSourceImpl
     private lateinit var projectService: ProjectService
     private lateinit var dashboardService: DashboardService
+    private lateinit var budgetPhaseService: BudgetPhaseService
+    private lateinit var teamService: TeamService
+    private lateinit var fileManagerService: FileManagerService
+    private lateinit var uploadOkHttpClient: OkHttpClient
 
     @Before
     fun setup() {
         authService = mockk<AuthService>()
         dashboardService = mockk<DashboardService>()
         projectService = mockk<ProjectService>()
-        remoteDataSource = RemoteDataSourceImpl(authService, projectService, dashboardService)
+        budgetPhaseService =mockk<BudgetPhaseService>()
+        teamService= mockk<TeamService>()
+        fileManagerService = mockk<FileManagerService>()
+        uploadOkHttpClient = mockk<OkHttpClient>()
+
+        remoteDataSource = RemoteDataSourceImpl(
+            authService, projectService, dashboardService,
+            budgetPhaseService,
+            teamService,
+            fileManagerService,
+            uploadOkHttpClient
+        )
     }
 
     @Test
