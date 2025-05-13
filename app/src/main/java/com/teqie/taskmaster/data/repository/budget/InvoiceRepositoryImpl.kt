@@ -2,19 +2,21 @@ package com.teqie.taskmaster.data.repository.budget
 
 import com.teqie.taskmaster.data.local.LocalDataSource
 import com.teqie.taskmaster.data.mapper.APIResponseMapper.toApiResponseMessage
-import com.teqie.taskmaster.data.mapper.budgetphase.invoice.AddInvoiceFileToDtoMapper.toDtoModel
+import com.teqie.taskmaster.data.mapper.FileToAddFileRequestDtoMapper.toDtoModel
 import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceDtoToEntityMapper.toEntityList
+import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceEntityToDomainMapper.toDomainModel
 import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceFileDtoToEntity.toEntityList
 import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceFileEntityToDomainMapper.toDomainModel
+import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceFileToDtoMapper.toDtoModel
 import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceToDtoMapper.toDtoModel
-import com.teqie.taskmaster.data.mapper.budgetphase.invoice.UpdateInvoiceFileToDtoMapper.toDtoModel
 import com.teqie.taskmaster.data.remote.RemoteDataSource
 import com.teqie.taskmaster.domain.Resource
-import com.teqie.taskmaster.domain.buget.InvoiceRepository
-import com.teqie.taskmaster.domain.file.FileData
+import com.teqie.taskmaster.domain.model.InvoiceFile
+import com.teqie.taskmaster.domain.model.budget.InvoiceRepository
 import com.teqie.taskmaster.domain.model.budget.invoices.CreateInvoiceRequest
+import com.teqie.taskmaster.domain.model.budget.invoices.Invoice
+import com.teqie.taskmaster.domain.model.file.FileData
 import com.teqie.taskmaster.ui.model.ResponseMessage
-import com.teqie.taskmaster.ui.screen.bugdetPhase.InvoiceFile
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -28,7 +30,7 @@ class InvoiceRepositoryImpl(
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getInvoicesByBudgetId(budgetId) },
             toEntityMapper = { it.toEntityList() },
-            saveEntities = {}
+            saveEntities = {localDataSource.saveInvoices(it)}
         )
         )
     }
@@ -72,6 +74,13 @@ class InvoiceRepositoryImpl(
           val entity =  invoiceFile.toEntityList()
             entity.map { it.toDomainModel() }
         }
+
+    override fun fetchInvoices(budgetId: String): Flow<Resource<List<Invoice>>> = flow{
+        emitAll(fetchFromLocalDb(
+            fetchEntities = { localDataSource.getInvoices(budgetId) },
+            fromEntityMapper = { it.toDomainModel() }
+        ))
+    }
 
     override fun updateInvoiceFile(invoiceFile: InvoiceFile): Flow<Resource<ResponseMessage>> =
         processApiResponse(

@@ -1,4 +1,4 @@
-package com.teqie.taskmaster.ui.viewModel.budgetPhase.file
+package com.teqie.taskmaster.ui.viewModel.file
 
 import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.model.file.FileType

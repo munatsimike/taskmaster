@@ -12,9 +12,9 @@ import com.teqie.taskmaster.data.repository.budget.InvoiceRepositoryImpl
 import com.teqie.taskmaster.domain.AuthRepository
 import com.teqie.taskmaster.domain.DashboardRepository
 import com.teqie.taskmaster.domain.ProjectRepository
-import com.teqie.taskmaster.domain.buget.BudgetPhaseRepository
-import com.teqie.taskmaster.domain.buget.InvoiceRepository
-import com.teqie.taskmaster.domain.file.FileManagementRepository
+import com.teqie.taskmaster.domain.model.budget.BudgetPhaseRepository
+import com.teqie.taskmaster.domain.model.budget.InvoiceRepository
+import com.teqie.taskmaster.domain.model.file.FileManagementRepository
 import com.teqie.taskmaster.domain.teams.TeamsRepository
 import dagger.Module
 import dagger.Provides

@@ -13,15 +13,15 @@ import com.teqie.taskmaster.data.remote.dto.budget.invoice.CreateInvoiceResponse
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.InvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.UpdateInvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
-import com.teqie.taskmaster.data.remote.dto.file.AddEditFileRequestDto
+import com.teqie.taskmaster.data.remote.dto.file.AddFileRequestDto
 import com.teqie.taskmaster.data.remote.dto.file.InvoiceFileDtoItem
 import com.teqie.taskmaster.data.remote.dto.file.PreSignedUrlResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.UpdateFileRequestDTo
 import com.teqie.taskmaster.data.remote.dto.user.CreateUserResponseDto
 import com.teqie.taskmaster.data.remote.dto.user.TeamsResponseItemDto
 import com.teqie.taskmaster.data.remote.dto.user.UserApiResponseDto
-import com.teqie.taskmaster.domain.file.PresignedUrl
 import com.teqie.taskmaster.domain.model.RemoteResponse
+import com.teqie.taskmaster.domain.model.file.PresignedUrl
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.domain.model.user.CreateUserRequest
 import com.teqie.taskmaster.ui.model.ResponseMessage
@@ -65,13 +65,13 @@ interface RemoteDataSource {
 
     suspend fun getInvoiceFile(invoiceId: String): Response<List<InvoiceFileDtoItem>>
 
-    suspend fun updateInvoiceFile(invoiceRequestDto: UpdateFileRequestDTo): Response<ResponseMessage>
+    suspend fun updateInvoiceFile(updateFileRequestDTo: UpdateFileRequestDTo): Response<ResponseMessage>
 
-   // suspend fun updateORFIFile(addEditFileRequestDto: AddEditFileRequestDto): Response<CreateEditOrfiFileResponse>
+   // suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto): Response<CreateEditOrfiFileResponse>
 
     suspend fun downloadFile(fileUrl: String): Response<ResponseBody>
 
-    suspend fun addInvoiceFile(invoiceFileRequestDto: AddEditFileRequestDto): Response<CreateInvoiceFileResponse>
+    suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<CreateInvoiceFileResponse>
 
     suspend fun getPreSignedUrl(
         fileName: String,
@@ -85,5 +85,6 @@ interface RemoteDataSource {
     suspend fun getTeamsByProject(projectId: String): Response<List<TeamsResponseItemDto>>
 
     suspend fun createAssignUser(createUserRequest: CreateUserRequest): Response<CreateUserResponseDto>
+    fun updateORFIFile(toInvoiceFileRequestDto: Any): Any
 
 }

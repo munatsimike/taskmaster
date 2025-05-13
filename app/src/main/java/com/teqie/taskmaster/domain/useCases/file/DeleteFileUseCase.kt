@@ -1,7 +1,7 @@
 package com.teqie.taskmaster.domain.useCases.file
 
 import com.teqie.taskmaster.domain.Resource
-import com.teqie.taskmaster.domain.file.FileManagementRepository
+import com.teqie.taskmaster.domain.model.file.FileManagementRepository
 import com.teqie.taskmaster.domain.model.file.FileType
 import com.teqie.taskmaster.ui.model.ResponseMessage
 import kotlinx.coroutines.flow.Flow

@@ -1,6 +1,5 @@
-package com.teqie.taskmaster.domain.file
+package com.teqie.taskmaster.domain.model.file
 
-import com.teqie.taskmaster.domain.model.file.FileType
 import com.teqie.taskmaster.domain.util.FileExtension
 import com.teqie.taskmaster.domain.util.getFileExtension
 import com.teqie.taskmaster.domain.util.toFileExtension

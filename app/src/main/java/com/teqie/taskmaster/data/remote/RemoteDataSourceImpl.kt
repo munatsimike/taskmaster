@@ -21,7 +21,7 @@ import com.teqie.taskmaster.data.remote.dto.budget.invoice.CreateInvoiceResponse
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.InvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.UpdateInvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
-import com.teqie.taskmaster.data.remote.dto.file.AddEditFileRequestDto
+import com.teqie.taskmaster.data.remote.dto.file.AddFileRequestDto
 import com.teqie.taskmaster.data.remote.dto.file.InvoiceFileDtoItem
 import com.teqie.taskmaster.data.remote.dto.file.PreSignedUrlResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.UpdateFileRequestDTo
@@ -29,8 +29,8 @@ import com.teqie.taskmaster.data.remote.dto.user.CreateUserResponseDto
 import com.teqie.taskmaster.data.remote.dto.user.TeamsResponseItemDto
 import com.teqie.taskmaster.data.remote.dto.user.UserApiResponseDto
 import com.teqie.taskmaster.di.UploadClient
-import com.teqie.taskmaster.domain.file.PresignedUrl
 import com.teqie.taskmaster.domain.model.RemoteResponse
+import com.teqie.taskmaster.domain.model.file.PresignedUrl
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.domain.model.user.CreateUserRequest
 import com.teqie.taskmaster.ui.model.ResponseMessage
@@ -126,7 +126,7 @@ class RemoteDataSourceImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateInvoiceFile(invoiceRequestDto: UpdateFileRequestDTo): Response<ResponseMessage> {
+    override suspend fun updateInvoiceFile(updateFileRequestDTo: UpdateFileRequestDTo): Response<ResponseMessage> {
         TODO("Not yet implemented")
     }
 
@@ -134,7 +134,7 @@ class RemoteDataSourceImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun addInvoiceFile(invoiceFileRequestDto: AddEditFileRequestDto): Response<CreateInvoiceFileResponse> {
+    override suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<CreateInvoiceFileResponse> {
         TODO("Not yet implemented")
     }
 
@@ -156,6 +156,10 @@ class RemoteDataSourceImpl @Inject constructor(
         return teamService.createAssignUser(createUserRequest)
     }
 
+    override fun updateORFIFile(toInvoiceFileRequestDto: Any): Any {
+        TODO("Not yet implemented")
+    }
+
     /**
     // file operations
 
@@ -166,7 +170,7 @@ class RemoteDataSourceImpl @Inject constructor(
     )
     }
 
-    override suspend fun updateORFIFile(addEditFileRequestDto: AddEditFileRequestDto): Response<CreateEditOrfiFileResponse> {
+    override suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto): Response<CreateEditOrfiFileResponse> {
     return orfiService.updateORFIFile(addEditFileRequestDto.orfi_id, addEditFileRequestDto)
     }
 
@@ -174,7 +178,7 @@ class RemoteDataSourceImpl @Inject constructor(
     return fileManagerService.donwloadFile(fileUrl)
     }
 
-    override suspend fun addInvoiceFile(invoiceFileRequestDto: AddEditFileRequestDto): Response<AddInvoiceFileResponse> {
+    override suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<AddInvoiceFileResponse> {
     return budgetPhaseService.addNewInvoiceFile(invoiceFileRequestDto)
     }
 

@@ -1,6 +1,6 @@
 package com.teqie.taskmaster.domain.useCases.file
 
-import com.teqie.taskmaster.domain.file.FileManagementRepository
+import com.teqie.taskmaster.domain.model.file.FileManagementRepository
 import com.teqie.taskmaster.domain.util.FileExtension
 import javax.inject.Inject
 

@@ -1,9 +1,29 @@
 package com.teqie.taskmaster.ui.screen.bugdetPhase
 
-object InvoiceFile {
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
+import com.teqie.taskmaster.domain.model.InvoiceFile
+import com.teqie.taskmaster.domain.model.file.FileType
+import com.teqie.taskmaster.navigation.AppScreen
+import com.teqie.taskmaster.ui.components.ConfirmDialog
+import com.teqie.taskmaster.ui.components.DisplayFiles
+import com.teqie.taskmaster.ui.components.FormModal
+import com.teqie.taskmaster.ui.components.form.FileManagementForm
+import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
+import com.teqie.taskmaster.ui.components.snackbar.DisplaySnackBar
+import com.teqie.taskmaster.ui.screen.BaseScreenWithFAB
+import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
+import com.teqie.taskmaster.ui.viewModel.SharedViewModel
+import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
+import com.teqie.taskmaster.ui.viewModel.file.FileFormManagementViewModel
+import com.teqie.taskmaster.ui.viewModel.file.FileManagementViewModel
+import com.teqie.taskmaster.ui.viewModel.invoice.InvoiceViewModel
+import com.teqie.taskmaster.util.headerData
 
-}
-/**
+object InvoiceFile{
     @Composable
     fun InvoiceFileMainScreen(
         invoiceId: String,
@@ -12,13 +32,13 @@ object InvoiceFile {
         sharedUserViewModel: SharedUserViewModel,
         authViewModel: AuthViewModel,
         snackbarHostState: CustomSnackbarHostState,
-        budgetViewModel: BudgetViewModel,
+        invoiceViewModel: InvoiceViewModel,
         fileViewModel: FileManagementViewModel,
         fileFormViewmodel: FileFormManagementViewModel,
 
         ) {
         val screenState by fileViewModel.screenState.collectAsState()
-        val allInvoices by budgetViewModel.budgetInvoiceFile.collectAsState()
+        val allInvoices by invoiceViewModel.budgetInvoiceFile.collectAsState()
         val project by sharedViewModel.project.collectAsState()
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
         val formUiState by fileFormViewmodel.uiFormState.collectAsState()
@@ -38,7 +58,7 @@ object InvoiceFile {
         }
 
         LaunchedEffect(invoiceId, screenState.triggerFetch) {
-            budgetViewModel.getAllInvoiceFiles(invoiceId)
+            invoiceViewModel.getAllInvoiceFiles(invoiceId)
         }
 
         BaseScreenWithFAB(
@@ -95,4 +115,3 @@ object InvoiceFile {
         }
     }
 }
-    */

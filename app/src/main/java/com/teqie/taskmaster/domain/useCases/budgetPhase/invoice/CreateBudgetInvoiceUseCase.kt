@@ -2,7 +2,7 @@ package com.teqie.taskmaster.domain.useCases.budgetPhase.invoice
 
 
 import com.teqie.taskmaster.domain.Resource
-import com.teqie.taskmaster.domain.buget.InvoiceRepository
+import com.teqie.taskmaster.domain.model.budget.InvoiceRepository
 import com.teqie.taskmaster.domain.model.budget.invoices.CreateInvoiceRequest
 import com.teqie.taskmaster.ui.model.ResponseMessage
 import kotlinx.coroutines.flow.Flow

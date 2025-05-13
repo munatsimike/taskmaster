@@ -1,6 +1,4 @@
-package com.teqie.taskmaster.domain.file
-
-import com.teqie.taskmaster.domain.model.file.FileType
+package com.teqie.taskmaster.domain.model.file
 
 open class MyFile(
     open val fileType: FileType,

@@ -1,6 +1,34 @@
-package com.teqie.taskmaster.ui.viewModel.budgetPhase.file
+package com.teqie.taskmaster.ui.viewModel.file
 
-/**
+import android.content.Context
+import android.database.Cursor
+import android.net.Uri
+import android.provider.OpenableColumns
+import androidx.lifecycle.viewModelScope
+import com.teqie.taskmaster.domain.Resource
+import com.teqie.taskmaster.domain.mapper.Mapper.toCommonFile
+import com.teqie.taskmaster.domain.model.file.FileData
+import com.teqie.taskmaster.domain.model.file.FileType
+import com.teqie.taskmaster.domain.model.file.MyFile
+import com.teqie.taskmaster.domain.model.file.PresignedUrl
+import com.teqie.taskmaster.domain.useCases.file.EditFileUseCase
+import com.teqie.taskmaster.domain.useCases.file.GetPresignedUrlUseCase
+import com.teqie.taskmaster.domain.useCases.file.SaveFileUseCase
+import com.teqie.taskmaster.domain.useCases.file.UploadFileUseCase
+import com.teqie.taskmaster.ui.model.FileState
+import com.teqie.taskmaster.ui.model.MessageType
+import com.teqie.taskmaster.ui.model.ScreenState
+import com.teqie.taskmaster.ui.viewModel.BaseFormViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.io.File
+import javax.inject.Inject
+
 @HiltViewModel
 class FileFormManagementViewModel @Inject constructor(
     private val uploadFileUseCase: UploadFileUseCase,
@@ -25,12 +53,12 @@ class FileFormManagementViewModel @Inject constructor(
             if (fileName != null) {
                 getPresignedUrlUseCase(fileName, fileType).collect {
                     when (it) {
-                        is NetworkResponse.Error -> {
+                        is Resource.Error -> {
                             val message = it.exception.message.toString()
                             _fileState.value = ScreenState.Error(message)
                         }
 
-                        is NetworkResponse.Success -> {
+                        is Resource.Success -> {
                             _fileState.value = FileState.PresignedUrlGenerated(it.data)
                             if (fileUri != null) {
                                 uploadFileToPreSignedUrl(fileUri, preSignedUrl = it.data)
@@ -162,4 +190,4 @@ class FileFormManagementViewModel @Inject constructor(
         }
         return tempFile
     }
-}**/
+}
