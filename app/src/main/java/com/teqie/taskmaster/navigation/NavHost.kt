@@ -129,7 +129,7 @@ object NavHost {
                             sharedUserViewModel,
                             authViewModel,
                             snackbarHostState,
-                            budgetViewModel = budgetViewModel,
+                            invoiceViewModel =invoiceViewModel,
                         )
                     }
                 }

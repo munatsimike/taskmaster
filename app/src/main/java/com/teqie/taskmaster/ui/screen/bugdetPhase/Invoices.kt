@@ -35,8 +35,8 @@ import com.teqie.taskmaster.ui.screen.bugdetPhase.forms.ManageInvoiceForm
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
-import com.teqie.taskmaster.ui.viewModel.budgetPhase.BudgetViewModel
 import com.teqie.taskmaster.ui.viewModel.budgetPhase.InvoiceFormViewModel
+import com.teqie.taskmaster.ui.viewModel.invoice.InvoiceViewModel
 import com.teqie.taskmaster.util.components.CardHorizontalBarGraph
 import com.teqie.taskmaster.util.components.CustomRowWithAssignedTeamMember
 import com.teqie.taskmaster.util.components.CustomScreenCard
@@ -54,23 +54,24 @@ object Invoices {
         sharedUserViewModel: SharedUserViewModel,
         authViewModel: AuthViewModel,
         snackBarHostState: CustomSnackbarHostState,
-        budgetViewModel: BudgetViewModel,
+        invoiceViewModel: InvoiceViewModel,
         invoiceFormViewModel: InvoiceFormViewModel = hiltViewModel(),
     ) {
-        val uiScreenState by budgetViewModel.screenState.collectAsState()
-        val response by budgetViewModel.invoicesState.collectAsState()
+        val uiScreenState by invoiceViewModel.screenState.collectAsState()
+        val response by invoiceViewModel.invoicesState.collectAsState()
         val project by sharedViewModel.project.collectAsState()
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
         val formUiState by invoiceFormViewModel.uiFormState.collectAsState()
         val message = invoiceFormViewModel.getServerResponseMsg(formUiState, uiScreenState)
 
-        budgetViewModel.handleActions(
+        invoiceViewModel.handleActions(
             uiScreenState,
             formUiState
         ) { invoiceFormViewModel.toggleIsFormSubmitted() }
 
         LaunchedEffect(budgetId, uiScreenState.triggerFetch) {
-          //  budgetViewModel.fetchInvoices(budgetId)
+            invoiceViewModel.syncInvoicesToLocalDb(budgetId)
+            invoiceViewModel.fetchInvoices(budgetId)
         }
 
         DisplaySnackBar(
@@ -97,7 +98,7 @@ object Invoices {
                     invoiceFormViewModel.handEditInvoiceRequest(invoice)
                 },
                 onDelete = { invoice: Invoice ->
-                    budgetViewModel.handleDeleteItem("Invoice", invoice.id)
+                    invoiceViewModel.handleDeleteItem("Invoice", invoice.id)
                 },
                 onNavigateToInvoiceFile = { invoiceId: String ->
                     navController.navigate(AppScreen.InvoicesFile.createRoute(invoiceId))
@@ -117,9 +118,9 @@ object Invoices {
             ConfirmDialog(
                 itemToDelete = uiScreenState.deleteDialogState.selectedItem.orEmpty(),
                 onConfirm = {
-                  //  budgetViewModel.deleteInvoice(uiScreenState.deleteDialogState.selectedItemId)
+                    invoiceViewModel.deleteInvoice(uiScreenState.deleteDialogState.selectedItemId)
                 }) {
-                budgetViewModel.hideConfirmDeleteDialog()
+                invoiceViewModel.hideConfirmDeleteDialog()
             }
         }
     }
