@@ -7,13 +7,14 @@ import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
 import com.teqie.taskmaster.data.remote.api.service.DashboardService
 import com.teqie.taskmaster.data.remote.api.service.FileManagerService
 import com.teqie.taskmaster.data.remote.api.service.ProjectService
+import com.teqie.taskmaster.data.remote.api.service.ScheduleService
 import com.teqie.taskmaster.data.remote.api.service.TeamService
 import com.teqie.taskmaster.data.remote.dto.ProjectResponseDto
+import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
 import com.teqie.taskmaster.data.remote.dto.auth.LoginRequestDto
 import com.teqie.taskmaster.data.remote.dto.budget.BudgetPhaseResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.CreateBudgetPhaseDto
 import com.teqie.taskmaster.data.remote.dto.budget.CreateBudgetPhaseResponse
-import com.teqie.taskmaster.data.remote.dto.budget.CreateInvoiceFileResponse
 import com.teqie.taskmaster.data.remote.dto.budget.UpdateBudgetPhaseDto
 import com.teqie.taskmaster.data.remote.dto.budget.UpdateBudgetPhaseResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.CreateInvoiceRequestDto
@@ -22,9 +23,12 @@ import com.teqie.taskmaster.data.remote.dto.budget.invoice.InvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.UpdateInvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.AddFileRequestDto
+import com.teqie.taskmaster.data.remote.dto.file.AddInvoiceFileResponse
 import com.teqie.taskmaster.data.remote.dto.file.InvoiceFileDtoItem
 import com.teqie.taskmaster.data.remote.dto.file.PreSignedUrlResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.UpdateFileRequestDTo
+import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
+import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleResponseDto
 import com.teqie.taskmaster.data.remote.dto.user.CreateUserResponseDto
 import com.teqie.taskmaster.data.remote.dto.user.TeamsResponseItemDto
 import com.teqie.taskmaster.data.remote.dto.user.UserApiResponseDto
@@ -34,9 +38,13 @@ import com.teqie.taskmaster.domain.model.file.PresignedUrl
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.domain.model.user.CreateUserRequest
 import com.teqie.taskmaster.ui.model.ResponseMessage
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -50,6 +58,7 @@ class RemoteDataSourceImpl @Inject constructor(
     private val dashboardService: DashboardService,
     private val budgetPhaseService: BudgetPhaseService,
     private val teamService: TeamService,
+    private val scheduleService: ScheduleService,
     @UploadClient private val fileManagerService: FileManagerService,
     @UploadClient private val uploadOkHttpClient: OkHttpClient
 ) : RemoteDataSource {
@@ -122,31 +131,58 @@ class RemoteDataSourceImpl @Inject constructor(
         return budgetPhaseService.updateBudgetInvoice(invoiceId, updateInvoiceRequestDto)
     }
 
-    override suspend fun getInvoiceFile(invoiceId: String): Response<List<InvoiceFileDtoItem>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getInvoiceFile(invoiceId: String): Response<List<InvoiceFileDtoItem>> = budgetPhaseService.getInvoiceFiles(invoiceId)
 
     override suspend fun updateInvoiceFile(updateFileRequestDTo: UpdateFileRequestDTo): Response<ResponseMessage> {
-        TODO("Not yet implemented")
+        return budgetPhaseService.updateBudgetInvoiceFile(
+            updateFileRequestDTo.id,
+            updateFileRequestDTo
+        )
+    }
+
+    override suspend fun deleteInvoiceFile(fileId: String): Response<ResponseMessage> {
+        return budgetPhaseService.deleteInvoiceFile(fileId)
     }
 
     override suspend fun downloadFile(fileUrl: String): Response<ResponseBody> {
-        TODO("Not yet implemented")
+        return fileManagerService.donwloadFile(fileUrl)
     }
 
-    override suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<CreateInvoiceFileResponse> {
-        TODO("Not yet implemented")
+    override suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<AddInvoiceFileResponse> {
+        return budgetPhaseService.addNewInvoiceFile(invoiceFileRequestDto)
     }
 
     override suspend fun getPreSignedUrl(
         fileName: String,
         fileType: String
     ): Response<PreSignedUrlResponseDto> {
-        TODO("Not yet implemented")
+        return fileManagerService.getPreSignedUrl(fileName, fileType)
     }
 
     override fun uploadFileToPreSignedUrl(file: File, preSignedUrl: PresignedUrl): String {
-        TODO("Not yet implemented")
+        val requestBody =
+            file.asRequestBody("application/octet-stream".toMediaType())//MIME type is only for the request body, not headers
+
+        val request = Request.Builder()
+            .url(preSignedUrl.url)
+            .put(requestBody)
+            .addHeader("Content-Type", "application/octet-stream")
+            .addHeader("x-amz-acl", "public-read")
+            .build()
+
+        // Execute the request
+        uploadOkHttpClient.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) {
+                // Log response details for debugging
+                Timber.tag("FileUpload").e("Upload failed with response code: ${response.code}")
+                Timber.tag("FileUpload").e("Response message: ${response.message}")
+                response.body?.string()?.let { Timber.tag("FileUpload").e("Response body: $it") }
+                throw Exception("Failed to upload file: ${response.message}")
+            } else {
+                Timber.tag("FileUpload").i("Upload successful with response code: ${response.code}")
+                return preSignedUrl.url.substringBefore("?")
+            }
+        }
     }
 
     override suspend fun getTeamsByProject(projectId: String): Response<List<TeamsResponseItemDto>> =
@@ -160,69 +196,29 @@ class RemoteDataSourceImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun getProjectSchedule(projectId: String): Response<List<ScheduleFetchResponse>> {
+        return scheduleService.getSchedule(projectId)
+    }
+
+    override suspend fun updateSchedule(
+        scheduleId: String,
+        updateScheduleRequest: UpdateScheduleRequest
+    ): Response<UpdateScheduleResponseDto> {
+        return scheduleService.upDateSchedule(scheduleId, updateScheduleRequest)
+    }
+
+
     /**
     // file operations
 
-    override suspend fun updateInvoiceFile(invoiceRequestDto: UpdateFileRequestDTo): Response<ResponseMessage> {
-    return budgetPhaseService.updateBudgetInvoiceFile(
-    invoiceRequestDto.id,
-    invoiceRequestDto
-    )
-    }
 
     override suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto): Response<CreateEditOrfiFileResponse> {
     return orfiService.updateORFIFile(addEditFileRequestDto.orfi_id, addEditFileRequestDto)
     }
 
-    override suspend fun downloadFile(fileUrl: String): Response<ResponseBody> {
-    return fileManagerService.donwloadFile(fileUrl)
-    }
-
-    override suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<AddInvoiceFileResponse> {
-    return budgetPhaseService.addNewInvoiceFile(invoiceFileRequestDto)
-    }
-
-
-    override suspend fun getPreSignedUrl(
-    fileName: String,
-    fileType: String
-    ): Response<PreSignedUrlResponseDto> {
-    return fileManagerService.getPreSignedUrl(fileName, fileType)
-    }
 
     override suspend fun deleteORFIFile(orfiFileId: String): Response<ResponseMessage> {
     return orfiService.deleteORFIFile(orfiFileId)
-    }
-
-    override fun uploadFileToPreSignedUrl(file: File, preSignedUrl: PresignedUrl): String {
-    val requestBody =
-    file.asRequestBody("application/octet-stream".toMediaType())//MIME type is only for the request body, not headers
-
-    val request = Request.Builder()
-    .url(preSignedUrl.url)
-    .put(requestBody)
-    .addHeader("Content-Type", "application/octet-stream")
-    .addHeader("x-amz-acl", "public-read")
-    .build()
-
-    // Execute the request
-    uploadOkHttpClient.newCall(request).execute().use { response ->
-    if (!response.isSuccessful) {
-    // Log response details for debugging
-    Timber.tag("FileUpload").e("Upload failed with response code: ${response.code}")
-    Timber.tag("FileUpload").e("Response message: ${response.message}")
-    response.body?.string()?.let { Timber.tag("FileUpload").e("Response body: $it") }
-    throw Exception("Failed to upload file: ${response.message}")
-    } else {
-    Timber.tag("FileUpload").i("Upload successful with response code: ${response.code}")
-    return preSignedUrl.url.substringBefore("?")
-    }
-    }
-    }
-
-    override suspend fun getInvoiceFile(invoiceId: String): Response<List<InvoiceFileDtoItem>> =
-    budgetPhaseService.getInvoiceFiles(invoiceId)
-
     }
      **/
 }

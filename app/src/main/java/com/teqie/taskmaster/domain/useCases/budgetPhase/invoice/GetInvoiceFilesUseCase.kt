@@ -9,6 +9,6 @@ import javax.inject.Inject
 
 class GetInvoiceFilesUseCase @Inject constructor(private val invoiceRepository: InvoiceRepository) {
     operator fun invoke(invoiceId: String): Flow<Resource<List<InvoiceFile>>> {
-        return invoiceRepository.geInvoiceFile(invoiceId)
+        return invoiceRepository.geInvoiceFiles(invoiceId)
     }
 }

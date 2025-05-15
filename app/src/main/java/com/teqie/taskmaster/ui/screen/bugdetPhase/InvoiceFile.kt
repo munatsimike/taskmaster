@@ -38,7 +38,7 @@ object InvoiceFile{
 
         ) {
         val screenState by fileViewModel.screenState.collectAsState()
-        val allInvoices by invoiceViewModel.budgetInvoiceFile.collectAsState()
+        val allInvoiceFiles by invoiceViewModel.budgetInvoiceFile.collectAsState()
         val project by sharedViewModel.project.collectAsState()
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
         val formUiState by fileFormViewmodel.uiFormState.collectAsState()
@@ -81,7 +81,7 @@ object InvoiceFile{
         ) {
             DisplayFiles(
                 checkedIds = screenState.selectedItemIds,
-                networkState = allInvoices,
+                networkState = allInvoiceFiles,
                 onCheckedChange = fileViewModel::onIsCheckedChange,
                 onDeleteClick = { invoice: InvoiceFile ->
                     fileViewModel.handleDeleteItem("File", invoice.id)

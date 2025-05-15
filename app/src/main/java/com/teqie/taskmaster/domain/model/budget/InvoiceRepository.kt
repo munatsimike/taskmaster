@@ -17,7 +17,7 @@ interface InvoiceRepository {
 
     suspend fun updateInvoice(invoiceUpdateRequest: CreateInvoiceRequest): Flow<Resource<ResponseMessage>>
 
-    fun geInvoiceFile(invoiceId: String): Flow<Resource<List<InvoiceFile>>>
+    fun geInvoiceFiles(invoiceId: String): Flow<Resource<List<InvoiceFile>>>
 
     fun fetchInvoices(budgetId: String): Flow<Resource<List<Invoice>>>
 

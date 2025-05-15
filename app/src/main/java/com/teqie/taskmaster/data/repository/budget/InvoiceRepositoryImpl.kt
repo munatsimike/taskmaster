@@ -26,6 +26,7 @@ class InvoiceRepositoryImpl(
     private val remoteDataSource: RemoteDataSource
 ): InvoiceRepository,BaseRepository() {
 
+    // cache invoices to local db
     override fun syncInvoicesToLocal(budgetId: String): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getInvoicesByBudgetId(budgetId) },
@@ -67,7 +68,7 @@ class InvoiceRepositoryImpl(
             }
         )
 
-    override fun geInvoiceFile(invoiceId: String): Flow<Resource<List<InvoiceFile>>> =
+    override fun geInvoiceFiles(invoiceId: String): Flow<Resource<List<InvoiceFile>>> =
         processApiResponse(
             call = { remoteDataSource.getInvoiceFile(invoiceId) }
         ) { invoiceFile ->

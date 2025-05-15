@@ -5,7 +5,6 @@ import com.teqie.taskmaster.data.remote.dto.auth.LoginRequestDto
 import com.teqie.taskmaster.data.remote.dto.budget.BudgetPhaseResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.CreateBudgetPhaseDto
 import com.teqie.taskmaster.data.remote.dto.budget.CreateBudgetPhaseResponse
-import com.teqie.taskmaster.data.remote.dto.budget.CreateInvoiceFileResponse
 import com.teqie.taskmaster.data.remote.dto.budget.UpdateBudgetPhaseDto
 import com.teqie.taskmaster.data.remote.dto.budget.UpdateBudgetPhaseResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.CreateInvoiceRequestDto
@@ -14,9 +13,13 @@ import com.teqie.taskmaster.data.remote.dto.budget.invoice.InvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.budget.invoice.UpdateInvoiceResponseDto
 import com.teqie.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.AddFileRequestDto
+import com.teqie.taskmaster.data.remote.dto.file.AddInvoiceFileResponse
 import com.teqie.taskmaster.data.remote.dto.file.InvoiceFileDtoItem
 import com.teqie.taskmaster.data.remote.dto.file.PreSignedUrlResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.UpdateFileRequestDTo
+import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
+import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
+import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleResponseDto
 import com.teqie.taskmaster.data.remote.dto.user.CreateUserResponseDto
 import com.teqie.taskmaster.data.remote.dto.user.TeamsResponseItemDto
 import com.teqie.taskmaster.data.remote.dto.user.UserApiResponseDto
@@ -71,7 +74,7 @@ interface RemoteDataSource {
 
     suspend fun downloadFile(fileUrl: String): Response<ResponseBody>
 
-    suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<CreateInvoiceFileResponse>
+    suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<AddInvoiceFileResponse>
 
     suspend fun getPreSignedUrl(
         fileName: String,
@@ -82,9 +85,17 @@ interface RemoteDataSource {
 
     fun uploadFileToPreSignedUrl(file: File, preSignedUrl: PresignedUrl): String
 
+    suspend fun deleteInvoiceFile(fileId: String): Response<ResponseMessage>
+
     suspend fun getTeamsByProject(projectId: String): Response<List<TeamsResponseItemDto>>
 
     suspend fun createAssignUser(createUserRequest: CreateUserRequest): Response<CreateUserResponseDto>
     fun updateORFIFile(toInvoiceFileRequestDto: Any): Any
 
+    suspend fun getProjectSchedule(projectId: String): Response<List<ScheduleFetchResponse>>
+
+    suspend fun updateSchedule(
+        scheduleId: String,
+        updateScheduleRequest: UpdateScheduleRequest
+    ): Response<UpdateScheduleResponseDto>
 }
