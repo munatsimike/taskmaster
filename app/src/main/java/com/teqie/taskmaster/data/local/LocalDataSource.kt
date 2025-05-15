@@ -5,6 +5,7 @@ import com.teqie.taskmaster.data.local.db.enties.DashboardEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
+import com.teqie.taskmaster.data.local.db.enties.ScheduleEntity
 import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
 import com.teqie.taskmaster.data.local.preferences.AccessToken
 import com.teqie.taskmaster.domain.util.FileExtension
@@ -49,4 +50,7 @@ interface LocalDataSource {
 
     fun fetchProjectTeamMembers(projectId: String): Flow<List<TeamMemberEntity>>
     suspend fun saveTeamMembers(members: List<TeamMemberEntity>)
+
+    fun fetchProjectSchedule(projectId: String): Flow<List<ScheduleEntity>>
+    suspend fun saveProjectSchedule(schedules: List<ScheduleEntity>)
 }

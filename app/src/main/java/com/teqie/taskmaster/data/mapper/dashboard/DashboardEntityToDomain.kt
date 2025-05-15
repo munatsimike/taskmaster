@@ -5,7 +5,7 @@ import com.teqie.taskmaster.data.mapper.BudgetPhaseMapper.toLstOfDashBoardBudget
 import com.teqie.taskmaster.data.mapper.CommonMapper.toTotalDomain
 import com.teqie.taskmaster.data.mapper.EntityToDomain
 import com.teqie.taskmaster.data.mapper.OrfiMapper.toLstOfOrfiModel
-import com.teqie.taskmaster.data.mapper.ScheduleMapper.toListOfScheduleModel
+import com.teqie.taskmaster.data.mapper.schedule.ScheduleCommonMapper.toListOfScheduleModel
 import com.teqie.taskmaster.domain.model.DashboardData
 
 object DashboardEntityToDomain: EntityToDomain<DashboardEntity, DashboardData> {

@@ -8,5 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ScheduleRepository {
     suspend fun updateSchedule(formState: ScheduleFormState): Flow<Resource<ResponseMessage>>
-    fun getProjectSchedule(projectId: String): Flow<Resource<List<Schedule>>>
+    fun fetchProjectSchedule(projectId: String): Flow<Resource<List<Schedule>>>
+    fun syncBudgetPhasesToLocal(projectId: String): Flow<Resource<Unit>>
 }
