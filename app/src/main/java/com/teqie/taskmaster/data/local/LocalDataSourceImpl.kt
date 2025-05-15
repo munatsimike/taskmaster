@@ -6,12 +6,14 @@ import com.teqie.taskmaster.data.local.db.dao.DashboardDao
 import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
+import com.teqie.taskmaster.data.local.db.dao.ScheduleDao
 import com.teqie.taskmaster.data.local.db.dao.TeamMemberDao
 import com.teqie.taskmaster.data.local.db.enties.BudgetPhaseEntity
 import com.teqie.taskmaster.data.local.db.enties.DashboardEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
+import com.teqie.taskmaster.data.local.db.enties.ScheduleEntity
 import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
 import com.teqie.taskmaster.data.local.preferences.AccessToken
 import com.teqie.taskmaster.data.local.preferences.EncryptedPreferenceManager
@@ -28,7 +30,8 @@ class LocalDataSourceImpl @Inject constructor(
     private val budgetPhaseDao: BudgetPhaseDao,
     private val invoiceDao: InvoiceDao,
     private val internalStorage: FileStorageManager,
-    private val teamMemberDao: TeamMemberDao
+    private val teamMemberDao: TeamMemberDao,
+    private val scheduleDao: ScheduleDao
 ) : LocalDataSource {
 
     // Functions to save and retrieve access tokens (SharedPreferences)
@@ -104,5 +107,13 @@ class LocalDataSourceImpl @Inject constructor(
 
     override suspend fun saveTeamMembers(members: List<TeamMemberEntity>) {
         teamMemberDao.saveTeamMembers(members)
+    }
+
+    override fun fetchProjectSchedule(projectId: String): Flow<List<ScheduleEntity>> {
+        return scheduleDao.fetchSchedules(projectId)
+    }
+
+    override suspend fun saveProjectSchedule(schedules: List<ScheduleEntity>) {
+       scheduleDao.saveSchedules(schedules)
     }
 }

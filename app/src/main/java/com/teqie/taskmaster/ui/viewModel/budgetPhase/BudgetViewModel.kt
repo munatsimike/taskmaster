@@ -40,7 +40,6 @@ class BudgetViewModel @Inject constructor(
         viewModelScope.launch {
             syncBudgetPhasesToLocalUseCase(projectId).collect{
                 Log.i("error", it.toString())
-
             }
         }
     }

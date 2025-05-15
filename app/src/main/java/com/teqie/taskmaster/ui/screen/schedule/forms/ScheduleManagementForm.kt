@@ -1,4 +1,4 @@
-package com.example.taskflow.ui.screen.schedule.forms
+package com.teqie.taskmaster.ui.screen.schedule.forms
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
@@ -27,16 +27,16 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.taskflow.R
-import com.example.taskflow.domain.model.project.Project
 import com.example.taskflow.ui.screen.schedule.ScheduleFormState
-import com.example.taskflow.ui.util.components.ButtonFactory.PrimaryButton
-import com.example.taskflow.ui.util.components.DisplayImageVectorIcon
-import com.example.taskflow.ui.util.components.TextFieldFactory.FilledTextField
-import com.example.taskflow.ui.util.components.form.CustomDatePicker
-import com.example.taskflow.ui.util.components.form.FormModal
-import com.example.taskflow.ui.util.formatFloat
-import com.example.taskflow.ui.viewModel.schedule.ScheduleFormViewModel
+import com.teqie.taskmaster.R
+import com.teqie.taskmaster.domain.model.project.Project
+import com.teqie.taskmaster.ui.components.FormModal
+import com.teqie.taskmaster.ui.components.factory.ButtonFactory.PrimaryButton
+import com.teqie.taskmaster.ui.components.factory.TextFieldFactory.FilledTextField
+import com.teqie.taskmaster.ui.components.form.CustomDatePicker
+import com.teqie.taskmaster.ui.components.imageDisplay.DisplayImageVectorIcon
+import com.teqie.taskmaster.ui.viewModel.schedule.ScheduleFormViewModel
+import com.teqie.taskmaster.util.formatFloat
 
 @Composable
 fun ManageScheduleForm(

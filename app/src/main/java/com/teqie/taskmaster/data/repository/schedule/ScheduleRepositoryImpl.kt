@@ -1,4 +1,4 @@
-package com.teqie.taskmaster.data.repository
+package com.teqie.taskmaster.data.repository.schedule
 
 
 import com.example.taskflow.ui.screen.schedule.ScheduleFormState
@@ -28,7 +28,7 @@ class ScheduleRepositoryImpl @Inject constructor(
         ))
     }
 
-    override fun syncBudgetPhasesToLocal(projectId: String): Flow<Resource<Unit>> = flow {
+    override fun syncScheduleToLocal(projectId: String): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getProjectSchedule(projectId) },
             toEntityMapper = { it.toEntityList() },
@@ -37,7 +37,7 @@ class ScheduleRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun updateSchedule(formState: ScheduleFormState): Flow<Resource<ResponseMessage>> {
+    override fun updateSchedule(formState: ScheduleFormState): Flow<Resource<ResponseMessage>> {
         return processApiResponse(
             call = {
                 remoteDataSource.updateSchedule(

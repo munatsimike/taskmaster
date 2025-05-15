@@ -26,7 +26,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.taskflow.ui.util.components.TextFactory.BodyText
+import com.teqie.taskmaster.ui.components.factory.TextFactory.BodyText
+
 
 @Composable
 fun HorizontalBarGraph(

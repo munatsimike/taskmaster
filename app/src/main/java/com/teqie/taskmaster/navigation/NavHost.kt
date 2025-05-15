@@ -21,6 +21,7 @@ import com.teqie.taskmaster.ui.screen.bugdetPhase.InvoiceFile
 import com.teqie.taskmaster.ui.screen.bugdetPhase.Invoices
 import com.teqie.taskmaster.ui.screen.dashboard.Dashboard
 import com.teqie.taskmaster.ui.screen.projects.Projects.MainScreen
+import com.teqie.taskmaster.ui.screen.schedule.Schedules
 import com.teqie.taskmaster.ui.screen.teams.Teams
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
@@ -114,6 +115,15 @@ object NavHost {
                         authViewModel,
                         snackbarHostState,
                         sharedUserViewModel
+                    )
+                }
+
+                composable(AppScreen.Schedule.route) {
+                    Schedules.SchedulesMainScreen(
+                        navController,
+                        sharedUserViewModel,
+                        sharedViewModel,
+                        snackbarHostState
                     )
                 }
 

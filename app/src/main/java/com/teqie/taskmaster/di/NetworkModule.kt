@@ -9,6 +9,7 @@ import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
 import com.teqie.taskmaster.data.remote.api.service.DashboardService
 import com.teqie.taskmaster.data.remote.api.service.FileManagerService
 import com.teqie.taskmaster.data.remote.api.service.ProjectService
+import com.teqie.taskmaster.data.remote.api.service.ScheduleService
 import com.teqie.taskmaster.data.remote.api.service.TeamService
 import com.teqie.taskmaster.data.remote.api.service.client.AuthInterceptor
 import dagger.Module
@@ -118,6 +119,11 @@ object NetworkModule {
     @Provides
     fun provideTeamsService(retrofit: Retrofit): TeamService =
         retrofit.create(TeamService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideScheduleService(retrofit: Retrofit): ScheduleService =
+        retrofit.create(ScheduleService::class.java)
 
     @UploadClient
     @Singleton

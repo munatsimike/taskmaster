@@ -1,10 +1,10 @@
-package com.example.taskflow.ui.viewModel.schedule
+package com.teqie.taskmaster.ui.viewModel.schedule
 
 import androidx.lifecycle.viewModelScope
-import com.example.taskflow.domain.model.Schedule
-import com.example.taskflow.domain.usecases.put.UpdateScheduleUseCase
 import com.example.taskflow.ui.screen.schedule.ScheduleFormState
-import com.example.taskflow.ui.viewModel.BaseFormViewModel
+import com.teqie.taskmaster.domain.model.Schedule
+import com.teqie.taskmaster.domain.useCases.schedule.UpdateScheduleUseCase
+import com.teqie.taskmaster.ui.viewModel.BaseFormViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

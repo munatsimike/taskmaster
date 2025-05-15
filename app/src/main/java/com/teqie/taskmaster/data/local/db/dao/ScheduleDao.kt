@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.ScheduleEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,5 +13,5 @@ interface ScheduleDao {
     suspend fun saveSchedules(schedule: List<ScheduleEntity>)
 
     @Query("SELECT * FROM schedule WHERE projectId=:projectId")
-    fun fetchSchedules(projectId: String): Flow<List<InvoiceEntity>>
+    fun fetchSchedules(projectId: String): Flow<List<ScheduleEntity>>
 }

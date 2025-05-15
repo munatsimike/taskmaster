@@ -1,4 +1,4 @@
-package com.example.taskflow.ui.screen.schedule
+package com.teqie.taskmaster.ui.screen.schedule
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,29 +21,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.taskflow.R
-import com.example.taskflow.data.remote.api.NetworkResponse
-import com.example.taskflow.domain.model.Schedule
-import com.example.taskflow.navigation.AppScreen
-import com.example.taskflow.ui.model.IconWithText
-import com.example.taskflow.ui.model.uiState.CustomSnackbarHostState
-import com.example.taskflow.ui.screen.DisplayScreenHeader
-import com.example.taskflow.ui.screen.schedule.forms.ManageScheduleForm
-import com.example.taskflow.ui.theme.lightGray
-import com.example.taskflow.ui.util.components.CardHorizontalBarGraph
-import com.example.taskflow.ui.util.components.CustomScreenCard
-import com.example.taskflow.ui.util.components.DisplaySnackBar
-import com.example.taskflow.ui.util.components.ProcessNetworkState
-import com.example.taskflow.ui.util.components.TextFactory.SubtitleText
-import com.example.taskflow.ui.util.components.TextFactory.TitleText
-import com.example.taskflow.ui.util.components.Tooltip
-import com.example.taskflow.ui.util.formatFloat
-import com.example.taskflow.ui.util.headerData
-import com.example.taskflow.ui.util.isoToReadableDate
-import com.example.taskflow.ui.viewModel.SharedUserViewModel
-import com.example.taskflow.ui.viewModel.SharedViewModel
-import com.example.taskflow.ui.viewModel.schedule.ScheduleFormViewModel
+import com.teqie.taskmaster.R
+import com.teqie.taskmaster.domain.Resource
+import com.teqie.taskmaster.domain.model.Schedule
+import com.teqie.taskmaster.navigation.AppScreen
+import com.teqie.taskmaster.ui.components.Tooltip
+import com.teqie.taskmaster.ui.components.factory.TextFactory.SubtitleText
+import com.teqie.taskmaster.ui.components.factory.TextFactory.TitleText
+import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
+import com.teqie.taskmaster.ui.components.snackbar.DisplaySnackBar
+import com.teqie.taskmaster.ui.components.state.ProcessNetworkState
+import com.teqie.taskmaster.ui.model.IconWithText
+import com.teqie.taskmaster.ui.screen.DisplayScreenHeader
+import com.teqie.taskmaster.ui.screen.schedule.forms.ManageScheduleForm
+import com.teqie.taskmaster.ui.theme.lightGray
+import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
+import com.teqie.taskmaster.ui.viewModel.SharedViewModel
+import com.teqie.taskmaster.ui.viewModel.schedule.ScheduleFormViewModel
 import com.teqie.taskmaster.ui.viewModel.schedule.ScheduleViewModel
+import com.teqie.taskmaster.util.components.CardHorizontalBarGraph
+import com.teqie.taskmaster.util.components.CustomScreenCard
+import com.teqie.taskmaster.util.formatFloat
+import com.teqie.taskmaster.util.headerData
+import com.teqie.taskmaster.util.isoToReadableDate
 
 object Schedules {
     private var projectTile = ""
@@ -80,6 +80,7 @@ object Schedules {
         ) { scheduleFormViewModel.clearServerResponseMessage() }
 
         LaunchedEffect(project.id, uiScreenState.triggerFetch) {
+            scheduleViewModel.syncScheduleToLocalDb(project.id)
             scheduleViewModel.getSchedule(project.id)
         }
         val state by scheduleViewModel.scheduleState.collectAsState()
@@ -119,7 +120,7 @@ object Schedules {
     private fun ScheduleContent(
         onDismissTooltip: () -> Unit,
         selectedSchedule: Schedule?,
-        networkState: NetworkResponse<List<Schedule>>,
+        networkState: Resource<List<Schedule>>,
         onDeleteSchedule: (Schedule) -> Unit,
         onEditRequest: (Schedule) -> Unit
     ) {

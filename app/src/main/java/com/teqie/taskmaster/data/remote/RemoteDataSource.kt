@@ -97,5 +97,5 @@ interface RemoteDataSource {
     suspend fun updateSchedule(
         scheduleId: String,
         updateScheduleRequest: UpdateScheduleRequest
-    ): Response<ResponseMessage>
+    ): Response<UpdateScheduleResponseDto>
 }
