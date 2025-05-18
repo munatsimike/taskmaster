@@ -17,6 +17,10 @@ import com.teqie.taskmaster.data.remote.dto.file.AddInvoiceFileResponse
 import com.teqie.taskmaster.data.remote.dto.file.InvoiceFileDtoItem
 import com.teqie.taskmaster.data.remote.dto.file.PreSignedUrlResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.UpdateFileRequestDTo
+import com.teqie.taskmaster.data.remote.dto.gallery.AddFolderRequestDto
+import com.teqie.taskmaster.data.remote.dto.gallery.FoldersResponseDto
+import com.teqie.taskmaster.data.remote.dto.gallery.ImageResponseDto
+import com.teqie.taskmaster.data.remote.dto.gallery.SaveImageRequestDto
 import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleResponseDto
@@ -98,4 +102,13 @@ interface RemoteDataSource {
         scheduleId: String,
         updateScheduleRequest: UpdateScheduleRequest
     ): Response<UpdateScheduleResponseDto>
+
+    suspend fun getGalleryFolders(projectId: String): Response<List<FoldersResponseDto>>
+
+    suspend fun getGalleryImages(folderId: String): Response<List<ImageResponseDto>>
+    suspend fun saveImageFile(saveImageRequestDto: SaveImageRequestDto)
+    suspend fun deleteImage(imageId: String): Response<ResponseMessage>
+
+    suspend fun deleteFolder(folderId: String): Response<ResponseMessage>
+    suspend fun addFolder(addFolderRequestDto: AddFolderRequestDto)
 }

@@ -6,6 +6,7 @@ import com.teqie.taskmaster.data.remote.api.service.AuthService
 import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
 import com.teqie.taskmaster.data.remote.api.service.DashboardService
 import com.teqie.taskmaster.data.remote.api.service.FileManagerService
+import com.teqie.taskmaster.data.remote.api.service.GalleryService
 import com.teqie.taskmaster.data.remote.api.service.ProjectService
 import com.teqie.taskmaster.data.remote.api.service.ScheduleService
 import com.teqie.taskmaster.data.remote.api.service.TeamService
@@ -26,6 +27,10 @@ import com.teqie.taskmaster.data.remote.dto.file.AddInvoiceFileResponse
 import com.teqie.taskmaster.data.remote.dto.file.InvoiceFileDtoItem
 import com.teqie.taskmaster.data.remote.dto.file.PreSignedUrlResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.UpdateFileRequestDTo
+import com.teqie.taskmaster.data.remote.dto.gallery.AddFolderRequestDto
+import com.teqie.taskmaster.data.remote.dto.gallery.FoldersResponseDto
+import com.teqie.taskmaster.data.remote.dto.gallery.ImageResponseDto
+import com.teqie.taskmaster.data.remote.dto.gallery.SaveImageRequestDto
 import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleResponseDto
@@ -59,6 +64,7 @@ class RemoteDataSourceImpl @Inject constructor(
     private val budgetPhaseService: BudgetPhaseService,
     private val teamService: TeamService,
     private val scheduleService: ScheduleService,
+    private val galleryService: GalleryService,
     @UploadClient private val fileManagerService: FileManagerService,
     @UploadClient private val uploadOkHttpClient: OkHttpClient
 ) : RemoteDataSource {
@@ -207,15 +213,34 @@ class RemoteDataSourceImpl @Inject constructor(
         return scheduleService.upDateSchedule(scheduleId, updateScheduleRequest)
     }
 
+    override suspend fun getGalleryFolders(projectId: String): Response<List<FoldersResponseDto>> {
+        return  galleryService.getGalleryFolders(projectId)
+    }
+
+    override suspend fun getGalleryImages(folderId: String): Response<ImageResponseDto> =
+        galleryService.getImagesByFolderId(folderId)
+
+    override suspend fun saveImageFile(saveImageRequestDto: SaveImageRequestDto){
+        galleryService.saveImage(saveImageRequestDto)
+    }
+
+    override suspend fun deleteImage(imageId: String): Response<ResponseMessage>{
+        return galleryService.deleteImage(imageId)
+    }
+
+    override suspend fun deleteFolder(folderId: String): Response<ResponseMessage>{
+        return galleryService.deleteFolder(folderId)
+    }
+
+    override suspend fun addFolder(addFolderRequestDto: AddFolderRequestDto){
+        galleryService.addFolder(addFolderRequestDto)
+    }
 
     /**
     // file operations
-
-
     override suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto): Response<CreateEditOrfiFileResponse> {
     return orfiService.updateORFIFile(addEditFileRequestDto.orfi_id, addEditFileRequestDto)
     }
-
 
     override suspend fun deleteORFIFile(orfiFileId: String): Response<ResponseMessage> {
     return orfiService.deleteORFIFile(orfiFileId)
