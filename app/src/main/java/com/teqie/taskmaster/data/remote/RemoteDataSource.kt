@@ -105,7 +105,7 @@ interface RemoteDataSource {
 
     suspend fun getGalleryFolders(projectId: String): Response<List<FoldersResponseDto>>
 
-    suspend fun getGalleryImages(folderId: String): Response<List<ImageResponseDto>>
+    suspend fun getGalleryImages(folderId: String): Response<ImageResponseDto>
     suspend fun saveImageFile(saveImageRequestDto: SaveImageRequestDto)
     suspend fun deleteImage(imageId: String): Response<ResponseMessage>
 

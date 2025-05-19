@@ -1,12 +1,19 @@
 package com.teqie.taskmaster.data.local.db.enties
 
 import androidx.room.Entity
-import com.teqie.taskmaster.data.remote.dto.gallery.GalleryImageDto
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "images")
 class GalleryImageEntity (
-    val currentPage: Int,
-    val images: List<GalleryImageDto>,
-    val totalItems: Int,
-    val totalPages: Int
+    val createdAt: String,
+    val description: String?,
+    val folderId: Int,
+    @PrimaryKey
+    val id: String,
+    val imageName: String,
+    val imageUrl: String,
+    val isDeleted: Int,
+    val projectId: String,
+    val tags: List<String>,
+    val updatedAt: String
     )

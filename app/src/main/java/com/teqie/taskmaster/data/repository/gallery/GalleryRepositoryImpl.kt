@@ -61,7 +61,7 @@ class GalleryRepositoryImpl @Inject constructor(
     override fun syncImagesToLocal(projectId: String): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getGalleryImages(projectId) },
-            toEntityMapper = { it.toEntityList() },
+            toEntityMapper = { it.images.toEntityList() },
             saveEntities = { localDataSource.saveImages(it) }
         )
         )

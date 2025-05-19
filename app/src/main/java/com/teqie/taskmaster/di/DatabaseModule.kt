@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.teqie.taskmaster.data.local.db.AppDatabase
 import com.teqie.taskmaster.data.local.db.dao.BudgetPhaseDao
 import com.teqie.taskmaster.data.local.db.dao.DashboardDao
+import com.teqie.taskmaster.data.local.db.dao.GalleryImageDao
 import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
@@ -48,4 +49,7 @@ object DatabaseModule {
 
     @Provides
     fun provideScheduleDao(database: AppDatabase): ScheduleDao = database.scheduleDao
+
+    @Provides
+    fun provideGalleryDao(database: AppDatabase): GalleryImageDao = database.galleryDao
 }

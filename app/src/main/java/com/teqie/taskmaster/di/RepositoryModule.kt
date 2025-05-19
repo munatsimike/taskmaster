@@ -9,6 +9,8 @@ import com.teqie.taskmaster.data.repository.ProjectsRepoImpl
 import com.teqie.taskmaster.data.repository.TeamsRepositoryImpl
 import com.teqie.taskmaster.data.repository.budget.BudgetPhaseRepositoryImpl
 import com.teqie.taskmaster.data.repository.budget.InvoiceRepositoryImpl
+import com.teqie.taskmaster.data.repository.gallery.GalleryRepository
+import com.teqie.taskmaster.data.repository.gallery.GalleryRepositoryImpl
 import com.teqie.taskmaster.data.repository.schedule.ScheduleRepository
 import com.teqie.taskmaster.data.repository.schedule.ScheduleRepositoryImpl
 import com.teqie.taskmaster.domain.AuthRepository
@@ -83,4 +85,11 @@ object RepositoryModule {
         remoteDataSource: RemoteDataSource
     ): ScheduleRepository =
         ScheduleRepositoryImpl(localDataSource, remoteDataSource)
+
+    @Provides
+    fun provideGalleryRepo(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource
+    ): GalleryRepository =
+        GalleryRepositoryImpl(localDataSource, remoteDataSource)
 }

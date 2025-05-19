@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
 import com.teqie.taskmaster.ui.constants.Constants.BUDGET_ID
 import com.teqie.taskmaster.ui.constants.Constants.BUDGET_PHASE
+import com.teqie.taskmaster.ui.constants.Constants.FOLDER_ID
 import com.teqie.taskmaster.ui.constants.Constants.INVOICE_ID
 import com.teqie.taskmaster.ui.screen.SplashScreen
 import com.teqie.taskmaster.ui.screen.auth.Login
@@ -20,6 +21,9 @@ import com.teqie.taskmaster.ui.screen.bugdetPhase.BudgetPhase
 import com.teqie.taskmaster.ui.screen.bugdetPhase.InvoiceFile
 import com.teqie.taskmaster.ui.screen.bugdetPhase.Invoices
 import com.teqie.taskmaster.ui.screen.dashboard.Dashboard
+import com.teqie.taskmaster.ui.screen.gallery.Folders
+import com.teqie.taskmaster.ui.screen.gallery.Gallery
+import com.teqie.taskmaster.ui.screen.gallery.ImageDetails
 import com.teqie.taskmaster.ui.screen.projects.Projects.MainScreen
 import com.teqie.taskmaster.ui.screen.schedule.Schedules
 import com.teqie.taskmaster.ui.screen.teams.Teams
@@ -29,6 +33,8 @@ import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.teqie.taskmaster.ui.viewModel.budgetPhase.BudgetViewModel
 import com.teqie.taskmaster.ui.viewModel.file.FileFormManagementViewModel
 import com.teqie.taskmaster.ui.viewModel.file.FileManagementViewModel
+import com.teqie.taskmaster.ui.viewModel.gallery.GalleryFormViewModel
+import com.teqie.taskmaster.ui.viewModel.gallery.GalleryViewModel
 import com.teqie.taskmaster.ui.viewModel.invoice.InvoiceViewModel
 import kotlinx.coroutines.delay
 
@@ -45,7 +51,9 @@ object NavHost {
         budgetViewModel: BudgetViewModel = hiltViewModel(),
         invoiceViewModel: InvoiceViewModel = hiltViewModel(),
         fileManagementViewModel: FileManagementViewModel = hiltViewModel(),
-       fileFormManagementViewModel: FileFormManagementViewModel  = hiltViewModel()
+        galleryFormViewModel: GalleryFormViewModel = hiltViewModel(),
+        galleryViewModel: GalleryViewModel = hiltViewModel(),
+        fileFormManagementViewModel: FileFormManagementViewModel  = hiltViewModel()
     ) {
         val loginUiState by authViewModel.uiState.collectAsState()
 
@@ -160,6 +168,47 @@ object NavHost {
                         )
                     }
                 }
+
+                composable(AppScreen.Gallery.route) { backStack ->
+                    val folderId = backStack.arguments?.getString(FOLDER_ID)
+                    if (folderId != null) {
+                        Gallery.GalleryMainScreen(
+                            folderId = folderId,
+                            navController = navController,
+                            sharedViewModel = sharedViewModel,
+                            sharedUserViewModel,
+                            authViewModel,
+                            animatedVisibilityScope = this,
+                            sharedTransitionScope = this@SharedTransitionLayout,
+                            galleryViewModel = galleryViewModel,
+                            snackBarHostState = snackbarHostState,
+                            fileViewModel = fileFormManagementViewModel
+                        )
+                    }
+                }
+
+                composable(AppScreen.ImageDetails.route) {
+                    ImageDetails.MaingScreen(
+                        navController = navController,
+                        animatedVisibilityScope = this,
+                        galleryViewModel = galleryViewModel,
+                        sharedTransitionScop =  this@SharedTransitionLayout,
+                        sharedViewModel = sharedViewModel,
+                        fileManagementViewModel = fileManagementViewModel
+                    )
+                }
+
+                composable(AppScreen.Folders.route) {
+                    Folders.FoldersMainScreen(
+                        sharedViewModel = sharedViewModel,
+                        navController,
+                        sharedUserViewModel,
+                        snackbarHostState,
+                        galleryFormViewModel = galleryFormViewModel,
+                        galleryViewModel = galleryViewModel
+                    )
+                }
+
             }
         }
     }

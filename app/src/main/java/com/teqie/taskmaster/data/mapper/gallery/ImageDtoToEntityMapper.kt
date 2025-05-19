@@ -2,15 +2,21 @@ package com.teqie.taskmaster.data.mapper.gallery
 
 import com.teqie.taskmaster.data.local.db.enties.GalleryImageEntity
 import com.teqie.taskmaster.data.mapper.DtoToEntityMapper
-import com.teqie.taskmaster.data.remote.dto.gallery.ImageResponseDto
+import com.teqie.taskmaster.data.remote.dto.gallery.GalleryImageDto
 
-object ImageDtoToEntityMapper : DtoToEntityMapper<ImageResponseDto, GalleryImageEntity> {
-    override fun ImageResponseDto.toEntity(projectId: String?): GalleryImageEntity {
+object ImageDtoToEntityMapper : DtoToEntityMapper<GalleryImageDto, GalleryImageEntity> {
+    override fun GalleryImageDto.toEntity(projectId: String?): GalleryImageEntity {
         return GalleryImageEntity(
-            currentPage = currentPage,
-            images = images,
-            totalItems = totalItems,
-            totalPages = totalPages
+            createdAt = createdAt,
+            description = description,
+            imageName = imageName,
+            imageUrl = imageUrl,
+            isDeleted = isDeleted,
+            projectId = this.projectId,
+            tags = tags,
+            updatedAt = updatedAt,
+            folderId = folderId,
+            id = id
         )
     }
 }
