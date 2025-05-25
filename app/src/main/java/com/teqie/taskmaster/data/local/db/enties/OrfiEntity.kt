@@ -3,7 +3,7 @@ package com.teqie.taskmaster.data.local.db.enties
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "ori")
+@Entity(tableName = "orfi")
 class OrfiEntity (
     val assignedAvatar: String?,  // Depending on use case, you might want to handle avatar differently
     val assignedName: String?,

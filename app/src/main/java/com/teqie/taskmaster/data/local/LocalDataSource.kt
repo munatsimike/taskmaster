@@ -6,6 +6,7 @@ import com.teqie.taskmaster.data.local.db.enties.FolderEntity
 import com.teqie.taskmaster.data.local.db.enties.GalleryImageEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
+import com.teqie.taskmaster.data.local.db.enties.OrfiEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
 import com.teqie.taskmaster.data.local.db.enties.ScheduleEntity
 import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
@@ -65,4 +66,8 @@ interface LocalDataSource {
     suspend fun saveFolders(folders: List<FolderEntity>)
 
     fun fetchFolders(projectId: String): Flow<List<FolderEntity>>
+
+    suspend fun saveOrfi(orfis: List<OrfiEntity>)
+
+    fun fetchOrfis(projectId: String): Flow<List<OrfiEntity>>
 }

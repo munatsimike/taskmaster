@@ -8,6 +8,7 @@ import com.teqie.taskmaster.data.local.db.dao.DashboardDao
 import com.teqie.taskmaster.data.local.db.dao.GalleryImageDao
 import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
+import com.teqie.taskmaster.data.local.db.dao.OrfiDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
 import com.teqie.taskmaster.data.local.db.dao.ScheduleDao
 import com.teqie.taskmaster.data.local.db.dao.TeamMemberDao
@@ -52,4 +53,7 @@ object DatabaseModule {
 
     @Provides
     fun provideGalleryDao(database: AppDatabase): GalleryImageDao = database.galleryDao
+
+    @Provides
+    fun provideOrfiDao(database: AppDatabase): OrfiDao = database.orfiDao
 }

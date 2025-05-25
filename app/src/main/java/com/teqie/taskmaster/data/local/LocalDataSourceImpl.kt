@@ -6,6 +6,7 @@ import com.teqie.taskmaster.data.local.db.dao.DashboardDao
 import com.teqie.taskmaster.data.local.db.dao.GalleryImageDao
 import com.teqie.taskmaster.data.local.db.dao.InvoiceDao
 import com.teqie.taskmaster.data.local.db.dao.LoggedInUserDao
+import com.teqie.taskmaster.data.local.db.dao.OrfiDao
 import com.teqie.taskmaster.data.local.db.dao.ProjectDao
 import com.teqie.taskmaster.data.local.db.dao.ScheduleDao
 import com.teqie.taskmaster.data.local.db.dao.TeamMemberDao
@@ -15,6 +16,7 @@ import com.teqie.taskmaster.data.local.db.enties.FolderEntity
 import com.teqie.taskmaster.data.local.db.enties.GalleryImageEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
+import com.teqie.taskmaster.data.local.db.enties.OrfiEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
 import com.teqie.taskmaster.data.local.db.enties.ScheduleEntity
 import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
@@ -35,7 +37,8 @@ class LocalDataSourceImpl @Inject constructor(
     private val internalStorage: FileStorageManager,
     private val teamMemberDao: TeamMemberDao,
     private val scheduleDao: ScheduleDao,
-    private val galleryImageDao: GalleryImageDao
+    private val galleryImageDao: GalleryImageDao,
+    private val orfiDao: OrfiDao
 ) : LocalDataSource {
 
     // Functions to save and retrieve access tokens (SharedPreferences)
@@ -118,18 +121,28 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun saveProjectSchedule(schedules: List<ScheduleEntity>) {
-       scheduleDao.saveSchedules(schedules)
+        scheduleDao.saveSchedules(schedules)
     }
 
-    override suspend fun saveImages(images: List<GalleryImageEntity>){
+    override suspend fun saveImages(images: List<GalleryImageEntity>) {
         galleryImageDao.saveImages(images)
     }
 
-    override fun fetchImages(folderId: String): Flow<List<GalleryImageEntity>> = galleryImageDao.fetchImages(folderId)
+    override fun fetchImages(folderId: String): Flow<List<GalleryImageEntity>> =
+        galleryImageDao.fetchImages(folderId)
 
-    override suspend fun saveFolders(folders: List<FolderEntity>){
+    override suspend fun saveFolders(folders: List<FolderEntity>) {
         galleryImageDao.saveFolders(folders)
     }
 
-    override fun fetchFolders(projectId: String): Flow<List<FolderEntity>> = galleryImageDao.fetchFolders(projectId)
+    override fun fetchFolders(projectId: String): Flow<List<FolderEntity>> =
+        galleryImageDao.fetchFolders(projectId)
+
+    override suspend fun saveOrfi(orfis: List<OrfiEntity>) {
+        orfiDao.saveOrfi(orfis)
+    }
+
+    override fun fetchOrfis(projectId: String): Flow<List<OrfiEntity>> {
+        return orfiDao.fetchOrfi(projectId)
+    }
 }
