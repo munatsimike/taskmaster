@@ -11,6 +11,8 @@ import com.teqie.taskmaster.data.repository.budget.BudgetPhaseRepositoryImpl
 import com.teqie.taskmaster.data.repository.budget.InvoiceRepositoryImpl
 import com.teqie.taskmaster.data.repository.gallery.GalleryRepository
 import com.teqie.taskmaster.data.repository.gallery.GalleryRepositoryImpl
+import com.teqie.taskmaster.data.repository.orfi.OrfiRepository
+import com.teqie.taskmaster.data.repository.orfi.OrfiRepositoryImpl
 import com.teqie.taskmaster.data.repository.schedule.ScheduleRepository
 import com.teqie.taskmaster.data.repository.schedule.ScheduleRepositoryImpl
 import com.teqie.taskmaster.domain.AuthRepository
@@ -92,4 +94,12 @@ object RepositoryModule {
         remoteDataSource: RemoteDataSource
     ): GalleryRepository =
         GalleryRepositoryImpl(localDataSource, remoteDataSource)
+
+
+    @Provides
+    fun provideOrfiRepo(
+        localDataSource: LocalDataSource,
+        remoteDataSource: RemoteDataSource
+    ): OrfiRepository =
+        OrfiRepositoryImpl(localDataSource, remoteDataSource)
 }
