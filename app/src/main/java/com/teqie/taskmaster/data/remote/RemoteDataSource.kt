@@ -14,6 +14,7 @@ import com.teqie.taskmaster.data.remote.dto.budget.invoice.UpdateInvoiceResponse
 import com.teqie.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.AddFileRequestDto
 import com.teqie.taskmaster.data.remote.dto.file.AddInvoiceFileResponse
+import com.teqie.taskmaster.data.remote.dto.file.CreateEditOrfiFileResponse
 import com.teqie.taskmaster.data.remote.dto.file.InvoiceFileDtoItem
 import com.teqie.taskmaster.data.remote.dto.file.PreSignedUrlResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.UpdateFileRequestDTo
@@ -21,6 +22,9 @@ import com.teqie.taskmaster.data.remote.dto.gallery.AddFolderRequestDto
 import com.teqie.taskmaster.data.remote.dto.gallery.FoldersResponseDto
 import com.teqie.taskmaster.data.remote.dto.gallery.ImageResponseDto
 import com.teqie.taskmaster.data.remote.dto.gallery.SaveImageRequestDto
+import com.teqie.taskmaster.data.remote.dto.orfi.CreateUpdateORFIRequest
+import com.teqie.taskmaster.data.remote.dto.orfi.ORFIFilesApiResponse
+import com.teqie.taskmaster.data.remote.dto.orfi.OrfiDto
 import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleResponseDto
@@ -74,8 +78,6 @@ interface RemoteDataSource {
 
     suspend fun updateInvoiceFile(updateFileRequestDTo: UpdateFileRequestDTo): Response<ResponseMessage>
 
-   // suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto): Response<CreateEditOrfiFileResponse>
-
     suspend fun downloadFile(fileUrl: String): Response<ResponseBody>
 
     suspend fun addInvoiceFile(invoiceFileRequestDto: AddFileRequestDto): Response<AddInvoiceFileResponse>
@@ -85,8 +87,6 @@ interface RemoteDataSource {
         fileType: String
     ): Response<PreSignedUrlResponseDto>
 
-    //suspend fun deleteORFIFile(orfiFileId: String): Response<ResponseMessage>
-
     fun uploadFileToPreSignedUrl(file: File, preSignedUrl: PresignedUrl): String
 
     suspend fun deleteInvoiceFile(fileId: String): Response<ResponseMessage>
@@ -94,7 +94,6 @@ interface RemoteDataSource {
     suspend fun getTeamsByProject(projectId: String): Response<List<TeamsResponseItemDto>>
 
     suspend fun createAssignUser(createUserRequest: CreateUserRequest): Response<CreateUserResponseDto>
-    fun updateORFIFile(toInvoiceFileRequestDto: Any): Any
 
     suspend fun getProjectSchedule(projectId: String): Response<List<ScheduleFetchResponse>>
 
@@ -111,4 +110,16 @@ interface RemoteDataSource {
 
     suspend fun deleteFolder(folderId: String): Response<ResponseMessage>
     suspend fun addFolder(addFolderRequestDto: AddFolderRequestDto)
+
+    suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto): Response<CreateEditOrfiFileResponse>
+    suspend fun deleteORFIFile(orfiFileId: String): Response<ResponseMessage>
+    suspend fun getORFIFiles(orfiId: String): Response<List<ORFIFilesApiResponse>>
+    suspend fun updateORFI(orfiId: String, orfi: CreateUpdateORFIRequest): Response<OrfiDto>
+
+    suspend fun createORFI(createUpdateORFIRequest: CreateUpdateORFIRequest): Response<OrfiDto>
+    suspend fun getORFI(projectId: String): Response<List<OrfiDto>>
+
+    suspend fun deleteORFI(orfiId: String): Response<ResponseMessage>
+
+    suspend fun saveORFIFile(commonFile: AddFileRequestDto)
 }

@@ -7,6 +7,7 @@ import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
 import com.teqie.taskmaster.data.remote.api.service.DashboardService
 import com.teqie.taskmaster.data.remote.api.service.FileManagerService
 import com.teqie.taskmaster.data.remote.api.service.GalleryService
+import com.teqie.taskmaster.data.remote.api.service.ORFIservice
 import com.teqie.taskmaster.data.remote.api.service.ProjectService
 import com.teqie.taskmaster.data.remote.api.service.ScheduleService
 import com.teqie.taskmaster.data.remote.api.service.TeamService
@@ -24,6 +25,7 @@ import com.teqie.taskmaster.data.remote.dto.budget.invoice.UpdateInvoiceResponse
 import com.teqie.taskmaster.data.remote.dto.dashboard.DashboardAPiResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.AddFileRequestDto
 import com.teqie.taskmaster.data.remote.dto.file.AddInvoiceFileResponse
+import com.teqie.taskmaster.data.remote.dto.file.CreateEditOrfiFileResponse
 import com.teqie.taskmaster.data.remote.dto.file.InvoiceFileDtoItem
 import com.teqie.taskmaster.data.remote.dto.file.PreSignedUrlResponseDto
 import com.teqie.taskmaster.data.remote.dto.file.UpdateFileRequestDTo
@@ -31,6 +33,9 @@ import com.teqie.taskmaster.data.remote.dto.gallery.AddFolderRequestDto
 import com.teqie.taskmaster.data.remote.dto.gallery.FoldersResponseDto
 import com.teqie.taskmaster.data.remote.dto.gallery.ImageResponseDto
 import com.teqie.taskmaster.data.remote.dto.gallery.SaveImageRequestDto
+import com.teqie.taskmaster.data.remote.dto.orfi.CreateUpdateORFIRequest
+import com.teqie.taskmaster.data.remote.dto.orfi.ORFIFilesApiResponse
+import com.teqie.taskmaster.data.remote.dto.orfi.OrfiDto
 import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleResponseDto
@@ -64,6 +69,7 @@ class RemoteDataSourceImpl @Inject constructor(
     private val budgetPhaseService: BudgetPhaseService,
     private val teamService: TeamService,
     private val scheduleService: ScheduleService,
+    private val orfiService: ORFIservice,
     private val galleryService: GalleryService,
     @UploadClient private val fileManagerService: FileManagerService,
     @UploadClient private val uploadOkHttpClient: OkHttpClient
@@ -198,10 +204,6 @@ class RemoteDataSourceImpl @Inject constructor(
         return teamService.createAssignUser(createUserRequest)
     }
 
-    override fun updateORFIFile(toInvoiceFileRequestDto: Any): Any {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getProjectSchedule(projectId: String): Response<List<ScheduleFetchResponse>> {
         return scheduleService.getSchedule(projectId)
     }
@@ -236,8 +238,6 @@ class RemoteDataSourceImpl @Inject constructor(
         galleryService.addFolder(addFolderRequestDto)
     }
 
-    /**
-    // file operations
     override suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto): Response<CreateEditOrfiFileResponse> {
     return orfiService.updateORFIFile(addEditFileRequestDto.orfi_id, addEditFileRequestDto)
     }
@@ -245,5 +245,25 @@ class RemoteDataSourceImpl @Inject constructor(
     override suspend fun deleteORFIFile(orfiFileId: String): Response<ResponseMessage> {
     return orfiService.deleteORFIFile(orfiFileId)
     }
-     **/
+
+    override suspend fun getORFIFiles(orfiId: String): Response<List<ORFIFilesApiResponse>> =
+        orfiService.getORFIFiles(orfiId)
+
+    override suspend fun updateORFI(orfiId: String, orfi: CreateUpdateORFIRequest): Response<OrfiDto> {
+        return orfiService.updateORFI(orfiId, orfi)
+    }
+
+    override suspend fun createORFI(createUpdateORFIRequest: CreateUpdateORFIRequest): Response<OrfiDto> {
+        return orfiService.createORFI(createUpdateORFIRequest)
+    }
+
+    override suspend fun getORFI(projectId: String): Response<List<OrfiDto>> =
+        orfiService.getORFI(projectId)
+
+    override suspend fun deleteORFI(orfiId: String): Response<ResponseMessage> =
+        orfiService.deleteORFI(orfiId)
+
+    override suspend fun saveORFIFile(commonFile: AddFileRequestDto) {
+        orfiService.createORFIFile(commonFile)
+    }
 }

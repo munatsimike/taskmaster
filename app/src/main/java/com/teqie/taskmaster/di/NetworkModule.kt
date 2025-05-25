@@ -9,6 +9,7 @@ import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
 import com.teqie.taskmaster.data.remote.api.service.DashboardService
 import com.teqie.taskmaster.data.remote.api.service.FileManagerService
 import com.teqie.taskmaster.data.remote.api.service.GalleryService
+import com.teqie.taskmaster.data.remote.api.service.ORFIservice
 import com.teqie.taskmaster.data.remote.api.service.ProjectService
 import com.teqie.taskmaster.data.remote.api.service.ScheduleService
 import com.teqie.taskmaster.data.remote.api.service.TeamService
@@ -125,6 +126,11 @@ object NetworkModule {
     @Provides
     fun provideScheduleService(retrofit: Retrofit): ScheduleService =
         retrofit.create(ScheduleService::class.java)
+
+    @Singleton
+    @Provides
+    fun orfiService(retrofit: Retrofit): ORFIservice =
+        retrofit.create(ORFIservice::class.java)
 
     @Singleton
     @Provides
