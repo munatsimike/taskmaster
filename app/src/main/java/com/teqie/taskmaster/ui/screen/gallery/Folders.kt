@@ -83,6 +83,7 @@ object Folders {
         }
 
         LaunchedEffect(project.id, screenState.triggerFetch) {
+            galleryViewModel.syncFoldersToLocalDb(project.id)
             galleryViewModel.getGalleryFolders(project.id)
         }
 

@@ -7,6 +7,8 @@ import com.teqie.taskmaster.domain.gallery.GalleryImage
 import com.teqie.taskmaster.domain.useCases.gallery.DeleteFolderUseCase
 import com.teqie.taskmaster.domain.useCases.gallery.GetFoldersUseCase
 import com.teqie.taskmaster.domain.useCases.gallery.GetImagesUseCase
+import com.teqie.taskmaster.domain.useCases.gallery.SyncFolderToLocalDbUseCase
+import com.teqie.taskmaster.domain.useCases.gallery.SyncImageToLocalDbUseCase
 import com.teqie.taskmaster.ui.model.MessageType
 import com.teqie.taskmaster.ui.viewModel.BaseViewModel
 
@@ -22,7 +24,9 @@ import javax.inject.Inject
 class GalleryViewModel @Inject constructor(
     private val getFoldersUseCase: GetFoldersUseCase,
     private val getGalleryImagesUseCase: GetImagesUseCase,
-    private val deleteFolderUseCase: DeleteFolderUseCase
+    private val deleteFolderUseCase: DeleteFolderUseCase,
+    private val syncFolderToLocalDbUseCase: SyncFolderToLocalDbUseCase,
+    private val syncImageToLocalDbUseCase: SyncImageToLocalDbUseCase
 ) :
     BaseViewModel() {
 
@@ -66,6 +70,17 @@ class GalleryViewModel @Inject constructor(
         }
     }
 
+    fun syncImageToLocalDb(projectId: String){
+        viewModelScope.launch {
+            syncImageToLocalDbUseCase(projectId).collect{}
+        }
+    }
+
+    fun syncFoldersToLocalDb(projectId: String){
+        viewModelScope.launch {
+            syncFolderToLocalDbUseCase(projectId).collect{}
+        }
+    }
 
     fun onDeleteImage(image: GalleryImage) {
         selectedItem(image.imageName)

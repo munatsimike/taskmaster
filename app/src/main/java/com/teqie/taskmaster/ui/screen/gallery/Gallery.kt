@@ -84,6 +84,7 @@ object Gallery {
         }
 
         LaunchedEffect(folderId, screenUiState.triggerFetch) {
+            galleryViewModel.syncImageToLocalDb(folderId)
             galleryViewModel.getGalleryImages(folderId)
         }
 
