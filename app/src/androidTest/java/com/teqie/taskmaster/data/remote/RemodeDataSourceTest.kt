@@ -10,6 +10,9 @@ import com.teqie.taskmaster.domain.LoginRequest
 import com.google.common.truth.Truth.assertThat
 import com.teqie.taskmaster.data.remote.api.service.BudgetPhaseService
 import com.teqie.taskmaster.data.remote.api.service.FileManagerService
+import com.teqie.taskmaster.data.remote.api.service.GalleryService
+import com.teqie.taskmaster.data.remote.api.service.ORFIservice
+import com.teqie.taskmaster.data.remote.api.service.ScheduleService
 import com.teqie.taskmaster.data.remote.api.service.TeamService
 import com.teqie.taskmaster.di.UploadClient
 import io.mockk.coEvery
@@ -32,6 +35,9 @@ class RemoteDataSourceTest {
     private lateinit var teamService: TeamService
     private lateinit var fileManagerService: FileManagerService
     private lateinit var uploadOkHttpClient: OkHttpClient
+    private lateinit var galleryService: GalleryService
+    private lateinit var orfIservice: ORFIservice
+    private lateinit var scheduleService: ScheduleService
 
     @Before
     fun setup() {
@@ -42,13 +48,18 @@ class RemoteDataSourceTest {
         teamService= mockk<TeamService>()
         fileManagerService = mockk<FileManagerService>()
         uploadOkHttpClient = mockk<OkHttpClient>()
-
+        galleryService = mockk<GalleryService>()
+        orfIservice = mockk<ORFIservice>()
+        scheduleService = mockk<ScheduleService>()
         remoteDataSource = RemoteDataSourceImpl(
             authService, projectService, dashboardService,
             budgetPhaseService,
             teamService,
+            scheduleService,
+            orfIservice,
+            galleryService,
             fileManagerService,
-            uploadOkHttpClient
+            uploadOkHttpClient,
         )
     }
 

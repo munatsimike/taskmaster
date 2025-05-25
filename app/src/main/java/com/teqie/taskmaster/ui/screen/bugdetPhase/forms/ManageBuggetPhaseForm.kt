@@ -26,8 +26,8 @@ import com.teqie.taskmaster.ui.components.factory.ButtonFactory.PrimaryButton
 import com.teqie.taskmaster.ui.components.factory.TextFieldFactory.FilledTextField
 import com.teqie.taskmaster.ui.components.form.CustomDatePicker
 import com.teqie.taskmaster.ui.components.form.SelectUserMenu
-import com.teqie.taskmaster.ui.components.state.FormState
 import com.teqie.taskmaster.ui.components.state.ProcessNetworkState
+import com.teqie.taskmaster.ui.uiState.FormState
 import com.teqie.taskmaster.ui.viewModel.budgetPhase.BudgetFormViewModel
 import com.teqie.taskmaster.ui.viewModel.teams.TeamsViewModel
 

@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class SyncOrfiToLocalDbUseCase @Inject constructor(private val orfiRepository: OrfiRepository) {
     operator fun invoke(projectId: String): Flow<Resource<Unit>> {
-        return orfiRepository.syncBudgetPhasesToLocal(projectId)
+        return orfiRepository.syncOrfiToLocalDb(projectId)
     }
 }

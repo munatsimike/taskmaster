@@ -23,7 +23,7 @@ import com.teqie.taskmaster.data.remote.dto.gallery.FoldersResponseDto
 import com.teqie.taskmaster.data.remote.dto.gallery.ImageResponseDto
 import com.teqie.taskmaster.data.remote.dto.gallery.SaveImageRequestDto
 import com.teqie.taskmaster.data.remote.dto.orfi.CreateUpdateORFIRequest
-import com.teqie.taskmaster.data.remote.dto.orfi.ORFIFilesApiResponse
+import com.teqie.taskmaster.data.remote.dto.orfi.ORFIFilesResponseDto
 import com.teqie.taskmaster.data.remote.dto.orfi.OrfiDto
 import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
@@ -85,7 +85,7 @@ interface RemoteDataSource {
     suspend fun addFolder(addFolderRequestDto: AddFolderRequestDto)
     suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto): Response<CreateEditOrfiFileResponse>
     suspend fun deleteORFIFile(orfiFileId: String): Response<ResponseMessage>
-    suspend fun getORFIFiles(orfiId: String): Response<List<ORFIFilesApiResponse>>
+    suspend fun getORFIFiles(orfiId: String): Response<List<ORFIFilesResponseDto>>
     suspend fun updateORFI(orfiId: String, orfi: CreateUpdateORFIRequest): Response<OrfiDto>
     suspend fun createORFI(createUpdateORFIRequest: CreateUpdateORFIRequest): Response<OrfiDto>
     suspend fun getORFI(projectId: String): Response<List<OrfiDto>>

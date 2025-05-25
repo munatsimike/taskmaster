@@ -24,7 +24,7 @@ import com.teqie.taskmaster.ui.components.ErrorContent
 import com.teqie.taskmaster.ui.components.FormModal
 import com.teqie.taskmaster.ui.components.factory.ButtonFactory.PrimaryButton
 import com.teqie.taskmaster.ui.components.factory.TextFieldFactory.FilledTextField
-import com.teqie.taskmaster.ui.components.state.FormState
+import com.teqie.taskmaster.ui.uiState.FormState
 import com.teqie.taskmaster.ui.viewModel.projects.ProjectFormViewModel
 
 @Composable

@@ -1,5 +1,6 @@
 package com.teqie.taskmaster.data.repository.orfi
 
+import ORFIFile
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.ui.model.ResponseMessage
 import com.teqie.taskmaster.ui.model.orfi.Orfi
@@ -14,5 +15,10 @@ interface OrfiRepository {
 
     fun deleteORFI(orfiId: String): Flow<Resource<ResponseMessage>>
 
-    fun syncBudgetPhasesToLocal(projectId: String): Flow<Resource<Unit>>
+    fun syncOrfiToLocalDb(projectId: String): Flow<Resource<Unit>>
+
+    fun getORFIFiles(orfiId: String): Flow<Resource<List<ORFIFile>>>
+
+    fun syncOrfiFileToLocalDb(projectId: String): Flow<Resource<Unit>>
+
 }

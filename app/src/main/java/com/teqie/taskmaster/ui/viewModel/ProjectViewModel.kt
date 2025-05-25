@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.ui.components.state.CommonUiState
-import com.teqie.taskmaster.ui.components.state.FormState
 import com.teqie.taskmaster.ui.model.MessageType
 import com.teqie.taskmaster.ui.model.ResponseMessage
 import com.teqie.taskmaster.ui.model.UiMessage
+import com.teqie.taskmaster.ui.uiState.FormState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update

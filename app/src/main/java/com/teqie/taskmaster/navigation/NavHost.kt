@@ -10,11 +10,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.teqie.taskmaster.ui.screen.orfi.ORFI
+import com.example.taskflow.ui.screen.orfi.ORFIFiles
 import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
 import com.teqie.taskmaster.ui.constants.Constants.BUDGET_ID
 import com.teqie.taskmaster.ui.constants.Constants.BUDGET_PHASE
 import com.teqie.taskmaster.ui.constants.Constants.FOLDER_ID
 import com.teqie.taskmaster.ui.constants.Constants.INVOICE_ID
+import com.teqie.taskmaster.ui.constants.Constants.ORFI_ID
 import com.teqie.taskmaster.ui.screen.SplashScreen
 import com.teqie.taskmaster.ui.screen.auth.Login
 import com.teqie.taskmaster.ui.screen.bugdetPhase.BudgetPhase
@@ -125,6 +128,34 @@ object NavHost {
                         sharedUserViewModel
                     )
                 }
+
+                composable(AppScreen.ORFI.route) {
+                    ORFI.ORFIMainScreen(
+                        navController,
+                        sharedViewModel,
+                        sharedUserViewModel,
+                        authViewModel,
+                        snackbarHostState
+
+                    )
+                }
+
+                composable(AppScreen.ORFIFile.route) { backStack ->
+                    val orfiId = backStack.arguments?.getString(ORFI_ID)
+                    if (orfiId != null) {
+                        ORFIFiles.ORFIFILEMainScreen(
+                            orfiId = orfiId,
+                            navController = navController,
+                            sharedViewModel = sharedViewModel,
+                            authViewModel = authViewModel,
+                            sharedUserViewModel = sharedUserViewModel,
+                            fileFormViewModel = fileFormManagementViewModel,
+                            fileViewModel = fileManagementViewModel,
+                            snackbarHostState = snackbarHostState
+                        )
+                    }
+                }
+
 
                 composable(AppScreen.Schedule.route) {
                     Schedules.SchedulesMainScreen(

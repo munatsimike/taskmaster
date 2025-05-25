@@ -33,10 +33,10 @@ import com.teqie.taskmaster.ui.components.form.FileManagementForm
 import com.teqie.taskmaster.ui.components.imageDisplay.NetworkImageLoader
 import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
 import com.teqie.taskmaster.ui.components.snackbar.DisplaySnackBar
-import com.teqie.taskmaster.ui.components.state.FormState
 import com.teqie.taskmaster.ui.components.state.ProcessNetworkState
 import com.teqie.taskmaster.ui.model.ScreenType
 import com.teqie.taskmaster.ui.screen.BaseScreenWithFAB
+import com.teqie.taskmaster.ui.uiState.FormState
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel

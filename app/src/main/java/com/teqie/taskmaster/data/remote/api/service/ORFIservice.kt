@@ -4,7 +4,7 @@ package com.teqie.taskmaster.data.remote.api.service
 import com.teqie.taskmaster.data.remote.dto.orfi.CreateUpdateORFIRequest
 import com.teqie.taskmaster.data.remote.dto.file.AddFileRequestDto
 import com.teqie.taskmaster.data.remote.dto.file.CreateEditOrfiFileResponse
-import com.teqie.taskmaster.data.remote.dto.orfi.ORFIFilesApiResponse
+import com.teqie.taskmaster.data.remote.dto.orfi.ORFIFilesResponseDto
 import com.teqie.taskmaster.data.remote.dto.orfi.OrfiDto
 import com.teqie.taskmaster.ui.model.ResponseMessage
 import retrofit2.Response
@@ -21,7 +21,7 @@ interface ORFIservice {
     suspend fun getORFI(@Path("id") projectId: String): Response<List<OrfiDto>>
 
     @GET("api/orfiFiles/orfi/{id}")
-    suspend fun getORFIFiles(@Path("id") orfiId: String): Response<List<ORFIFilesApiResponse>>
+    suspend fun getORFIFiles(@Path("id") orfiId: String): Response<List<ORFIFilesResponseDto>>
 
     @POST("orfi")
     suspend fun createORFI(@Body createUpdateORFIRequest: CreateUpdateORFIRequest): Response<OrfiDto>

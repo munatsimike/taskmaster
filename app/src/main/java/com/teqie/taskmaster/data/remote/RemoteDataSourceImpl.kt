@@ -34,7 +34,7 @@ import com.teqie.taskmaster.data.remote.dto.gallery.FoldersResponseDto
 import com.teqie.taskmaster.data.remote.dto.gallery.ImageResponseDto
 import com.teqie.taskmaster.data.remote.dto.gallery.SaveImageRequestDto
 import com.teqie.taskmaster.data.remote.dto.orfi.CreateUpdateORFIRequest
-import com.teqie.taskmaster.data.remote.dto.orfi.ORFIFilesApiResponse
+import com.teqie.taskmaster.data.remote.dto.orfi.ORFIFilesResponseDto
 import com.teqie.taskmaster.data.remote.dto.orfi.OrfiDto
 import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleFetchResponse
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
@@ -246,7 +246,7 @@ class RemoteDataSourceImpl @Inject constructor(
     return orfiService.deleteORFIFile(orfiFileId)
     }
 
-    override suspend fun getORFIFiles(orfiId: String): Response<List<ORFIFilesApiResponse>> =
+    override suspend fun getORFIFiles(orfiId: String): Response<List<ORFIFilesResponseDto>> =
         orfiService.getORFIFiles(orfiId)
 
     override suspend fun updateORFI(orfiId: String, orfi: CreateUpdateORFIRequest): Response<OrfiDto> {

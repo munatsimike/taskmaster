@@ -1,6 +1,6 @@
 package com.teqie.taskmaster.data.remote.dto.orfi
 
-data class ORFIFilesApiResponse(
+data class ORFIFilesResponseDto(
     val description: String,
     val fileName: String,
     val id: String,
