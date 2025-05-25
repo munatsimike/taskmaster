@@ -1,4 +1,4 @@
-package com.teqie.taskmaster.data.repository.budget
+package com.teqie.taskmaster.data.repository
 
 import com.teqie.taskmaster.domain.Resource
 import kotlinx.coroutines.flow.Flow

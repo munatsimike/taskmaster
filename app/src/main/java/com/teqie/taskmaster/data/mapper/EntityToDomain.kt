@@ -7,6 +7,4 @@ interface EntityToDomain<EntityModel, DomainModel> {
     fun List<EntityModel>.toDomainList(): List<DomainModel>{
         return this.map { it.toDomainModel() }
     }
-
-
 }

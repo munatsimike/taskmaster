@@ -7,7 +7,7 @@ import com.teqie.taskmaster.data.mapper.schedule.ScheduleCommonMapper.toUpdateSc
 import com.teqie.taskmaster.data.mapper.schedule.ScheduleDtoToEntityMapper.toEntityList
 import com.teqie.taskmaster.data.mapper.schedule.ScheduleEntityToDomainMapper.toDomainModel
 import com.teqie.taskmaster.data.remote.RemoteDataSource
-import com.teqie.taskmaster.data.repository.budget.BaseRepository
+import com.teqie.taskmaster.data.repository.BaseRepository
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.Schedule
 import com.teqie.taskmaster.ui.model.ResponseMessage

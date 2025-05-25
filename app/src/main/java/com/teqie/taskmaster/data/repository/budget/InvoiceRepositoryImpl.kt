@@ -10,6 +10,7 @@ import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceFileEntityToD
 import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceFileToDtoMapper.toDtoModel
 import com.teqie.taskmaster.data.mapper.budgetphase.invoice.InvoiceToDtoMapper.toDtoModel
 import com.teqie.taskmaster.data.remote.RemoteDataSource
+import com.teqie.taskmaster.data.repository.BaseRepository
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.InvoiceFile
 import com.teqie.taskmaster.domain.model.budget.InvoiceRepository
@@ -24,7 +25,7 @@ import kotlinx.coroutines.flow.flow
 class InvoiceRepositoryImpl(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
-): InvoiceRepository,BaseRepository() {
+): InvoiceRepository, BaseRepository() {
 
     // cache invoices to local db
     override fun syncInvoicesToLocal(budgetId: String): Flow<Resource<Unit>> = flow {
