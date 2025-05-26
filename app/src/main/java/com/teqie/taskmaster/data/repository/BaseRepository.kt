@@ -1,9 +1,12 @@
 package com.teqie.taskmaster.data.repository
 
+import android.util.Log
 import com.teqie.taskmaster.domain.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import timber.log.Timber
 import java.util.concurrent.CancellationException
@@ -13,6 +16,7 @@ abstract class BaseRepository {
     fun <DtoModel, EntityModel> processAndCacheApiResponse(
         call: suspend () -> Response<DtoModel>,
         toEntityMapper: (DtoModel) -> List<EntityModel>,
+        clearTable: suspend ()-> Unit = {},
         saveEntities: suspend (List<EntityModel>) -> Unit
     ): Flow<Resource<Unit>> = flow {
 
@@ -21,7 +25,11 @@ abstract class BaseRepository {
         when (val result = safeApiCall(call)) {
             is Resource.Success -> {
                 val entities = toEntityMapper(result.data)
-                saveEntities(entities)
+                withContext(Dispatchers.IO){
+                    clearTable()
+                    saveEntities(entities)
+                }
+
                 emit(Resource.Success(Unit)) // We don't need to return data here, just success
             }
 
@@ -56,7 +64,7 @@ abstract class BaseRepository {
             }
         } catch (e: Exception) {
             if (e is CancellationException) throw e
-            Timber.e(e, "Network call failed")
+            Log.e("error", e.localizedMessage)
             Resource.Failure(null, e.localizedMessage ?: "Network error", null)
         }
     }

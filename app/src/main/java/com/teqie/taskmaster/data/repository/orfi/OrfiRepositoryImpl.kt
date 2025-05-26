@@ -43,16 +43,16 @@ class OrfiRepositoryImpl @Inject constructor(
             response
         })
 
-    override fun syncOrfiToLocalDb(projectId: String): Flow<Resource<Unit>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun syncOrfiFileToLocalDb(projectId: String): Flow<Resource<Unit>> = flow {
+    override fun syncOrfiToLocalDb(projectId: String): Flow<Resource<Unit>> = flow{
         emitAll(
             processAndCacheApiResponse(call = { remoteDataSource.getORFI(projectId) },
                 toEntityMapper = { it.toEntityList() },
                 saveEntities = { localDataSource.saveOrfi(it) })
         )
+    }
+
+    override fun syncOrfiFileToLocalDb(projectId: String): Flow<Resource<Unit>> = flow {
+
     }
 
     override fun getORFIFiles(orfiId: String): Flow<Resource<List<ORFIFile>>> {

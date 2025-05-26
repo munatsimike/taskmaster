@@ -62,6 +62,8 @@ class ORFIViewModel @Inject constructor(
     }
 
     fun syncOrfiToLocalDb(projectId: String){
-        syncOrfiToLocalDbUseCase(projectId)
+        viewModelScope.launch {
+            syncOrfiToLocalDbUseCase(projectId).collect{}
+        }
     }
 }

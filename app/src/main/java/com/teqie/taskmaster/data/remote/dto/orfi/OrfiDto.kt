@@ -1,5 +1,8 @@
 package com.teqie.taskmaster.data.remote.dto.orfi
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class OrfiDto(
     val assignedAvatar: String? = null,
     val assignedName: String? = null,

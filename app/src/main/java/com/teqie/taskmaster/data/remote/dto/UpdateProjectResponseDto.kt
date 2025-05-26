@@ -2,7 +2,9 @@ package com.teqie.taskmaster.data.remote.dto
 
 import com.squareup.moshi.Json
 import com.teqie.taskmaster.domain.model.RemoteResponse
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class UpdateProjectResponseDto(
     val description: String,
     val id: String,

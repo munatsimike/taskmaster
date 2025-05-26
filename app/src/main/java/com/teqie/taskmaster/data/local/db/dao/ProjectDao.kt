@@ -1,6 +1,7 @@
 package com.teqie.taskmaster.data.local.db.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,4 +14,7 @@ interface ProjectDao {
 
     @Query("SELECT * FROM projects")
     fun getAllProjects(): Flow<List<ProjectEntity>>
+
+    @Query("DELETE FROM projects")
+    fun deleteProjects()
 }

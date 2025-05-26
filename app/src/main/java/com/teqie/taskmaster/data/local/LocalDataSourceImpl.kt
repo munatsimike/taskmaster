@@ -59,6 +59,10 @@ class LocalDataSourceImpl @Inject constructor(
         loggedInUserDao.saveUser(userEntity)
     }
 
+    override suspend fun deleteProjects(){
+        projectDao.deleteProjects()
+    }
+
     override suspend fun deleteLoggedInUser() {
         loggedInUserDao.deleteLoggedInUser()
     }
@@ -71,6 +75,7 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun saveProjects(projects: List<ProjectEntity>) {
         projectDao.saveProjects(projects)
     }
+
 
     override fun getAllProjects(): Flow<List<ProjectEntity>> {
         return projectDao.getAllProjects()

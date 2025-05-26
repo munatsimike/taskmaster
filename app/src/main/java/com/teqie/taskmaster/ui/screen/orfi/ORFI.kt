@@ -109,6 +109,7 @@ object ORFI {
         }
 
         LaunchedEffect(project.id, uiScreenState.triggerFetch) {
+            orfiViewModel.syncOrfiToLocalDb(project.id)
             orfiViewModel.getORFI(project.id)
         }
 

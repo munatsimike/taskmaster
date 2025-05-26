@@ -89,7 +89,7 @@ object Projects {
 
         LaunchedEffect(loggedInUser.id, screenState.triggerFetch) {
             projectsViewModel.getAllProjects()
-            projectsViewModel.updateProjects()
+            projectsViewModel.syncProjectsToLocalDb()
         }
 
         DisplaySnackBar(

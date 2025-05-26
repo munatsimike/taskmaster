@@ -14,10 +14,9 @@ interface ProjectRepository {
 
     fun deleteProject(projectId: String): Flow<Resource<ResponseMessage>>
 
-   fun updateProjects():  Flow<Resource<Unit>>
+    fun syncProjectsToLocalDb(): Flow<Resource<Unit>>
 
     fun getProjects(): Flow<Resource<List<Project>>>
 
-    suspend fun saveProjectsToDb(projects: List<ProjectEntity>)
     fun getAllProjects(): Flow<List<ProjectEntity>>
 }

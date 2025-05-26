@@ -70,4 +70,6 @@ interface LocalDataSource {
     suspend fun saveOrfi(orfis: List<OrfiEntity>)
 
     fun fetchOrfis(projectId: String): Flow<List<OrfiEntity>>
+
+    suspend fun deleteProjects()
 }

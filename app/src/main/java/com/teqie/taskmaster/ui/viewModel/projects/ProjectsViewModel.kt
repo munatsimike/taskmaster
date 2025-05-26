@@ -46,7 +46,7 @@ class ProjectsViewModel @Inject constructor(
         }
     }
 
-    fun updateProjects() {
+    fun syncProjectsToLocalDb() {
         viewModelScope.launch {
             updateProjectsUseCase().collectLatest { msg ->
                 when (msg) {

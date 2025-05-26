@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class UpdateProjectsUseCase @Inject constructor(private val projectRepository: ProjectRepository) {
     operator fun invoke(): Flow<Resource<Unit>> {
-        return projectRepository.updateProjects()
+        return projectRepository.syncProjectsToLocalDb()
     }
 }
