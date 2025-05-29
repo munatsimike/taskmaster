@@ -1,7 +1,6 @@
 package com.teqie.taskmaster.data.local.db.converters
 
 import androidx.room.TypeConverter
-import com.teqie.taskmaster.data.local.db.enties.FolderEntity
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

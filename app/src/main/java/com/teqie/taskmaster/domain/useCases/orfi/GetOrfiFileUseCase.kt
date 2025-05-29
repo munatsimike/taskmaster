@@ -6,8 +6,8 @@ import com.teqie.taskmaster.domain.model.orfi.ORFIFile
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetOrfiFilesUseCase @Inject constructor(private val orfiRepository: OrfiRepository) {
-    operator fun invoke(orfiId: String): Flow<Resource<List<ORFIFile>>> {
-        return orfiRepository.getORFIFiles(orfiId)
+class GetOrfiFileUseCase @Inject constructor(private val orfiRepository: OrfiRepository) {
+    operator fun invoke(projectId: String): Flow<Resource<List<ORFIFile>>> {
+        return orfiRepository.getORFIFiles( projectId)
     }
 }

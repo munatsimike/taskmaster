@@ -26,14 +26,12 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.teqie.taskmaster.R
-
 import com.teqie.taskmaster.ui.components.CustomCard
 import com.teqie.taskmaster.ui.components.factory.ButtonFactory.SecondaryButton
 import com.teqie.taskmaster.ui.components.factory.TextFactory.CaptionText
 import com.teqie.taskmaster.ui.components.imageDisplay.DisplayImageVectorIcon
 import com.teqie.taskmaster.ui.components.menu.DeleteEditOptionsMenu
 import com.teqie.taskmaster.ui.model.IconWithText
-import com.teqie.taskmaster.ui.theme.charcoal
 import com.teqie.taskmaster.ui.theme.darkBlue
 import com.teqie.taskmaster.util.Status
 
@@ -43,7 +41,7 @@ fun <T> CustomScreenCard(
     onEditClick: (T) -> Unit,
     onDeleteClick: (T) -> Unit,
     hiddenContentItems: List<IconWithText>? = null,
-    cardBorderColor: Color = Color.White,
+    cardBorderColor: Color,
     tag: String,
     cardBodyContent: @Composable() (() -> Unit?)? = null,
     canDelete: Boolean = true,
@@ -85,7 +83,7 @@ fun <T> CustomScreenCard(
                 padding = 6,
                 content = tag,
                 borderColor = Color.Unspecified,
-                backgroundColor = charcoal,
+                backgroundColor = cardBorderColor, // border color is the tag background color,
                 contentColor = Color.White,
                 modifier = Modifier
                     .align(Alignment.TopStart)

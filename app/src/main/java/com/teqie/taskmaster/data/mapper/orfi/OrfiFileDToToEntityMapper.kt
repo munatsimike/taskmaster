@@ -11,7 +11,7 @@ object OrfiFileDToToEntityMapper: DtoToEntityMapper<ORFIFilesResponseDto, OrfiFi
             fileName = fileName,
             id = id,
             isDeleted = isDeleted,
-            orfi_id = orfi_id,
+            orfiId = orfiId,
             url = url
         )
     }

@@ -8,7 +8,7 @@ data class ProjectResponseDto(
     val createdAt: String,
     val description: String,
     val id: String,
-    val isDeleted: Int,
+    val isDeleted: String,
     val name: String,
     val thumbnailUrl: String?,
     val updatedAt: String?

@@ -17,6 +17,7 @@ import com.teqie.taskmaster.data.local.db.enties.GalleryImageEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.OrfiEntity
+import com.teqie.taskmaster.data.local.db.enties.OrfiFileEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
 import com.teqie.taskmaster.data.local.db.enties.ScheduleEntity
 import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
@@ -59,7 +60,7 @@ class LocalDataSourceImpl @Inject constructor(
         loggedInUserDao.saveUser(userEntity)
     }
 
-    override suspend fun deleteProjects(){
+    override suspend fun deleteProjects() {
         projectDao.deleteProjects()
     }
 
@@ -149,5 +150,13 @@ class LocalDataSourceImpl @Inject constructor(
 
     override fun fetchOrfis(projectId: String): Flow<List<OrfiEntity>> {
         return orfiDao.fetchOrfi(projectId)
+    }
+
+    override fun fetchOrfiFiles(projectId: String): Flow<List<OrfiFileEntity>> {
+       return orfiDao.fetchOrfiFile(projectId)
+    }
+
+    override suspend fun saveOrfiFile(files: List<OrfiFileEntity>) {
+        orfiDao.saveOrfiFile(files)
     }
 }

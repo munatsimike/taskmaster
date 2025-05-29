@@ -1,6 +1,5 @@
 package com.teqie.taskmaster.ui.screen.dashboard
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +21,6 @@ import com.teqie.taskmaster.domain.model.DashboardData
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.navigation.AppScreen
 import com.teqie.taskmaster.ui.screen.DisplayScreenHeader
-import com.teqie.taskmaster.ui.theme.lightGray
 import com.teqie.taskmaster.ui.viewModel.DashBoardViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
@@ -70,7 +68,7 @@ object Dashboard {
                     showBackBtn = true
                 )
             ) { navController.popBackStack() }
-                ProcessDashboardState(items, navController)
+            ProcessDashboardState(items, navController)
         }
     }
 
@@ -95,8 +93,7 @@ object Dashboard {
         Column(
             modifier = Modifier
                 .padding(12.dp)
-                .fillMaxWidth()
-                .background(color = lightGray),
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -112,7 +109,7 @@ object Dashboard {
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 val totalSpent = dashboardData.totals.totalPaid.toFloat()
                 val totalAmount = dashboardData.totals.totalAmount.toFloat()
-                 BudgetCard(
+                BudgetCard(
                     totalSpent, totalAmount
                 ) { navController.navigate(AppScreen.Budget.route) }
 

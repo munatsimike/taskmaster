@@ -1,12 +1,13 @@
 package com.teqie.taskmaster.ui.viewModel.orfi
 
-import ORFIFile
 import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.Resource
+import com.teqie.taskmaster.domain.model.orfi.ORFIFile
 import com.teqie.taskmaster.domain.useCases.orfi.DeleteOrfiUseCase
 import com.teqie.taskmaster.domain.useCases.orfi.GetOrfiFilesUseCase
 import com.teqie.taskmaster.domain.useCases.orfi.GetOrfiUseCase
 import com.teqie.taskmaster.domain.useCases.orfi.SyncOrfiToLocalDbUseCase
+import com.teqie.taskmaster.domain.useCases.orfi.SynchOrfiFileToLocalDbUse
 import com.teqie.taskmaster.ui.model.orfi.Orfi
 import com.teqie.taskmaster.ui.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,8 @@ class ORFIViewModel @Inject constructor(
     private val getORFIUseCase: GetOrfiUseCase,
     private val getORFIFilesUseCase: GetOrfiFilesUseCase,
     private val deleteORFIUsecase: DeleteOrfiUseCase,
-    private val syncOrfiToLocalDbUseCase: SyncOrfiToLocalDbUseCase
+    private val syncOrfiToLocalDbUseCase: SyncOrfiToLocalDbUseCase,
+    private val synchOrfiFileToLocalDbUse: SynchOrfiFileToLocalDbUse
 ) : BaseViewModel() {
     private val _orfiState = MutableStateFlow<Resource<List<Orfi>>>(Resource.Loading)
     val orfiState: StateFlow<Resource<List<Orfi>>> = _orfiState
@@ -64,6 +66,12 @@ class ORFIViewModel @Inject constructor(
     fun syncOrfiToLocalDb(projectId: String){
         viewModelScope.launch {
             syncOrfiToLocalDbUseCase(projectId).collect{}
+        }
+    }
+
+    fun syncOrfiFileToLocalDb(projectId: String){
+        viewModelScope.launch {
+            synchOrfiFileToLocalDbUse(projectId).collect{}
         }
     }
 }

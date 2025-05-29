@@ -10,11 +10,9 @@ fun String.toFileExtension(): FileExtension? {
     return entries.find { it.extension.equals(this, ignoreCase = true) }
 }
 
-
 fun String.getFileExtension(): String? {
     val extension = this.substringAfterLast('.', "").lowercase()
-
-    val extensions = listOf("pdf", "doc", "jpeg", "jpg", "docx")
+    val extensions = listOf("pdf", "doc", "jpeg", "jpg", "docx", "xlsx")
     return if (extensions.contains(extension)) {
         extension
     } else {

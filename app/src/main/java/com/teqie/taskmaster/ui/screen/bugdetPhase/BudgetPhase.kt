@@ -28,6 +28,7 @@ import com.teqie.taskmaster.ui.components.state.ProcessNetworkState
 import com.teqie.taskmaster.ui.model.IconWithText
 import com.teqie.taskmaster.ui.screen.BaseScreenWithFAB
 import com.teqie.taskmaster.ui.screen.bugdetPhase.forms.ManageBudgetPhaseForm
+import com.teqie.taskmaster.ui.theme.budgetPhaseColor
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
@@ -181,6 +182,7 @@ private fun BudgetPhaseItem(
         },
         hiddenContentItems = hiddenContentItems(budgetPhase),
         cardHeaderContent = { BudgetPhaseCardHeaderContent(budgetPhase, onNavigateToInvoices) },
+        cardBorderColor = budgetPhaseColor,
     )
 }
 

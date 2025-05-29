@@ -43,6 +43,7 @@ fun DocumentPreviewer(
             val painter = when (fileUri.getFileExtension()) {
                 FileExtension.PDF.extension -> painterResource(id = R.drawable.pdf_svgrepo_com)
                 FileExtension.DOC.extension, FileExtension.DOCX.extension -> painterResource(id = R.drawable.word_1_)
+                FileExtension.Excel.extension -> painterResource(id = R.drawable.excel2_svgrepo_com)
                 else -> painterResource(id = R.drawable.placeholder_image)
             }
 

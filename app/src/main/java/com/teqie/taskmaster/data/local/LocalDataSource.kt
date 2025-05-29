@@ -7,6 +7,7 @@ import com.teqie.taskmaster.data.local.db.enties.GalleryImageEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.OrfiEntity
+import com.teqie.taskmaster.data.local.db.enties.OrfiFileEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
 import com.teqie.taskmaster.data.local.db.enties.ScheduleEntity
 import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
@@ -70,6 +71,10 @@ interface LocalDataSource {
     suspend fun saveOrfi(orfis: List<OrfiEntity>)
 
     fun fetchOrfis(projectId: String): Flow<List<OrfiEntity>>
+
+    fun fetchOrfiFiles(projectId: String): Flow<List<OrfiFileEntity>>
+
+    suspend fun saveOrfiFile(files: List<OrfiFileEntity>)
 
     suspend fun deleteProjects()
 }

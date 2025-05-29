@@ -54,6 +54,7 @@ import com.teqie.taskmaster.ui.model.IconWithText
 import com.teqie.taskmaster.ui.model.orfi.Orfi
 import com.teqie.taskmaster.ui.screen.BaseScreenWithFAB
 import com.teqie.taskmaster.ui.screen.orfi.form.ORFIManagementForm
+import com.teqie.taskmaster.ui.theme.orfiColor
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
@@ -238,6 +239,7 @@ object ORFI {
                     onViewFileClick = onViewFileClick
                 )
             },
+            cardBorderColor = orfiColor
         )
     }
 

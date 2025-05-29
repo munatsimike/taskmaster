@@ -35,6 +35,7 @@ import com.teqie.taskmaster.ui.model.IconWithText
 import com.teqie.taskmaster.ui.screen.DisplayScreenHeader
 import com.teqie.taskmaster.ui.screen.schedule.forms.ManageScheduleForm
 import com.teqie.taskmaster.ui.theme.lightGray
+import com.teqie.taskmaster.ui.theme.scheduleColor
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.schedule.ScheduleFormViewModel
@@ -178,7 +179,8 @@ object Schedules {
                 },
                 hiddenContentItems = hiddenContentItems(schedule),
                 canDelete = false,
-                cardHeaderContent = { ScheduleItemHeaderContent(schedule) }
+                cardHeaderContent = { ScheduleItemHeaderContent(schedule) },
+                cardBorderColor = scheduleColor
             )
 
             if (selectedSchedule != null && selectedSchedule.id == schedule.id) {

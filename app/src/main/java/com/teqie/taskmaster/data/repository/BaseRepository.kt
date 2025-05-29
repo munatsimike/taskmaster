@@ -29,11 +29,13 @@ abstract class BaseRepository {
                     clearTable()
                     saveEntities(entities)
                 }
-
                 emit(Resource.Success(Unit)) // We don't need to return data here, just success
             }
 
-            is Resource.Failure -> emit(result)
+            is Resource.Failure -> {
+                Log.i("called", result.message)
+                emit(result)
+            }
             is Resource.Error -> result.exception.localizedMessage?.let {
                 Resource.Failure(
                     null,
@@ -64,7 +66,6 @@ abstract class BaseRepository {
             }
         } catch (e: Exception) {
             if (e is CancellationException) throw e
-            Log.e("error", e.localizedMessage)
             Resource.Failure(null, e.localizedMessage ?: "Network error", null)
         }
     }

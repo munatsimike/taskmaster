@@ -1,5 +1,6 @@
 package com.teqie.taskmaster.ui.viewModel.invoice
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.InvoiceFile
@@ -57,7 +58,6 @@ class InvoiceViewModel @Inject constructor(
     fun syncInvoicesToLocalDb(budgetId: String) {
         viewModelScope.launch {
             syncInvoicesToLocalDbUseCase(budgetId).collect {
-
             }
         }
     }

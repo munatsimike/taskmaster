@@ -38,6 +38,7 @@ import com.teqie.taskmaster.navigation.AppScreen
 import com.teqie.taskmaster.ui.components.BottomSheetModal
 import com.teqie.taskmaster.ui.components.ConfirmDialog
 import com.teqie.taskmaster.ui.components.CustomCard
+import com.teqie.taskmaster.ui.components.ErrorContent
 import com.teqie.taskmaster.ui.components.FormModal
 import com.teqie.taskmaster.ui.components.factory.ButtonFactory.SecondaryButton
 import com.teqie.taskmaster.ui.components.menu.DeleteEditOptionsMenu
@@ -107,7 +108,9 @@ object Folders {
                     progressBarText = stringResource(id = R.string.loading_folders),
                     fabVisibility = { isVisible: Boolean ->
                         galleryViewModel.setFBVisibility(isVisible)
-                    }
+                    },
+                    onErrorFailure = {errorText: String ->   ErrorContent(errorText) }
+
                 ) { folders: List<Folder> ->
                     DisplayFolders(
                         onDeleteFolder = { folderName: String, id: String ->

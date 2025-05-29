@@ -12,7 +12,7 @@ object ProjectEntityToDomainMapper: EntityToDomain<ProjectEntity, Project> {
             description = this.description,
             address = this.address,
             thumbnailUrl = this.thumbnailUrl,
-            isDeleted = this.isDeleted == 1,
+            isDeleted = isDeleted.toInt() == 1,
             createdAt = this.createdAt,
             updatedAt = this.updatedAt
         )

@@ -246,8 +246,9 @@ class RemoteDataSourceImpl @Inject constructor(
     return orfiService.deleteORFIFile(orfiFileId)
     }
 
-    override suspend fun getORFIFiles(orfiId: String): Response<List<ORFIFilesResponseDto>> =
-        orfiService.getORFIFiles(orfiId)
+    override suspend fun getORFIFiles(orfiId: String): Response<List<ORFIFilesResponseDto>> {
+        return orfiService.getORFIFiles(orfiId)
+    }
 
     override suspend fun updateORFI(orfiId: String, orfi: CreateUpdateORFIRequest): Response<OrfiDto> {
         return orfiService.updateORFI(orfiId, orfi)

@@ -21,6 +21,7 @@ import com.teqie.taskmaster.data.local.db.enties.GalleryImageEntity
 import com.teqie.taskmaster.data.local.db.enties.InvoiceEntity
 import com.teqie.taskmaster.data.local.db.enties.LoggedInUserEntity
 import com.teqie.taskmaster.data.local.db.enties.OrfiEntity
+import com.teqie.taskmaster.data.local.db.enties.OrfiFileEntity
 import com.teqie.taskmaster.data.local.db.enties.ProjectEntity
 import com.teqie.taskmaster.data.local.db.enties.ScheduleEntity
 import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
@@ -28,7 +29,7 @@ import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
 @Database(
     entities = [LoggedInUserEntity::class, ProjectEntity::class, DashboardEntity::class,
         BudgetPhaseEntity::class, InvoiceEntity::class, TeamMemberEntity::class, ScheduleEntity::class,
-        GalleryImageEntity::class, FolderEntity::class, OrfiEntity::class],
+        GalleryImageEntity::class, FolderEntity::class, OrfiEntity::class,OrfiFileEntity::class],
     version = 2
 )
 @TypeConverters(DashboardConverters::class, ImageConverters::class)

@@ -4,13 +4,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "projects")
-class ProjectEntity (
+class ProjectEntity(
     @PrimaryKey
     val id: String,
     val address: String?,
     val createdAt: String,
     val description: String,
-    val isDeleted: Int,
+    val isDeleted: String,
     val name: String,
     val thumbnailUrl: String?,
     val updatedAt: String?

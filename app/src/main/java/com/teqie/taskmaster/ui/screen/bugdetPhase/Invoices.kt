@@ -32,6 +32,7 @@ import com.teqie.taskmaster.ui.components.state.ProcessNetworkState
 import com.teqie.taskmaster.ui.model.IconWithText
 import com.teqie.taskmaster.ui.screen.BaseScreenWithFAB
 import com.teqie.taskmaster.ui.screen.bugdetPhase.forms.ManageInvoiceForm
+import com.teqie.taskmaster.ui.theme.budgetPhaseColor
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
@@ -190,6 +191,8 @@ private fun InvoiceItem(
             invoice
         ),
         cardHeaderContent = { InvoiceCardHeaderContent(invoice, onNavigateToInvoiceFile) },
+        cardBorderColor = budgetPhaseColor,
+
     )
 }
 

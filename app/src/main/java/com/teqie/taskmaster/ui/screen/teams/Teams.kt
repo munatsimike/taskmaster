@@ -191,6 +191,7 @@ private fun TeamMemberItem(
             Spacer(modifier = Modifier.height(17.dp))
             HeaderContent(teamMember, roleCardBorderColor.copy(0.5f))
         },
+        cardBorderColor = teamsColor,
     )
 }
 

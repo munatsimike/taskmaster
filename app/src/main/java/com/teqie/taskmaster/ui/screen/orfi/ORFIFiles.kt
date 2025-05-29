@@ -1,6 +1,5 @@
 package com.teqie.taskmaster.ui.screen.orfi
 
-import ORFIFile
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -8,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.teqie.taskmaster.domain.model.file.FileType
+import com.teqie.taskmaster.domain.model.orfi.ORFIFile
 import com.teqie.taskmaster.navigation.AppScreen
 import com.teqie.taskmaster.ui.components.ConfirmDialog
 import com.teqie.taskmaster.ui.components.DisplayFiles
@@ -58,6 +58,7 @@ object ORFIFiles {
         }
 
         LaunchedEffect(orfiId, screenState.triggerFetch) {
+            orfiViewModel.syncOrfiFileToLocalDb(orfiId)
             orfiViewModel.getORFIFiles(orfiId)
         }
 
@@ -110,4 +111,3 @@ object ORFIFiles {
         }
     }
 }
-

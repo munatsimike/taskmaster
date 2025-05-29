@@ -2,7 +2,6 @@ package com.teqie.taskmaster.data.mapper.orfi
 
 import com.teqie.taskmaster.data.local.db.enties.OrfiEntity
 import com.teqie.taskmaster.data.mapper.EntityToDomain
-import com.teqie.taskmaster.data.mapper.orfi.OrfiDtoToEntityMapper.toEntity
 import com.teqie.taskmaster.ui.model.orfi.Orfi
 
 object OrfiEntityToDomainMapper: EntityToDomain<OrfiEntity, Orfi> {
