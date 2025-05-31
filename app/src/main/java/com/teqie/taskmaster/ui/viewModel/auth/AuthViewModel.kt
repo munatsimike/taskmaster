@@ -9,13 +9,17 @@ import com.teqie.taskmaster.domain.model.auth.User
 import com.teqie.taskmaster.domain.useCases.auth.GetAccessTokenUseCaseImp
 import com.teqie.taskmaster.domain.useCases.auth.LoginUseCase
 import com.teqie.taskmaster.domain.useCases.auth.LogoutUseCaseImp
+import com.teqie.taskmaster.domain.useCases.auth.ValidateTokenUseCase
 import com.teqie.taskmaster.ui.components.state.AuthUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
@@ -33,20 +37,21 @@ import kotlin.coroutines.cancellation.CancellationException
 class AuthViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val getAccessTokenUseCase: GetAccessTokenUseCaseImp,
-    private  val logoutUseCase: LogoutUseCaseImp
-
+    private val logoutUseCase: LogoutUseCaseImp,
+    private val validateTokenUseCase: ValidateTokenUseCase
 ) : ViewModel() {
+
     private val _uiState: MutableStateFlow<AuthUiState> = MutableStateFlow(AuthUiState())
+    val uiState: StateFlow<AuthUiState> = _uiState
+
+    private val _isPasswordVisible = MutableStateFlow(false)
+    val isPasswordVisible: StateFlow<Boolean> = _isPasswordVisible
 
     init {
         checkAccessToken()
     }
 
-    val uiState: StateFlow<AuthUiState> = _uiState
-    private val _isPasswordVisible = MutableStateFlow(false)
-    val isPasswordVisible: StateFlow<Boolean> = _isPasswordVisible
-
-    fun togglePasswordVisibility(){
+    fun togglePasswordVisibility() {
         _isPasswordVisible.value = !isPasswordVisible.value
     }
 
@@ -60,17 +65,17 @@ class AuthViewModel @Inject constructor(
 
     fun login() {
         viewModelScope.launch {
-            val loginRequest =
-                LoginRequest(_uiState.value.username.trim(), _uiState.value.password.trim())
+            val loginRequest = LoginRequest(
+                _uiState.value.username.trim(),
+                _uiState.value.password.trim()
+            )
             if (loginRequest.isValid()) {
                 val result = loginUseCase(loginRequest)
                 if (result.isSuccess) {
-                    // Await token collection to ensure it updates before proceeding
                     checkAccessToken()
-                    // Update state only after token is confirmed
-                    upDateUiState(result)
+                    updateUiState(result)
                 } else {
-                    _uiState.update { it.copy(error = "login Failed") }
+                    _uiState.update { it.copy(error = "Login failed") }
                 }
             } else {
                 _uiState.update { it.copy(error = "Username or password cannot be blank") }
@@ -78,39 +83,66 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun logout(){
+    fun logout() {
         viewModelScope.launch {
             logoutUseCase.logout()
             checkAccessToken()
         }
     }
 
-    private fun upDateUiState(result: Result<User>) {
+    private fun updateUiState(result: Result<User>) {
         if (result.isSuccess) {
             _uiState.update { it.copy(isSuccessful = true) }
         } else {
-            _uiState.update { it.copy(error = "login Failed") }
+            _uiState.update { it.copy(error = "Login failed") }
         }
         clearLoginForm()
     }
 
-    private fun clearLoginForm(){
+    private fun clearLoginForm() {
         _uiState.update { it.copy(username = "", password = "", error = "") }
     }
 
-    // Check access token availability and update the state
     private fun checkAccessToken() {
         viewModelScope.launch {
             try {
-                getAccessTokenUseCase().collectLatest { token:AccessToken ->
-                    _uiState.update {
-                        it.copy(hasToken = token.isNotEmpty())
+                getAccessTokenUseCase().collectLatest { token: AccessToken ->
+                    val hasToken = token.isNotEmpty()
+
+                    if (hasToken) {
+                        val isValid = validateTokenSafely()
+                        if (!isValid) {
+                            logoutUseCase.logout()
+                            _uiState.update { it.copy(hasToken = false) }
+                        } else {
+                            _uiState.update { it.copy(hasToken = true) }
+                        }
+                    } else {
+                        _uiState.update { it.copy(hasToken = false) }
                     }
                 }
             } catch (e: CancellationException) {
                 Timber.i("token view model", "Coroutine was cancelled in ViewModel", e)
             } catch (e: Exception) {
                 Timber.i("token error", e.message.toString())
+            }
+        }
+    }
+
+    private suspend fun validateTokenSafely(): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = validateTokenUseCase() // /users/me
+
+                if (response.isSuccessful) {
+                    true // token is valid
+                } else {
+                    response.code() != 401 // token is valid if not 401
+                }
+            } catch (e: HttpException) {
+                e.code() != 401
+            } catch (e: Exception) {
+                false // network error or unknown → treat as invalid
             }
         }
     }

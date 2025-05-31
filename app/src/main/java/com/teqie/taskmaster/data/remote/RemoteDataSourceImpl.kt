@@ -83,6 +83,10 @@ class RemoteDataSourceImpl @Inject constructor(
         return authService.login(loginRequest)
     }
 
+    override suspend fun isTokenValid(): Response<Unit> {
+        return authService.getCurrentUser()
+    }
+
     // The following functions implement Create, Read, Update, and Delete (CRUD) operations for Project entities in the remote data source.
     override suspend fun getProjects(): Response<List<ProjectResponseDto>> {
         return projectService.getProjects()

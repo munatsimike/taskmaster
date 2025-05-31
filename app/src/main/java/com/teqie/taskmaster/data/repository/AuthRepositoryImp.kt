@@ -15,11 +15,12 @@ import com.teqie.taskmaster.domain.LoginRequest
 import com.teqie.taskmaster.domain.model.auth.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 import javax.inject.Inject
 
 class AuthRepositoryImp @Inject  constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
+    private val localDataSource: LocalDataSource,
 ): AuthRepository {
     /**
      * This function interacts with Remotedatasource to perform login operations
@@ -41,6 +42,10 @@ class AuthRepositoryImp @Inject  constructor(
         } else {
             Result.failure(Exception(result.errorBody()?.string() ?: ""))
         }
+    }
+
+    override suspend fun isTokenValid(): Response<Unit> {
+      return  remoteDataSource.isTokenValid()
     }
 
     private suspend fun saveAccessToken(accessToken: AccessToken) {

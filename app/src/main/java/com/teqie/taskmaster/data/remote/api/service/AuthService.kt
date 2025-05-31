@@ -5,7 +5,9 @@ import com.teqie.taskmaster.data.remote.dto.user.UserApiResponseDto
 
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 /**
  * sends a login in request to the server and returns the result
@@ -15,4 +17,7 @@ import retrofit2.http.POST
 interface AuthService {
     @POST("auth/login")
    suspend fun login(@Body request: LoginRequestDto): Response<UserApiResponseDto>
+
+    @GET("users/me")
+    suspend fun getCurrentUser(): Response<Unit>
 }

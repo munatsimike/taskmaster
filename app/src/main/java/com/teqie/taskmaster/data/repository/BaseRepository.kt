@@ -1,6 +1,5 @@
 package com.teqie.taskmaster.data.repository
 
-import android.util.Log
 import com.teqie.taskmaster.domain.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -33,7 +32,6 @@ abstract class BaseRepository {
             }
 
             is Resource.Failure -> {
-                Log.i("called", result.message)
                 emit(result)
             }
             is Resource.Error -> result.exception.localizedMessage?.let {

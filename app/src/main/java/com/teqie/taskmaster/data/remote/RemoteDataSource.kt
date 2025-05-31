@@ -42,6 +42,7 @@ import java.io.File
 
 interface RemoteDataSource {
     suspend fun login(loginRequest: LoginRequestDto): Response<UserApiResponseDto>
+    suspend fun isTokenValid(): Response<Unit>
     suspend fun getProjects(): Response<List<ProjectResponseDto>>
     suspend fun addOrEditNewProject(
         projectRequest: Project,
