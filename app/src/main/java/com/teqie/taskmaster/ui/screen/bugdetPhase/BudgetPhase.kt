@@ -11,7 +11,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -238,23 +237,23 @@ private fun hiddenContentItems(budgetPhase: BudgetPhase): List<IconWithText> {
     return listOf(
 
         IconWithText(
-            R.drawable.paid_24px, formatedPaidToDate, Color.Blue
+            R.drawable.paid_24px, formatedPaidToDate
         ),
 
         IconWithText(
-            R.drawable.paid_24px, formatedPendingDueTxt, Color.Red
+            R.drawable.paid_24px, formatedPendingDueTxt
         ),
 
         IconWithText(
-            R.drawable.paid_24px, formatedRemainingTxt, Color(0xFF093F0B)
+            R.drawable.paid_24px, formatedRemainingTxt
         ),
 
         IconWithText(
-            R.drawable.money_bag_24px, formatedInitBudgetTxt, Color(0xFF616161)
+            R.drawable.money_bag_24px, formatedInitBudgetTxt
         ),
 
         IconWithText(
-            R.drawable.money_bag_24px, formatedBudgetTxt, Color(0xFF9B59B6)
+            R.drawable.money_bag_24px, formatedBudgetTxt
         ),
     )
 }

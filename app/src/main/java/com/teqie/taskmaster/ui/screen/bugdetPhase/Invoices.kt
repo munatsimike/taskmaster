@@ -3,8 +3,10 @@ package com.teqie.taskmaster.ui.screen.bugdetPhase
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -14,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -202,6 +203,7 @@ private fun InvoiceCardHeaderContent(
     onNavigateToInvoiceFile: (String) -> Unit
 ) {
     Column {
+        Spacer(modifier = Modifier.height(20.dp))
         TitleText(
             text = "Paid ${formatCurrency(invoice.paid)} of ${formatCurrency(invoice.amount)}",
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -223,7 +225,7 @@ private fun hiddenContentItems(
 ): List<IconWithText> {
     return listOf(
         IconWithText(
-            R.drawable.calendar_month_24px, "Date: " + invoice.date.isoToReadableDate(), Color.Blue
+            R.drawable.calendar_month_24px, "Date: " + invoice.date.isoToReadableDate()
         )
     )
 }

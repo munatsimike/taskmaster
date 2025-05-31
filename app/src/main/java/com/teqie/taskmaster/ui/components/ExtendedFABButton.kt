@@ -27,7 +27,7 @@ fun ExtendedFABButton(
     onClick: () -> Unit
 ) {
     Surface(
-        shape = RoundedCornerShape(47),
+        shape = RoundedCornerShape(27),
         shadowElevation = 4.dp,
         modifier = Modifier.height(45.dp),
         color = Color.Transparent
@@ -50,7 +50,7 @@ fun ExtendedFABButton(
                     Text(
                         text = buttonText,
                         color = Color.White,
-                        style = MaterialTheme.typography.bodySmall
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 },
                 containerColor = Color.Transparent,

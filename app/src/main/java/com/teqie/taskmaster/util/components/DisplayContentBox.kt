@@ -56,7 +56,7 @@ fun DisplayContentBox(
         ) {
             Text(
                 text = content,
-                style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
+                style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
                 color = contentColor
             )
         }
