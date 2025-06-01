@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import com.teqie.taskmaster.domain.model.file.FileType
 import com.teqie.taskmaster.domain.model.orfi.ORFIFile
 import com.teqie.taskmaster.navigation.AppScreen
+import com.teqie.taskmaster.navigation.navigateBasedOnToken
 import com.teqie.taskmaster.ui.components.ConfirmDialog
 import com.teqie.taskmaster.ui.components.DisplayFiles
 import com.teqie.taskmaster.ui.components.FormModal
@@ -38,6 +39,7 @@ object ORFIFiles {
         fileViewModel: FileManagementViewModel,
         orfiViewModel: ORFIViewModel = hiltViewModel()
     ) {
+        val loginUiState by authViewModel.uiState.collectAsState()
         val allOrfiFiles by orfiViewModel.orfiFiles.collectAsState()
         val project by sharedViewModel.project.collectAsState()
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
@@ -55,6 +57,12 @@ object ORFIFiles {
             customSnackbarHostState = snackbarHostState
         ) {
             fileViewModel.clearUiScreenStateMessage(uiScreenState = screenState)
+        }
+
+        LaunchedEffect(loginUiState.hasToken) {
+            if (!loginUiState.hasToken) {
+                navigateBasedOnToken(false, navController)
+            }
         }
 
         LaunchedEffect(orfiId, screenState.triggerFetch) {

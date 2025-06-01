@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.teqie.taskflow.navigation.bottomNav.BottomNavBar
 import com.teqie.taskmaster.navigation.NavHost.AppNavHost
+import com.teqie.taskmaster.navigation.bottomNav.BottomNavBar
 import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
 import com.teqie.taskmaster.ui.theme.TaskMasterTheme
 import dagger.hilt.android.AndroidEntryPoint

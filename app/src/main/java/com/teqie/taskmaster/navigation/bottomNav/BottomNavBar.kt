@@ -1,4 +1,4 @@
-package com.teqie.taskflow.navigation.bottomNav
+package com.teqie.taskmaster.navigation.bottomNav
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
@@ -25,9 +25,8 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.teqie.taskflow.navigation.bottomNav.NavBarItems.moreItems
-import com.teqie.taskflow.navigation.bottomNav.NavBarItems.primaryItems
-import com.teqie.taskmaster.navigation.bottomNav.routesToHideBottomNav
+import com.teqie.taskmaster.navigation.bottomNav.NavBarItems.moreItems
+import com.teqie.taskmaster.navigation.bottomNav.NavBarItems.primaryItems
 
 @Composable
 fun BottomNavBar(navHostController: NavHostController) {

@@ -66,19 +66,10 @@ object NavHost {
                 startDestination = AppScreen.SplashScreen.route
             ) {
                 composable(AppScreen.SplashScreen.route) {
-
                     // Observe token
                     LaunchedEffect(loginUiState.hasToken) {
                         delay(3000)
-                        if (loginUiState.hasToken) {
-                            navController.navigate(AppScreen.Projects.route) {
-                                popUpTo(AppScreen.SplashScreen.route) { inclusive = true }
-                            }
-                        } else {
-                            navController.navigate(AppScreen.Login.route) {
-                                popUpTo(AppScreen.SplashScreen.route) { inclusive = true }
-                            }
-                        }
+                        navigateBasedOnToken(loginUiState.hasToken, navController)
                     }
 
                     SplashScreen.MainScreen()

@@ -43,6 +43,7 @@ import com.teqie.taskmaster.R
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.teamMember.TeamMember
 import com.teqie.taskmaster.navigation.AppScreen
+import com.teqie.taskmaster.navigation.navigateBasedOnToken
 import com.teqie.taskmaster.ui.components.ConfirmDialog
 import com.teqie.taskmaster.ui.components.factory.TextFactory.SubtitleText
 import com.teqie.taskmaster.ui.components.factory.TextFactory.TitleText
@@ -85,6 +86,7 @@ object ORFI {
             mutableStateOf<List<TeamMember>>(emptyList())
         }
 
+        val loginUiState by authViewModel.uiState.collectAsState()
         val project by sharedViewModel.project.collectAsState()
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
         val state by orfiViewModel.orfiState.collectAsState()
@@ -107,6 +109,12 @@ object ORFI {
 
         ProcessNetworkState(state = usersState) { users ->
             projectUsers.value = users
+        }
+
+        LaunchedEffect(loginUiState.hasToken) {
+            if (!loginUiState.hasToken) {
+                navigateBasedOnToken(false, navController)
+            }
         }
 
         LaunchedEffect(project.id, uiScreenState.triggerFetch) {

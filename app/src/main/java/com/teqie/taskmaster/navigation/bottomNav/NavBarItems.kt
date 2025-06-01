@@ -1,11 +1,10 @@
-package com.teqie.taskflow.navigation.bottomNav
+package com.teqie.taskmaster.navigation.bottomNav
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.teqie.taskmaster.R
 import com.teqie.taskmaster.navigation.AppScreen
-import com.teqie.taskmaster.navigation.bottomNav.BarItem
 
 object NavBarItems {
     @Composable

@@ -1,4 +1,4 @@
-package com.example.taskflow.ui.screen.schedule
+package com.teqie.taskmaster.ui.screen.schedule
 
 data class ScheduleFormState(
     val id: String = "",

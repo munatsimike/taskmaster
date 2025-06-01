@@ -44,9 +44,9 @@ import com.teqie.taskmaster.R
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.navigation.AppScreen
+import com.teqie.taskmaster.navigation.navigateBasedOnToken
 import com.teqie.taskmaster.ui.components.ConfirmDialog
 import com.teqie.taskmaster.ui.components.CustomCard
-import com.teqie.taskmaster.ui.components.DisplayProgressBar
 import com.teqie.taskmaster.ui.components.imageDisplay.NetworkImageLoader
 import com.teqie.taskmaster.ui.components.menu.DeleteEditOptionsMenu
 import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
@@ -73,12 +73,14 @@ object Projects {
         projectsViewModel: ProjectsViewModel = hiltViewModel(),
         projectFormViewModel: ProjectFormViewModel = hiltViewModel()
     ) {
+
         // Collect state from the ViewModel using collectAsState
         val loginUiState by authViewModel.uiState.collectAsState()
         val projects by projectsViewModel.projects.collectAsState()
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
         val formUiState by projectFormViewModel.uiFormState.collectAsState()
         val screenState by projectsViewModel.screenState.collectAsState()
+
 
         val message = projectFormViewModel.getServerResponseMsg(formUiState, screenState)
 
@@ -124,6 +126,13 @@ object Projects {
                 currentPage = AppScreen.Projects.title,
             ), onLogoutClick = { authViewModel.logout() }
         ) {
+
+            LaunchedEffect(loginUiState.hasToken) {
+                if (!loginUiState.hasToken) {
+                    navigateBasedOnToken(false, navController)
+                }
+            }
+
             // check if there is a bearer token
             if (loginUiState.hasToken) {
                 HomeScreen(
@@ -140,8 +149,6 @@ object Projects {
                         projectFormViewModel.handleEdit(project)
                     }
                 )
-            } else {
-                DisplayProgressBar()
             }
         }
 

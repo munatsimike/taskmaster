@@ -19,6 +19,7 @@ import com.teqie.taskmaster.R
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.budget.BudgetPhase
 import com.teqie.taskmaster.navigation.AppScreen
+import com.teqie.taskmaster.navigation.navigateBasedOnToken
 import com.teqie.taskmaster.ui.components.ConfirmDialog
 import com.teqie.taskmaster.ui.components.factory.TextFactory.TitleText
 import com.teqie.taskmaster.ui.components.snackbar.CustomSnackbarHostState
@@ -52,6 +53,7 @@ object BudgetPhase {
         budgetPhaseViewModel: BudgetViewModel,
         budgetFormViewModel: BudgetFormViewModel = hiltViewModel()
     ) {
+        val loginUiState by authViewModel.uiState.collectAsState()
         val project by sharedViewModel.project.collectAsState()
         val loggedInUser by sharedUserViewModel.loggedInUser.collectAsState()
         val formState by budgetFormViewModel.uiFormState.collectAsState()
@@ -62,6 +64,12 @@ object BudgetPhase {
             uiScreenState,
             formState
         ) { budgetFormViewModel.toggleIsFormSubmitted() }
+
+        LaunchedEffect(loginUiState.hasToken) {
+            if (!loginUiState.hasToken) {
+                navigateBasedOnToken(false, navController)
+            }
+        }
 
         DisplaySnackBar(
             uiMessage = uiScreenState.message,

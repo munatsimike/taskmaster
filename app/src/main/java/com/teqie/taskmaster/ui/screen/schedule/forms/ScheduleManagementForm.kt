@@ -27,7 +27,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.taskflow.ui.screen.schedule.ScheduleFormState
 import com.teqie.taskmaster.R
 import com.teqie.taskmaster.domain.model.project.Project
 import com.teqie.taskmaster.ui.components.FormModal
@@ -35,6 +34,7 @@ import com.teqie.taskmaster.ui.components.factory.ButtonFactory.PrimaryButton
 import com.teqie.taskmaster.ui.components.factory.TextFieldFactory.FilledTextField
 import com.teqie.taskmaster.ui.components.form.CustomDatePicker
 import com.teqie.taskmaster.ui.components.imageDisplay.DisplayImageVectorIcon
+import com.teqie.taskmaster.ui.screen.schedule.ScheduleFormState
 import com.teqie.taskmaster.ui.viewModel.schedule.ScheduleFormViewModel
 import com.teqie.taskmaster.util.formatFloat
 

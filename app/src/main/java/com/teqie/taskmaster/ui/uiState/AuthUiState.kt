@@ -1,4 +1,4 @@
-package com.example.taskflow.ui.model.uiState
+package com.teqie.taskmaster.ui.uiState
 
 //this class holds the state of the login UI
 data class AuthUiState(

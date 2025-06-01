@@ -1,4 +1,4 @@
-package com.example.taskflow.ui.screen.schedule
+package com.teqie.taskmaster.ui.screen.schedule
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
