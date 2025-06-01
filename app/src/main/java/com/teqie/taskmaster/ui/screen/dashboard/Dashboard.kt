@@ -1,6 +1,7 @@
 package com.teqie.taskmaster.ui.screen.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +25,9 @@ import com.teqie.taskmaster.ui.screen.DisplayScreenHeader
 import com.teqie.taskmaster.ui.viewModel.DashBoardViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
+import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.teqie.taskmaster.util.ProcessDashboardState
+import com.teqie.taskmaster.util.components.DisplayLoggedInUserProfileOverlay
 import com.teqie.taskmaster.util.headerData
 
 object Dashboard {
@@ -33,6 +36,7 @@ object Dashboard {
         navController: NavController,
         sharedViewModel: SharedViewModel,
         sharedUserViewModel: SharedUserViewModel,
+        authViewModel: AuthViewModel,
         dashBoardViewModel: DashBoardViewModel = hiltViewModel()
     ) {
         val project by sharedViewModel.project.collectAsState()
@@ -46,7 +50,7 @@ object Dashboard {
             .collectAsState(initial = Resource.Loading)
 
         DisplayDashboard(
-            result, navController, project, loggedInUser
+            result, navController, project, loggedInUser, {authViewModel.logout()}
         )
     }
 
@@ -56,19 +60,23 @@ object Dashboard {
         navController: NavController,
         project: Project,
         loggedInUser: LoggedInUser,
+        onLogoutClick: () -> Unit,
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            DisplayScreenHeader(
-                headerData(
-                    loggedInUser = loggedInUser,
-                    projectName = project.name,
-                    currentPage = AppScreen.Dashboard.title,
-                    showBackBtn = true
-                )
-            ) { navController.popBackStack() }
-            ProcessDashboardState(items, navController)
+        Box {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                    DisplayScreenHeader(
+                        headerData(
+                            loggedInUser = loggedInUser,
+                            projectName = project.name,
+                            currentPage = AppScreen.Dashboard.title,
+                            showBackBtn = true
+                        )
+                    ) { navController.popBackStack() }
+                ProcessDashboardState(items, navController)
+            }
+            DisplayLoggedInUserProfileOverlay(loggedInUser, onLogoutClick)
         }
     }
 

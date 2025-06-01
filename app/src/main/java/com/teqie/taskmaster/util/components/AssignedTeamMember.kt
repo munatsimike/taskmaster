@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -30,10 +31,7 @@ fun CustomAssignedTeamMember(avaTaUrl: String?, name: String, size: Int = 50) {
             Modifier
                 .size(
                     size.dp
-                ) // Size of the image
-                .border(
-                    width = 2.dp, color = MaterialTheme.colorScheme.primary, shape = CircleShape
-                ) // Border around the image
+                ) // Size of the image // Border around the image
                 .clip(CircleShape)
         )
         // Spacer for optional alignment with other UI elements

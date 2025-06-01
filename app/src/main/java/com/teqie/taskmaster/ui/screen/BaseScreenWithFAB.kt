@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -55,6 +56,7 @@ import com.teqie.taskmaster.ui.theme.darkBlue
 import com.teqie.taskmaster.ui.theme.gradientEnd
 import com.teqie.taskmaster.ui.theme.gradientStart
 import com.teqie.taskmaster.ui.theme.lightGray
+import com.teqie.taskmaster.util.components.DisplayLoggedInUserProfileOverlay
 
 @Composable
 fun BaseScreenWithFAB(
@@ -210,93 +212,7 @@ fun DisplayBackButton(
     }
 }
 
-@Composable
-fun DisplayLoggedInUserProfileOverlay(
-    loggedInUser: LoggedInUser,
-    onLogoutClick: () -> Unit
-) {
-    var showProfile by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth(), horizontalAlignment = Alignment.End
-    ) {
-        NetworkImageLoader(
-            imageUrl = loggedInUser.avatar,
-            modifier = Modifier.padding(top = 10.dp, end = 10.dp)
-                .size(30.dp)
-                .clip(CircleShape)
-                .clickable {
-                    showProfile = !showProfile
-                }
-        )
-        LoggedInUserProfile(loggedInUser, showProfile = showProfile, onLogoutClick = onLogoutClick)
-    }
-}
-
-@Composable
-private fun LoggedInUserProfile(
-    loggedInUser: LoggedInUser,
-    showProfile: Boolean,
-    onLogoutClick: () -> Unit
-) {
-    AnimatedVisibility(visible = showProfile) {
-        Surface(
-            modifier = Modifier
-                .padding(5.dp)
-                .clip(
-                    RoundedCornerShape(10.dp)
-                ),
-
-            shadowElevation = 5.dp
-        ) {
-            Column {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp, bottom = 5.dp),
-                    verticalArrangement = Arrangement.spacedBy(5.dp),
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(10.dp)
-                    ) {
-                        NetworkImageLoader(
-                            imageUrl = loggedInUser.avatar,
-                            modifier = Modifier
-                                .size(50.dp)
-                                .clip(CircleShape)
-                        )
-
-                        Column {
-                            Text(text = loggedInUser.name)
-                            Text(text = loggedInUser.email)
-                            Text(text = loggedInUser.phone)
-                        }
-                    }
-                }
-
-                Box(modifier = Modifier.fillMaxWidth().background(darkBlue)) {
-                    TextButton(
-                        modifier = Modifier.align(Alignment.Center),
-                        onClick = { onLogoutClick() }
-                    ) {
-                        DisplayImageVectorIcon(
-                            icon = ImageVector.vectorResource(R.drawable.logout_24px),
-                            iconSize = 22,
-                            tint = Color.White
-                        )
-                        Text(
-                            text = "Sign out",
-                            style = MaterialTheme.typography.titleMedium.copy(fontSize = 16.sp),
-                            color = Color.White
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
 
 @Composable
 private fun ProjectTitleAndCurrentScreen(headerData: HeaderData, modifier: Modifier = Modifier) {
@@ -304,14 +220,12 @@ private fun ProjectTitleAndCurrentScreen(headerData: HeaderData, modifier: Modif
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxWidth()
     ) {
-        Icon(
+        /**Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.house_24px),
             contentDescription = "",
             modifier.size(30.dp),
-            tint = MaterialTheme.colorScheme.onSurface
-        )
-        if (headerData.projectTitle.isNotBlank())
-            Text(text = headerData.projectTitle, color = MaterialTheme.colorScheme.onSurface)
+            tint = orange
+        )**/
 
         Text(
             text = headerData.currentPage,
@@ -319,5 +233,8 @@ private fun ProjectTitleAndCurrentScreen(headerData: HeaderData, modifier: Modif
             fontSize = 19.sp,
             color = MaterialTheme.colorScheme.onSurface
         )
+
+        if (headerData.projectTitle.isNotBlank())
+            Text(text = headerData.projectTitle, color = MaterialTheme.colorScheme.onSurface)
     }
 }

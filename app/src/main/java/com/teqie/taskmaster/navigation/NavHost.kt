@@ -56,7 +56,7 @@ object NavHost {
         fileManagementViewModel: FileManagementViewModel = hiltViewModel(),
         galleryFormViewModel: GalleryFormViewModel = hiltViewModel(),
         galleryViewModel: GalleryViewModel = hiltViewModel(),
-        fileFormManagementViewModel: FileFormManagementViewModel  = hiltViewModel()
+        fileFormManagementViewModel: FileFormManagementViewModel = hiltViewModel()
     ) {
         val loginUiState by authViewModel.uiState.collectAsState()
 
@@ -95,8 +95,10 @@ object NavHost {
                     Dashboard.MainScreen(
                         navController,
                         sharedViewModel,
-                        sharedUserViewModel
-                    )
+                        sharedUserViewModel,
+                        authViewModel = authViewModel,
+
+                        )
                 }
 
                 composable(AppScreen.Budget.route) {
@@ -153,7 +155,7 @@ object NavHost {
                         navController,
                         sharedUserViewModel,
                         sharedViewModel,
-                        snackbarHostState
+                        snackbarHostState, authViewModel
                     )
                 }
 
@@ -169,7 +171,7 @@ object NavHost {
                             sharedUserViewModel,
                             authViewModel,
                             snackbarHostState,
-                            invoiceViewModel =invoiceViewModel,
+                            invoiceViewModel = invoiceViewModel,
                         )
                     }
                 }
@@ -214,7 +216,7 @@ object NavHost {
                         navController = navController,
                         animatedVisibilityScope = this,
                         galleryViewModel = galleryViewModel,
-                        sharedTransitionScop =  this@SharedTransitionLayout,
+                        sharedTransitionScop = this@SharedTransitionLayout,
                         sharedViewModel = sharedViewModel,
                         fileManagementViewModel = fileManagementViewModel
                     )

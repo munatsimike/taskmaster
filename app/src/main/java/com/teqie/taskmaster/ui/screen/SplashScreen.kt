@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.teqie.taskmaster.R
 import com.teqie.taskmaster.ui.components.factory.AnimationFactory
 import com.teqie.taskmaster.ui.components.imageDisplay.DisplayImageVectorIcon
+import com.teqie.taskmaster.ui.theme.orange
 
 object SplashScreen {
 
@@ -43,7 +44,7 @@ object SplashScreen {
                 DisplayImageVectorIcon(
                     icon = ImageVector.vectorResource(R.drawable.home_logo),
                     iconSize = 96,
-                    tint = Color(0xFFFF9800)
+                    tint = orange
                 )
                 // App Name or Branding
                 Text(

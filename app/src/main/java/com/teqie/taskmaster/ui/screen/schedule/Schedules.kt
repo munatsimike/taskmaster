@@ -38,10 +38,12 @@ import com.teqie.taskmaster.ui.theme.lightGray
 import com.teqie.taskmaster.ui.theme.scheduleColor
 import com.teqie.taskmaster.ui.viewModel.SharedUserViewModel
 import com.teqie.taskmaster.ui.viewModel.SharedViewModel
+import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.teqie.taskmaster.ui.viewModel.schedule.ScheduleFormViewModel
 import com.teqie.taskmaster.ui.viewModel.schedule.ScheduleViewModel
 import com.teqie.taskmaster.util.components.CardHorizontalBarGraph
 import com.teqie.taskmaster.util.components.CustomScreenCard
+import com.teqie.taskmaster.util.components.DisplayLoggedInUserProfileOverlay
 import com.teqie.taskmaster.util.formatFloat
 import com.teqie.taskmaster.util.headerData
 import com.teqie.taskmaster.util.isoToReadableDate
@@ -55,6 +57,7 @@ object Schedules {
         sharedUserViewModel: SharedUserViewModel,
         sharedViewModel: SharedViewModel,
         snackBarHostState: CustomSnackbarHostState,
+        authViewModel: AuthViewModel,
         scheduleFormViewModel: ScheduleFormViewModel = hiltViewModel(),
         scheduleViewModel: ScheduleViewModel = hiltViewModel()
     ) {
@@ -86,25 +89,28 @@ object Schedules {
         }
         val state by scheduleViewModel.scheduleState.collectAsState()
 
-        Column (modifier = Modifier.background(color = lightGray)) {
-            DisplayScreenHeader(
-                headerData = headerData(
-                    loggedInUser = loggedInUser,
-                    projectName = projectTile,
-                    currentPage = AppScreen.Schedule.title
+        Box {
+            Column(modifier = Modifier.background(color = lightGray)) {
+                DisplayScreenHeader(
+                    headerData = headerData(
+                        loggedInUser = loggedInUser,
+                        projectName = projectTile,
+                        currentPage = AppScreen.Schedule.title
+                    )
+                ) { navController.popBackStack() }
+                ScheduleContent(
+                    onDismissTooltip = { selectedSchedule.value = null },
+                    selectedSchedule = selectedSchedule.value,
+                    networkState = state,
+                    onDeleteSchedule = { schedule: Schedule ->
+                        selectedSchedule.value = schedule
+                    },
+                    onEditRequest = { schedule: Schedule ->
+                        scheduleFormViewModel.onEditRequest(schedule = schedule)
+                    }
                 )
-            ) { navController.popBackStack() }
-            ScheduleContent(
-                onDismissTooltip = { selectedSchedule.value = null },
-                selectedSchedule = selectedSchedule.value,
-                networkState = state,
-                onDeleteSchedule = { schedule: Schedule ->
-                    selectedSchedule.value = schedule
-                },
-                onEditRequest = { schedule: Schedule ->
-                    scheduleFormViewModel.onEditRequest(schedule = schedule)
-                }
-            )
+            }
+            DisplayLoggedInUserProfileOverlay(loggedInUser, {authViewModel.logout()})
         }
 
         if (formState.isVisible) {
@@ -216,16 +222,12 @@ object Schedules {
         return listOf(
 
             IconWithText(
+                R.drawable.clock_24px, "Total Duration: ${schedule.totalDuration} months",
+            ),
+
+            IconWithText(
                 R.drawable.calendar_month_24px,
                 "Start Date: ${schedule.startDate.isoToReadableDate()}"
-            ),
-
-            IconWithText(
-                R.drawable.timelapse_24px, "Elapsed: ${(formatFloat(schedule.progress))} months"
-            ),
-
-            IconWithText(
-                R.drawable.clock_24px, "Total Duration: ${schedule.totalDuration} months",
             ),
 
             IconWithText(
