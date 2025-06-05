@@ -39,7 +39,6 @@ class BudgetViewModel @Inject constructor(
     fun syncBudgetPhasesToLocal(projectId: String) {
         viewModelScope.launch {
             syncBudgetPhasesToLocalUseCase(projectId).collect{
-                Log.i("error", it.toString())
             }
         }
     }

@@ -12,6 +12,9 @@ interface BudgetPhaseDao{
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveBudgetPhase(budgetPhase: List<BudgetPhaseEntity>)
 
-    @Query("SELECT * FROM budget_phase WHERE id=:id")
-    fun fetchBudgetPhase(id: String): Flow<List<BudgetPhaseEntity>>
+    @Query("SELECT * FROM budget_phase WHERE projectId=:projectId")
+    fun fetchBudgetPhase(projectId: String): Flow<List<BudgetPhaseEntity>>
+
+    @Query("DELETE FROM budget_phase")
+    suspend fun deleteBudgetPhases()
 }

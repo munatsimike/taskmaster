@@ -30,7 +30,7 @@ import com.teqie.taskmaster.data.local.db.enties.TeamMemberEntity
     entities = [LoggedInUserEntity::class, ProjectEntity::class, DashboardEntity::class,
         BudgetPhaseEntity::class, InvoiceEntity::class, TeamMemberEntity::class, ScheduleEntity::class,
         GalleryImageEntity::class, FolderEntity::class, OrfiEntity::class,OrfiFileEntity::class],
-    version = 2
+    version = 1
 )
 @TypeConverters(DashboardConverters::class, ImageConverters::class)
 abstract class AppDatabase : RoomDatabase() {

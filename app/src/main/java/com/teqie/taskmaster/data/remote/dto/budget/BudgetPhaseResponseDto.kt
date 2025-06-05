@@ -8,7 +8,7 @@ data class BudgetPhaseResponseDto(
     val id: String,
     val phase: String,
     @SerialName("project_id")
-    val projectId: String?,
+    val projectId: String,
     val totalAmount: Int,
     val totalPaid: Int,
     @SerialName("user_id")

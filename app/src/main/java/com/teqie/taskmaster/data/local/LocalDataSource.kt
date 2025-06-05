@@ -77,4 +77,5 @@ interface LocalDataSource {
     suspend fun saveOrfiFile(files: List<OrfiFileEntity>)
 
     suspend fun deleteProjects()
+    suspend fun deleteBudgetPhases()
 }

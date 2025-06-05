@@ -8,7 +8,7 @@ class BudgetPhaseEntity(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     val phase: String,
-    val projectId: String?,
+    val projectId: String,
     val totalAmount: Int,
     val totalPaid: Int,
     val userId: String?,

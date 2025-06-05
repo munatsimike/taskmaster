@@ -48,7 +48,7 @@ object SplashScreen {
                 )
                 // App Name or Branding
                 Text(
-                    text = stringResource(id = R.string.brass_ring_collective),
+                    text = stringResource(id = R.string.the_estate),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold
                 )

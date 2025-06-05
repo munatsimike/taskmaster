@@ -14,4 +14,7 @@ interface TeamMemberDao {
 
     @Query("SELECT * FROM team_member WHERE id=:projectId")
     fun getProjectTeamMembers(projectId: String): Flow<List<TeamMemberEntity>>
+
+    @Query("DELETE FROM team_member")
+    suspend fun deleteAllTeamMembers()
 }

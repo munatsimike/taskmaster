@@ -54,8 +54,8 @@ fun <T> ProcessNetworkState(
                 // Display failure message based on the response
                 val failureMsg = "Error ${state.code}: ${state.message}"
                 onErrorFailure(failureMsg)
+                fabVisibility(true)
             }
-            fabVisibility(false)
         }
 
         is Resource.Success -> {

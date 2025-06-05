@@ -9,7 +9,7 @@ object BudgetPhaseDtoToEntityMapper: DtoToEntityMapper<BudgetPhaseResponseDto, B
         return BudgetPhaseEntity(
             id = id,
             phase = phase,
-            projectId = projectId,
+            projectId = this.projectId,
             totalAmount = totalAmount,
             totalPaid = totalPaid,
             userId = userId,

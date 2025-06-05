@@ -56,7 +56,8 @@ class BudgetPhaseRepositoryImpl(
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getBudgetPhases(projectId) },
             toEntityMapper = { it.toEntityList() },
-            saveEntities = { localDataSource.saveBudgetPhase(it) }
+            saveEntities = { localDataSource.saveBudgetPhase(it) },
+            clearTable = {localDataSource.deleteBudgetPhases()}
         )
         )
     }

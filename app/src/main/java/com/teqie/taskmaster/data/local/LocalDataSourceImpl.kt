@@ -64,6 +64,10 @@ class LocalDataSourceImpl @Inject constructor(
         projectDao.deleteProjects()
     }
 
+    override suspend fun deleteBudgetPhases() {
+        budgetPhaseDao.deleteBudgetPhases()
+    }
+
     override suspend fun deleteLoggedInUser() {
         loggedInUserDao.deleteLoggedInUser()
     }

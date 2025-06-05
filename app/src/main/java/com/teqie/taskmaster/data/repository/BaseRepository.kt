@@ -108,7 +108,6 @@ abstract class BaseRepository {
             ) // Emit failure with details
         }
     }.catch { e ->
-        Log.i("executed", e.localizedMessage.toString())
         // Handle CancellationException separately to avoid treating it as a failure
         if (e is CancellationException) {
             // Log cancellation or handle it if necessary
