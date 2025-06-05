@@ -52,7 +52,7 @@ interface RemoteDataSource {
     suspend fun getDashboard(projectId: String): Response<DashboardAPiResponseDto>
     suspend fun getBudgetPhases(projectId: String): Response<List<BudgetPhaseResponseDto>>
     suspend fun updateBudgetPhase(updateBudgetPhase: UpdateBudgetPhaseDto): Response<UpdateBudgetPhaseResponseDto>
-    suspend fun createBudgetPhase(budgetPhase: CreateBudgetPhaseDto): Response<CreateBudgetPhaseResponse>
+    suspend fun  createBudgetPhase(budgetPhase: CreateBudgetPhaseDto): Response<CreateBudgetPhaseResponse>
     suspend fun deleteBudgetPhase(budgetId: String): Response<ResponseMessage>
     suspend fun getInvoicesByBudgetId(budgetId: String): Response<List<InvoiceResponseDto>>
     suspend fun createBudgetInvoice(createInvoiceRequestDto: CreateInvoiceRequestDto): Response<CreateInvoiceResponse>

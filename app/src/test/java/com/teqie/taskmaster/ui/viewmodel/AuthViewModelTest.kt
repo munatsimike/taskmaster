@@ -8,6 +8,7 @@ import com.teqie.taskmaster.domain.useCases.auth.LoginUseCaseImp
 import com.teqie.taskmaster.domain.useCases.auth.LogoutUseCaseImp
 import com.teqie.taskmaster.ui.viewModel.auth.AuthViewModel
 import com.google.common.truth.Truth.assertThat
+import com.teqie.taskmaster.domain.useCases.auth.ValidateTokenUseCase
 import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.just
@@ -30,12 +31,13 @@ class AuthViewModelTest {
     private val loginUseCaseImp = mockk<LoginUseCaseImp>()
     private val getAccessTokenUseCase = mockk<GetAccessTokenUseCaseImp>()
     private val logoutUseCase = mockk<LogoutUseCaseImp>()
+    private val validateTokenUseCase = mockk<ValidateTokenUseCase>()
     private lateinit var authViewModel: AuthViewModel
 
     @Before
     fun setup() {
         Dispatchers.setMain(StandardTestDispatcher())
-        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase, validateTokenUseCase)
     }
 
     @Test
@@ -68,7 +70,7 @@ class AuthViewModelTest {
         coEvery { loginUseCaseImp(any()) } returns Result.success(user)
         coEvery { getAccessTokenUseCase() } returns flowOf(AccessToken(value = "abc123"))
 
-        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase, validateTokenUseCase)
         authViewModel.onUsernameChange("john")
         authViewModel.onPasswordChange("pass")
         authViewModel.login()
@@ -84,7 +86,7 @@ class AuthViewModelTest {
     fun `empty token results in hasToken false`() = runTest {
         coEvery { getAccessTokenUseCase() } returns flowOf(AccessToken(value = ""))
 
-        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase,validateTokenUseCase)
 
         advanceUntilIdle()
 
@@ -97,7 +99,7 @@ class AuthViewModelTest {
         coEvery { logoutUseCase.logout() } just Runs
         coEvery { getAccessTokenUseCase() } returns flowOf(AccessToken(value = ""))
 
-        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase,validateTokenUseCase)
         authViewModel.logout()
 
         advanceUntilIdle()
@@ -108,7 +110,7 @@ class AuthViewModelTest {
 
     @Test
     fun `login with blank username or password shows validation error`() = runTest {
-        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase, validateTokenUseCase)
 
         authViewModel.onUsernameChange("") //  blank username
         authViewModel.onPasswordChange("") //  blank password
@@ -124,7 +126,7 @@ class AuthViewModelTest {
         val loginRequest = LoginRequest("user", "pass")
         coEvery { loginUseCaseImp(loginRequest) } returns Result.failure(Exception("invalid"))
 
-        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase)
+        authViewModel = AuthViewModel(loginUseCaseImp, getAccessTokenUseCase, logoutUseCase, validateTokenUseCase)
         authViewModel.onUsernameChange("user")
         authViewModel.onPasswordChange("pass")
         authViewModel.login()

@@ -1,5 +1,8 @@
 package com.teqie.taskmaster.data.remote.dto.budget
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CreateBudgetPhaseDto(
     val progress: Double,
     val total_duration: Int,

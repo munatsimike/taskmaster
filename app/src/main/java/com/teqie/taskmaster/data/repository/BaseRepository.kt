@@ -1,5 +1,6 @@
 package com.teqie.taskmaster.data.repository
 
+import android.util.Log
 import com.teqie.taskmaster.domain.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -107,6 +108,7 @@ abstract class BaseRepository {
             ) // Emit failure with details
         }
     }.catch { e ->
+        Log.i("executed", e.localizedMessage.toString())
         // Handle CancellationException separately to avoid treating it as a failure
         if (e is CancellationException) {
             // Log cancellation or handle it if necessary

@@ -10,10 +10,9 @@ interface BudgetPhaseRepository {
 
     suspend fun updateBudgetPhase(budgetPhaseFormData: BudgetPhaseFormData): Flow<Resource<ResponseMessage>>
 
-    suspend fun createBudgetPhase(budgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>>
+    fun createBudgetPhase(budgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>>
 
     fun deleteBudgetPhase(budgetId: String): Flow<Resource<ResponseMessage>>
 
     fun syncBudgetPhasesToLocal(projectId: String): Flow<Resource<Unit>>
-    fun addNewBudgetPhase(newBudgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>>
 }

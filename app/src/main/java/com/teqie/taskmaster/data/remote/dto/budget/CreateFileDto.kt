@@ -1,5 +1,8 @@
 package com.teqie.taskmaster.data.remote.dto.budget
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CreateFileDto(
     val description: String,
     val fileName: String,

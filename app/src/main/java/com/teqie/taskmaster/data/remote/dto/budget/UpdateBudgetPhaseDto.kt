@@ -1,5 +1,8 @@
 package com.teqie.taskmaster.data.remote.dto.budget
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UpdateBudgetPhaseDto(
     val id: String,
     val assignedToName: String,

@@ -37,7 +37,7 @@ class BudgetPhaseRepositoryImpl(
                 ResponseMessage(response.message)
             })
 
-    override suspend fun createBudgetPhase(budgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>> =
+    override fun createBudgetPhase(budgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>> =
         processApiResponse(
             call = { remoteDataSource.createBudgetPhase(budgetPhase.toCreateBudgetPhaseDto()) },
             onSuccess = { response ->
@@ -59,9 +59,5 @@ class BudgetPhaseRepositoryImpl(
             saveEntities = { localDataSource.saveBudgetPhase(it) }
         )
         )
-    }
-
-    override fun addNewBudgetPhase(newBudgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>> {
-        TODO("Not yet implemented")
     }
 }

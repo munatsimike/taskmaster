@@ -88,7 +88,7 @@ object BudgetPhase {
             headerData = headerData(
                 loggedInUser = loggedInUser,
                 projectName = project.name,
-                currentPage = AppScreen.Budget.title + " phases"
+                currentPage = AppScreen.Budget.title
             ),
             onLogoutClick = { authViewModel.logout() },
             onBackButtonClick = { navController.popBackStack() }

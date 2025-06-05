@@ -9,6 +9,6 @@ import javax.inject.Inject
 
 class CreateNewBudgetUseCase @Inject constructor(private val budgePhaseRepo: BudgetPhaseRepository) {
     operator  fun invoke(newBudgetPhase: BudgetPhaseFormData): Flow<Resource<ResponseMessage>> {
-       return budgePhaseRepo.addNewBudgetPhase(newBudgetPhase)
+       return budgePhaseRepo.createBudgetPhase(newBudgetPhase)
     }
 }
