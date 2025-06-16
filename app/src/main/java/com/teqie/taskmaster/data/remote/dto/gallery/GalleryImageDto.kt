@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class GalleryImageDto (
     val createdAt: String,
     val description: String?,
-    val folderId: Int,
+    val folderId: String,
     val id: String,
     val imageName: String,
     val imageUrl: String,

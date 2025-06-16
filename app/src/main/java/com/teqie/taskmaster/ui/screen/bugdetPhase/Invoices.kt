@@ -72,8 +72,8 @@ object Invoices {
         ) { invoiceFormViewModel.toggleIsFormSubmitted() }
 
         LaunchedEffect(budgetId, uiScreenState.triggerFetch) {
-            invoiceViewModel.syncInvoicesToLocalDb(budgetId)
-            invoiceViewModel.fetchInvoices(budgetId)
+            invoiceViewModel.syncInvoicesToLocalDb(project.id)
+            invoiceViewModel.fetchInvoices(project.id)
         }
 
         DisplaySnackBar(
@@ -82,7 +82,7 @@ object Invoices {
         ) { invoiceFormViewModel.clearServerResponseMessage() }
 
         BaseScreenWithFAB(
-            isFabVisible = uiScreenState.isFABVisible,
+            isFabVisible = true,
             fabBtnText = "Add invoice",
             onFabClick = { invoiceFormViewModel.showForm() },
             headerData = headerData(

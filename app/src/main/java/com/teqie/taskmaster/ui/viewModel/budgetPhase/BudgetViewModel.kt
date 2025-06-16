@@ -1,6 +1,5 @@
 package com.teqie.taskmaster.ui.viewModel.budgetPhase
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.budget.BudgetPhase

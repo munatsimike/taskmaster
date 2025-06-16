@@ -13,7 +13,7 @@ interface GalleryImageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveImages(images: List<GalleryImageEntity>)
 
-    @Query("SELECT * FROM images WHERE id=:folderId")
+    @Query("SELECT * FROM images WHERE folderId=:folderId")
     fun fetchImages(folderId: String): Flow<List<GalleryImageEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,4 +21,10 @@ interface GalleryImageDao {
 
     @Query("SELECT * FROM folders WHERE projectId=:projectId")
     fun fetchFolders(projectId: String): Flow<List<FolderEntity>>
+
+    @Query("DELETE FROM images")
+    fun deleteImages()
+
+    @Query("DELETE FROM folders")
+    fun deleteFolders()
 }

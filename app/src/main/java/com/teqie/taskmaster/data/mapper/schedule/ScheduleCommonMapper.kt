@@ -1,9 +1,9 @@
 package com.teqie.taskmaster.data.mapper.schedule
 
-import com.teqie.taskmaster.ui.screen.schedule.ScheduleFormState
 import com.teqie.taskmaster.data.remote.dto.schedule.ScheduleResponseDto
 import com.teqie.taskmaster.data.remote.dto.schedule.UpdateScheduleRequest
 import com.teqie.taskmaster.domain.model.Schedule
+import com.teqie.taskmaster.ui.screen.schedule.ScheduleFormState
 
 object ScheduleCommonMapper {
 

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 class GalleryImageEntity (
     val createdAt: String,
     val description: String?,
-    val folderId: Int,
+    val folderId: String,
     @PrimaryKey
     val id: String,
     val imageName: String,

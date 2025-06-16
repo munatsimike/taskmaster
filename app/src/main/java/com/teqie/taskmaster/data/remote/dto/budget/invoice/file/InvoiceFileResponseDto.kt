@@ -1,5 +1,8 @@
 package com.teqie.taskmaster.data.remote.dto.budget.invoice.file
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class InvoiceFileResponseDto(
     val createdAt: String,
     val description: String,

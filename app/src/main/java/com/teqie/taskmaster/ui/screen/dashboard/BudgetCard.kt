@@ -33,7 +33,7 @@ fun BudgetCard(
     oncCardClick: () -> Unit,
 ) {
     val size = (LocalConfiguration.current.screenWidthDp / 3).coerceIn(100, 200)
-    CustomCard(onImageClick = oncCardClick, modifier = Modifier.fillMaxWidth(0.5f)) {
+    CustomCard(onImageClick = oncCardClick, modifier = Modifier.fillMaxWidth(0.5f), cardBorderColor = cardBoarderColor) {
         Column(
             Modifier.padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,

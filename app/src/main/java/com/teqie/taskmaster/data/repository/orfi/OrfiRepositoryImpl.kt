@@ -35,7 +35,9 @@ class OrfiRepositoryImpl @Inject constructor(
     }
 
     override fun createORFI(createORFIRequest: Orfi): Flow<Resource<ResponseMessage>> =
-        processApiResponse(call = { remoteDataSource.createORFI(createORFIRequest.toDtoModel()) },
+        processApiResponse(call = {
+            remoteDataSource.createORFI(createORFIRequest.toDtoModel())
+                                  },
             onSuccess = {
                 ResponseMessage(message = "ORFI created successfully")
             })

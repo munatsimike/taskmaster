@@ -2,12 +2,10 @@ package com.teqie.taskmaster.data.remote.api.service
 
 import com.teqie.taskmaster.data.remote.dto.auth.LoginRequestDto
 import com.teqie.taskmaster.data.remote.dto.user.UserApiResponseDto
-
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
 
 /**
  * sends a login in request to the server and returns the result

@@ -2,10 +2,11 @@ package com.teqie.taskmaster.domain.gallery
 
 import java.time.LocalDate
 
+
 class GalleryImage(
     val createdAt: LocalDate?,
     val description: String?,
-    val folderId: Int,
+    val folderId: String,
     val id: String,
     val imageName: String,
     val imageUrl: String,

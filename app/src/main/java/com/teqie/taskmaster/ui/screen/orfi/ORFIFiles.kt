@@ -72,7 +72,7 @@ object ORFIFiles {
 
         BaseScreenWithFAB(
             fabBtnText = "Add ORFI file",
-            isFabVisible = screenState.isFABVisible,
+            isFabVisible = true,
             onFabClick = { fileFormViewModel.handleOnAddFileClick(FileType.ORFIFile, orfiId) },
             headerData = headerData(
                 loggedInUser = loggedInUser,

@@ -69,7 +69,7 @@ object InvoiceFile{
                 )
             },
             fabBtnText = "Add file",
-            isFabVisible = screenState.isFABVisible,
+            isFabVisible = true,
             headerData = headerData(
                 loggedInUser = loggedInUser,
                 projectName = project.name,

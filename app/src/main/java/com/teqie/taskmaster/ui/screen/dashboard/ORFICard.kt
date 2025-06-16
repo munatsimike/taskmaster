@@ -28,7 +28,7 @@ fun DonutChart(
     cardBorderColor: Color = orfiColor,
     onCardClick: () -> Unit
 ) {
-    CustomCard(onImageClick = onCardClick) {
+    CustomCard(onImageClick = onCardClick, cardBorderColor = cardBorderColor) {
         Column(
             Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally

@@ -33,6 +33,7 @@ abstract class BaseRepository {
             }
 
             is Resource.Failure -> {
+                Log.i("images", result.message)
                 emit(result)
             }
             is Resource.Error -> result.exception.localizedMessage?.let {

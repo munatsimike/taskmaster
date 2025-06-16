@@ -35,6 +35,7 @@ fun ScheduleCard(
     onCardClick: () -> Unit
 ) {
     CustomCard(
+        cardBorderColor = cardBorderColor,
         onImageClick = { onCardClick() },
         modifier = Modifier.fillMaxWidth(0.98f)
     ) {

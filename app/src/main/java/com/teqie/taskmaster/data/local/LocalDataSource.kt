@@ -78,4 +78,7 @@ interface LocalDataSource {
 
     suspend fun deleteProjects()
     suspend fun deleteBudgetPhases()
+
+    suspend fun deleteFolders()
+    suspend fun deleteImages()
 }

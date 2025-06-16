@@ -1,5 +1,6 @@
 package com.teqie.taskmaster.ui.screen.gallery
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -186,7 +187,9 @@ object Gallery {
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
+                Log.i("iamgeId", images.size.toString())
                 itemsIndexed(images) { index, image ->
+
                     GridItem(
                         index = index,
                         image = image,

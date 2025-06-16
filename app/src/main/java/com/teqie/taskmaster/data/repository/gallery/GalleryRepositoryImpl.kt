@@ -23,7 +23,7 @@ class GalleryRepositoryImpl @Inject constructor(
     val remoteDataSource: RemoteDataSource
 ) : BaseRepository(), GalleryRepository {
 
-    override fun getGalleryImages(folderId: String): Flow<Resource<List<GalleryImage>>> =flow {
+    override fun getGalleryImages(folderId: String): Flow<Resource<List<GalleryImage>>> = flow {
         emitAll(fetchFromLocalDb(
             fetchEntities = { localDataSource.fetchImages(folderId) },
             fromEntityMapper = { it.toDomainModel() }
@@ -52,6 +52,7 @@ class GalleryRepositoryImpl @Inject constructor(
     override fun syncFoldersToLocal(projectId: String): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getGalleryFolders(projectId) },
+            clearTable = { localDataSource.deleteFolders() },
             toEntityMapper = { it.toEntityList() },
             saveEntities = { localDataSource.saveFolders(it) }
         )
@@ -61,6 +62,7 @@ class GalleryRepositoryImpl @Inject constructor(
     override fun syncImagesToLocal(projectId: String): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getGalleryImages(projectId) },
+            clearTable = { localDataSource.deleteImages() },
             toEntityMapper = { it.images.toEntityList() },
             saveEntities = { localDataSource.saveImages(it) }
         )
