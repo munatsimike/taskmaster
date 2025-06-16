@@ -130,8 +130,7 @@ class FileFormManagementViewModel @Inject constructor(
         _formDataState.update { it.copy(id = id) }
     }
 
-    fun
-            onFileNameChange(fileName: String) {
+    fun onFileNameChange(fileName: String) {
         _formDataState.update { it.copy(fileName = fileName) }
     }
 

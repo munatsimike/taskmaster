@@ -2,6 +2,7 @@ package com.teqie.taskmaster.data.repository
 
 import com.teqie.taskmaster.data.local.LocalDataSource
 import com.teqie.taskmaster.data.mapper.FileToAddFileRequestDtoMapper.toDtoModel
+import com.teqie.taskmaster.data.mapper.FileToSaveImageDto
 import com.teqie.taskmaster.data.remote.RemoteDataSource
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.model.file.FileData
@@ -46,11 +47,11 @@ class FileManagementRepoImpl(
             }
 
             FileType.ORFIFile -> {
-                //remoteDataSource.saveORFIFile(fileData.toORFIFileRequestDto())
+                remoteDataSource.saveORFIFile(fileData.toDtoModel())
             }
 
             FileType.IMAGE -> {
-                //remoteDataSource.saveImageFile(fileData.toUploadImageRequestDto())
+               remoteDataSource.saveImageFile(FileToSaveImageDto.toDtoModel(fileData))
             }
 
             FileType.UNKNOWN -> {}

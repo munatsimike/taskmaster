@@ -17,7 +17,7 @@ interface FileManagementRepository {
     fun getPreSignedUrl(fileName: String, fileType: String): Flow<Resource<PresignedUrl>>
     fun uploadFileToPreSignedUrl(file: File, preSignedUrl: PresignedUrl): String
     fun deleteFile(fileId: String, fileType: FileType): Flow<Resource<ResponseMessage>>
-   fun editFile(fileData: FileData): Flow<Resource<ResponseMessage>>
+    fun editFile(fileData: FileData): Flow<Resource<ResponseMessage>>
     suspend fun saveFile(fileData: FileData)
     //suspend fun updateORFIFile(addEditFileRequestDto: AddFileRequestDto)
 }

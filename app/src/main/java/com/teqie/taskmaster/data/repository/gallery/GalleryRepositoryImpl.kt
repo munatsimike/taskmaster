@@ -7,6 +7,7 @@ import com.teqie.taskmaster.data.mapper.gallery.FolderEntityToDomainMapper.toDom
 import com.teqie.taskmaster.data.mapper.gallery.ImageDtoToEntityMapper.toEntityList
 import com.teqie.taskmaster.data.mapper.gallery.ImageEntityToDomainMapper.toDomainModel
 import com.teqie.taskmaster.data.remote.RemoteDataSource
+import com.teqie.taskmaster.data.remote.dto.gallery.SaveImageRequestDto
 import com.teqie.taskmaster.data.repository.BaseRepository
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.gallery.Folder
@@ -67,5 +68,9 @@ class GalleryRepositoryImpl @Inject constructor(
             saveEntities = { localDataSource.saveImages(it) }
         )
         )
+    }
+
+    override suspend fun saveImage(saveImageRequestDto: SaveImageRequestDto) {
+        remoteDataSource.saveImageFile(saveImageRequestDto)
     }
 }

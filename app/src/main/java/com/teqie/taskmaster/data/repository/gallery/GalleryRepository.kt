@@ -1,5 +1,6 @@
 package com.teqie.taskmaster.data.repository.gallery
 
+import com.teqie.taskmaster.data.remote.dto.gallery.SaveImageRequestDto
 import com.teqie.taskmaster.domain.Resource
 import com.teqie.taskmaster.domain.gallery.Folder
 import com.teqie.taskmaster.domain.gallery.FolderState
@@ -14,4 +15,5 @@ interface GalleryRepository {
     fun getProjectFolders(projectId: String): Flow<Resource<List<Folder>>>
     fun syncFoldersToLocal(projectId: String): Flow<Resource<Unit>>
     fun syncImagesToLocal(projectId: String): Flow<Resource<Unit>>
+    suspend fun saveImage(saveImageRequestDto: SaveImageRequestDto)
 }
