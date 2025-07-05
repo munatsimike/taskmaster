@@ -31,6 +31,7 @@ class InvoiceRepositoryImpl(
     override fun syncInvoicesToLocal(budgetId: String): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getInvoicesByBudgetId(budgetId) },
+            clearTable = {localDataSource.deleteInvoices()},
             toEntityMapper = { it.toEntityList() },
             saveEntities = {localDataSource.saveInvoices(it)}
         )

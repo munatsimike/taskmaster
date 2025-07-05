@@ -14,4 +14,7 @@ interface InvoiceDao {
 
     @Query("SELECT * FROM invoice WHERE budgetId=:budgetId")
     fun fetchInvoices(budgetId: String): Flow<List<InvoiceEntity>>
+
+    @Query("DELETE FROM invoice")
+    suspend fun deleteInvoices()
 }

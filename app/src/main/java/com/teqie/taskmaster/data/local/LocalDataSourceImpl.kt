@@ -80,6 +80,10 @@ class LocalDataSourceImpl @Inject constructor(
         orfiDao.deleteOrfis()
     }
 
+    override suspend fun deleteInvoices() {
+        invoiceDao.deleteInvoices()
+    }
+
     override suspend fun deleteLoggedInUser() {
         loggedInUserDao.deleteLoggedInUser()
     }
