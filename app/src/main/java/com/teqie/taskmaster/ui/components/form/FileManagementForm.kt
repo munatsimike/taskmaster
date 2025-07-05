@@ -27,6 +27,7 @@ import com.teqie.taskmaster.domain.model.file.FileData
 import com.teqie.taskmaster.domain.model.file.FileType
 import com.teqie.taskmaster.ui.components.DisplayProgressBar
 import com.teqie.taskmaster.ui.components.DocumentPreviewer
+import com.teqie.taskmaster.ui.components.factory.ButtonFactory.PrimaryButton
 import com.teqie.taskmaster.ui.model.FileState
 import com.teqie.taskmaster.ui.model.ScreenState
 
@@ -140,11 +141,10 @@ private fun FormContent(
                     isAnimating = true,
                 )
             } else {
-                ActionButton(btnText = if (isEditing) stringResource(id = R.string.save_changes) else stringResource(
+                PrimaryButton(buttonText = if (isEditing) stringResource(id = R.string.save_changes) else stringResource(
                     id = R.string.add_file
                 ),
-                    buttonColor = if (isEditing) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary,
-                    onSaveBtnClick = {
+                    onButtonClick = {
                         onBtnClick()
                     })
             }

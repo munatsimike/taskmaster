@@ -53,7 +53,7 @@ fun SelectUserMenu(
             .animateContentSize() // Animates size changes
             .height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = getBtnColor(userSelected = selectedUser.isNotBlank())),
-            border = BorderStroke(1.dp, color = Color(28, 146, 255)),
+            //border = BorderStroke(1.dp, color = Color(28, 146, 255)),
             shape = RoundedCornerShape(10.dp),
             onClick = { onExpandDropDownMenu() }) {
             Row(

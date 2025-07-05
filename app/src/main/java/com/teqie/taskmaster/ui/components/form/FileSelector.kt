@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +30,7 @@ import com.teqie.taskmaster.ui.components.ErrorContent
 fun FileSelector(
     actionText: String = stringResource(id = R.string.select_file),
     selector: @Composable ((String, () -> Unit) -> Unit)? = null,
-    selectorColor: Color = MaterialTheme.colorScheme.tertiary,
+    selectorColor: Color = MaterialTheme.colorScheme.primary,
     errorText: String,
     onFileSelected: (Uri?) -> Unit
 ) {
@@ -60,6 +61,7 @@ private fun ActionBtn(onClick: () -> Unit, actionText: String, btnColor: Color) 
     Button(
         colors = ButtonDefaults.buttonColors(containerColor = btnColor),
         onClick = { onClick() },
+        shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth(0.5f)
             .height(40.dp)
