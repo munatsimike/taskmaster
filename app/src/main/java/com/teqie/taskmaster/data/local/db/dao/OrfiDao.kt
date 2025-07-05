@@ -23,4 +23,7 @@ interface OrfiDao {
 
     @Query("SELECT * FROM orfi_files WHERE id=:projectId")
     fun fetchOrfiFile(projectId: String): Flow<List<OrfiFileEntity>>
+
+    @Query("DELETE FROM orfi")
+    suspend fun deleteOrfis()
 }

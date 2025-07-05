@@ -92,4 +92,5 @@ interface RemoteDataSource {
     suspend fun getORFI(projectId: String): Response<List<OrfiDto>>
     suspend fun deleteORFI(orfiId: String): Response<ResponseMessage>
     suspend fun saveORFIFile(commonFile: AddFileRequestDto)
+    suspend fun getAllTeamMembers(): Response<List<TeamsResponseItemDto>>
 }

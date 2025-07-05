@@ -15,4 +15,7 @@ interface TeamService {
 
     @POST("users/create-and-assign")
     suspend fun createAssignUser(@Body createUserRequest: CreateUserRequest): Response<CreateUserResponseDto>
+
+    @GET("users")
+    suspend fun getAllTeamMembers(): Response<List<TeamsResponseItemDto>>
 }

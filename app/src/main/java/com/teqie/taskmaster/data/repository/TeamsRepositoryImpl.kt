@@ -28,13 +28,20 @@ class TeamsRepositoryImpl @Inject constructor(
     }
 
     // 2. Update local database from remote
-    override fun syncTeamsToLocalDb(projectId: String): Flow<Resource<Unit>> = flow {
+    override fun syncProjectTeamsToLocalDb(projectId: String): Flow<Resource<Unit>> = flow {
         emitAll(processAndCacheApiResponse(
             call = { remoteDataSource.getTeamsByProject(projectId) },
             toEntityMapper = { it.toEntityList() },
             saveEntities = { localDataSource.saveTeamMembers(it) }
         ))
     }
+
+    override fun getAllTeamMembers(): Flow<Resource<List<TeamMember>>> =
+        processApiResponse(
+            call = { remoteDataSource.getAllTeamMembers() },
+            onSuccess = {it.toEntityList().toDomainList()}
+        )
+    
 
     override fun getTeamsByProject(projectId: String): Flow<Resource<List<TeamMember>>> = flow {
             localDataSource.fetchProjectTeamMembers(projectId).collect { teamMembersDto ->

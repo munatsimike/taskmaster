@@ -21,4 +21,5 @@ interface OrfiRepository {
 
     fun syncOrfiFileToLocalDb(projectId: String): Flow<Resource<Unit>>
 
+    suspend fun deleteOrfis()
 }

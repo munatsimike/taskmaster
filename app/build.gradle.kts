@@ -133,7 +133,7 @@ dependencies {
     // google truth
     testImplementation(libs.truth)
     androidTestImplementation(libs.truth)
-
+    implementation(libs.accompanist.insets)
     // Test implementation for MockK and JUnit
     testImplementation(libs.mockk)
     androidTestImplementation(libs.mockk.android)

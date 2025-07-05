@@ -45,11 +45,11 @@ fun ManageBudgetPhaseForm(
 
     LaunchedEffect(projectId) {
         usersViewModel.syncTeamsToLocalDb(projectId)
-        usersViewModel.getTeamsByProject(projectId)
+        usersViewModel.getAllTeamMembers()
     }
 
     val formDataState by budgetFormViewModel.newBudgetState.collectAsState()
-    val usersState by usersViewModel.teamsByProjectState.collectAsState()
+    val usersState by usersViewModel.teamMembersState.collectAsState()
 
     ProcessNetworkState(state = usersState) { users ->
         projectUsers.value = users

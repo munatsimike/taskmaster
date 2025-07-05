@@ -271,4 +271,8 @@ class RemoteDataSourceImpl @Inject constructor(
     override suspend fun saveORFIFile(commonFile: AddFileRequestDto) {
         orfiService.createORFIFile(commonFile)
     }
+
+    override suspend fun getAllTeamMembers(): Response<List<TeamsResponseItemDto>>{
+       return teamService.getAllTeamMembers()
+    }
 }

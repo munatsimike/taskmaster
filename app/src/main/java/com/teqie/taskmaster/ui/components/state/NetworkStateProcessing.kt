@@ -1,5 +1,6 @@
 package com.teqie.taskmaster.ui.components.state
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -34,6 +35,7 @@ fun <T> ProcessNetworkState(
         is Resource.Error -> {
             val message =
                 state.exception.localizedMessage ?: stringResource(id = R.string.unexpected_error)
+            Log.i("myerror", message)
 
             if (message.contains(stringResource(id = R.string.unable_to_resolve_host)) || message.contains(
                     stringResource(id = R.string.failed_to_connect_to_server)

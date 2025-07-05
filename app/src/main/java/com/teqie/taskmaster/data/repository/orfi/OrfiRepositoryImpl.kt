@@ -51,6 +51,7 @@ class OrfiRepositoryImpl @Inject constructor(
         emitAll(
             processAndCacheApiResponse(call = { remoteDataSource.getORFI(projectId) },
                 toEntityMapper = { it.toEntityList() },
+                clearTable = {deleteOrfis()},
                 saveEntities = { localDataSource.saveOrfi(it) })
         )
     }
@@ -61,6 +62,10 @@ class OrfiRepositoryImpl @Inject constructor(
                 toEntityMapper = { it.toEntityList() },
                 saveEntities = { localDataSource.saveOrfiFile(it) })
         )
+    }
+
+    override suspend fun deleteOrfis() {
+        localDataSource.deleteOrfis()
     }
 
     override fun getORFIFiles(orfiId: String): Flow<Resource<List<ORFIFile>>> = flow {

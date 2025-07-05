@@ -81,4 +81,5 @@ interface LocalDataSource {
 
     suspend fun deleteFolders()
     suspend fun deleteImages()
+    suspend fun deleteOrfis()
 }

@@ -76,6 +76,10 @@ class LocalDataSourceImpl @Inject constructor(
         galleryImageDao.deleteImages()
     }
 
+    override suspend fun deleteOrfis() {
+        orfiDao.deleteOrfis()
+    }
+
     override suspend fun deleteLoggedInUser() {
         loggedInUserDao.deleteLoggedInUser()
     }

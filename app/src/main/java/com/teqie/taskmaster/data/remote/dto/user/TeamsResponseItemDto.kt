@@ -14,6 +14,6 @@ data class TeamsResponseItemDto(
     val name: String,
     @SerialName("phone_number")
     val phoneNumber: String,
-    val role: String,
+    val role: String = "Viewer",
     val username: String
 )
