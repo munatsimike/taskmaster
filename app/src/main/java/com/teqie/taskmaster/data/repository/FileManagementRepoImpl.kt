@@ -12,6 +12,7 @@ import com.teqie.taskmaster.domain.model.file.PresignedUrl
 import com.teqie.taskmaster.domain.util.FileExtension
 import com.teqie.taskmaster.ui.model.ResponseMessage
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.io.File
 
 class FileManagementRepoImpl(
@@ -31,14 +32,34 @@ class FileManagementRepoImpl(
         return remoteDataSource.uploadFileToPreSignedUrl(file, preSignedUrl)
     }
 
-    override fun deleteFile(fileId: String, fileType: FileType): Flow<Resource<ResponseMessage>> {
-        TODO("Not yet implemented")
-    }
+    override fun deleteFile(fileId: String, fileType: FileType): Flow<Resource<ResponseMessage>> = flow {
+        try {
+            when (fileType) {
+                FileType.InvoiceFile -> {
+                    remoteDataSource.deleteInvoiceFile(fileId)
+                }
 
-    override fun editFile(fileData: FileData): Flow<Resource<ResponseMessage>> {
-        TODO("Not yet implemented")
-    }
+                FileType.ORFIFile -> {
+                    remoteDataSource.deleteORFIFile(fileId)
+                }
 
+                FileType.IMAGE -> {
+                    remoteDataSource.deleteImage(fileId)
+                }
+
+                FileType.UNKNOWN -> {
+                    throw IllegalArgumentException("Unknown file type")
+                }
+            }
+
+            emit(Resource.Success(ResponseMessage("file deleted successfully")))
+        } catch (e: Exception) {
+            emit(Resource.Error(e))
+        }
+    }
+    override fun editFile(fileData: FileData): Flow<Resource<ResponseMessage>> = flow {
+        emit(Resource.Success(data = ResponseMessage()))
+    }
 
     override suspend fun saveFile(fileData: FileData) {
         when (fileData.fileType) {
